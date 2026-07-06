@@ -1,0 +1,109 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Market Health Dashboard</title>
+  <style>
+    body { margin: 0; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; color: #17202a; background: #f6f7f9; }
+    main { max-width: 1120px; margin: 0 auto; padding: 32px 20px 48px; }
+    header { display: flex; justify-content: space-between; gap: 20px; align-items: flex-start; margin-bottom: 24px; }
+    h1 { margin: 0 0 8px; font-size: 32px; }
+    h2 { margin: 32px 0 12px; font-size: 20px; }
+    .muted, .label { color: #5f6b7a; }
+    .hero { display: grid; grid-template-columns: minmax(220px, 1fr) minmax(220px, 1fr); gap: 16px; }
+    .panel, .card { background: #fff; border: 1px solid #d9dee7; border-radius: 8px; padding: 18px; }
+    .score { font-size: 56px; line-height: 1; margin: 10px 0; }
+    .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(190px, 1fr)); gap: 12px; }
+    .card strong { display: block; font-size: 28px; margin: 8px 0; }
+    .bar { height: 10px; background: #e5e8ef; border-radius: 999px; overflow: hidden; }
+    .bar span { display: block; height: 100%; background: #166534; }
+    pre { white-space: pre-wrap; background: #101828; color: #f8fafc; padding: 16px; border-radius: 8px; overflow-x: auto; }
+    @media (max-width: 760px) { header, .hero { display: block; } .panel { margin-bottom: 12px; } }
+  </style>
+</head>
+<body>
+  <main>
+    <header>
+      <div>
+        <h1>Market Health Dashboard</h1>
+        <div class="muted">Generated for 2026-07-06</div>
+      </div>
+      <div class="muted">Engine v1.0</div>
+    </header>
+
+    <section class="hero">
+      <div class="panel">
+        <div class="label">Today's Market Health</div>
+        <div class="score">68.52</div>
+        <div class='bar'><span style='width:69%'></span></div>
+      </div>
+      <div class="panel">
+        <div class="label">Risk Regime</div>
+        <h2>Expansion</h2>
+        <p><strong>Neutral</strong> stance with 84.82% confidence.</p>
+      </div>
+    </section>
+
+    <h2>Subscores</h2>
+    <section class="grid">
+        <section class="card">
+          <div class="label">Liquidity</div>
+          <strong>83.36</strong>
+          <div class='bar'><span style='width:83%'></span></div>
+        </section>
+        
+
+        <section class="card">
+          <div class="label">Credit</div>
+          <strong>46.03</strong>
+          <div class='bar'><span style='width:46%'></span></div>
+        </section>
+        
+
+        <section class="card">
+          <div class="label">Ai Fundamentals</div>
+          <strong>58.33</strong>
+          <div class='bar'><span style='width:58%'></span></div>
+        </section>
+        
+
+        <section class="card">
+          <div class="label">Market Breadth</div>
+          <strong>74.68</strong>
+          <div class='bar'><span style='width:75%'></span></div>
+        </section>
+        
+
+        <section class="card">
+          <div class="label">Valuation Risk</div>
+          <strong>66.52</strong>
+          <div class='bar'><span style='width:67%'></span></div>
+        </section>
+        
+
+        <section class="card">
+          <div class="label">Macro Risk</div>
+          <strong>72.41</strong>
+          <div class='bar'><span style='width:72%'></span></div>
+        </section>
+        
+
+        <section class="card">
+          <div class="label">Geopolitical Risk</div>
+          <strong>90.0</strong>
+          <div class='bar'><span style='width:90%'></span></div>
+        </section>
+        </section>
+
+    <h2>Prediction Accuracy</h2>
+    <section class="panel">
+      <p>Lifetime accuracy: <strong>n/a</strong></p>
+      <p>Correct: 0 / Evaluated: 0</p>
+    </section>
+
+    <h2>Recent Score History</h2>
+    <pre>2026-07-06: 68.52</pre>
+  </main>
+</body>
+</html>

@@ -1,15 +1,22 @@
-# market-health-db
+from __future__ import annotations
+
+from scripts.market_health.config import README_PATH
+
+
+def update_readme(record: dict, history: dict) -> None:
+    accuracy = history.get("prediction_accuracy", {})
+    content = f"""# market-health-db
 
 Automated market health intelligence database for AI-heavy equity investing.
 
 ## Latest Snapshot
 
-- Date: 2026-07-06
-- Market Health Score: 68.52
-- Risk Regime: Expansion
-- Stance: Neutral
-- Confidence: 84.82%
-- Lifetime Accuracy: None
+- Date: {record.get("date")}
+- Market Health Score: {record.get("market_health_score")}
+- Risk Regime: {record.get("risk_regime")}
+- Stance: {record.get("stance")}
+- Confidence: {record.get("confidence")}%
+- Lifetime Accuracy: {accuracy.get("accuracy")}
 
 ## Outputs
 
@@ -26,3 +33,5 @@ The `Deploy Dashboard` workflow publishes the `dashboard/` folder through GitHub
 ## Design Notes
 
 See `docs/market-health-intelligence-engine.md` for the long-term system vision.
+"""
+    README_PATH.write_text(content, encoding="utf-8")
