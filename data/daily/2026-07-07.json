@@ -8,7 +8,7 @@
     "filled_next_day": false,
     "prediction_correct": null
   },
-  "confidence": 84.32,
+  "confidence": 81.82,
   "date": "2026-07-07",
   "indicators": {
     "AMD": {
@@ -425,7 +425,7 @@
       "unavailable_symbols": []
     }
   },
-  "market_health_score": 67.9,
+  "market_health_score": 64.77,
   "metadata": {
     "data_source": "Yahoo Finance chart endpoint",
     "engine_version": "1.0",
@@ -556,7 +556,7 @@
     "source": "Yahoo Finance RSS"
   },
   "prediction": {
-    "confidence": 84.32,
+    "confidence": 81.82,
     "expected_market": "Late Cycle",
     "next_day_bias": "Neutral",
     "stance": "Neutral"
@@ -569,6 +569,7 @@
   "stance": "Neutral",
   "sub_scores": {
     "ai_fundamentals": {
+      "contributions": [],
       "evidence": [
         {
           "display": "-5.96%",
@@ -606,6 +607,7 @@
       "score": 60.05
     },
     "credit": {
+      "contributions": [],
       "evidence": [
         {
           "display": "0.43%",
@@ -643,6 +645,7 @@
       "score": 48.68
     },
     "geopolitical_risk": {
+      "contributions": [],
       "evidence": [
         {
           "display": "15.9",
@@ -673,6 +676,56 @@
       "score": 85.18
     },
     "liquidity": {
+      "contributions": [
+        {
+          "label": "VIX calm",
+          "points": 8,
+          "value": 15.9,
+          "why": "Lower fear makes it easier for money to stay in AI and growth stocks."
+        },
+        {
+          "label": "Dollar move",
+          "points": -2,
+          "value": 0.81,
+          "why": "A stronger dollar can pull money away from risk assets."
+        },
+        {
+          "label": "10Y yield level",
+          "points": 2,
+          "value": 4.5,
+          "why": "Lower or stable yields are friendlier to growth stocks."
+        },
+        {
+          "label": "10Y 20-day move",
+          "points": 2,
+          "value": 0.49,
+          "why": "Falling yields usually give AI stocks more breathing room."
+        },
+        {
+          "label": "SPY trend",
+          "points": 8,
+          "value": true,
+          "why": "S&P 500 above its 50-day average means the broad market is still holding up."
+        },
+        {
+          "label": "QQQ trend",
+          "points": -12,
+          "value": false,
+          "why": "QQQ below its 50-day average warns that tech/growth may be losing support."
+        },
+        {
+          "label": "HYG trend",
+          "points": -8,
+          "value": false,
+          "why": "High-yield bonds below trend suggest investors are less comfortable taking risk."
+        },
+        {
+          "label": "SMH trend",
+          "points": -8,
+          "value": false,
+          "why": "Chip-stock trend matters because AI leadership depends heavily on semiconductors."
+        }
+      ],
       "evidence": [
         {
           "display": "15.9",
@@ -689,6 +742,20 @@
           "value": 0.8114359948036443
         },
         {
+          "display": "4.5",
+          "field": "close",
+          "label": "10Y Treasury yield proxy",
+          "symbol": "^TNX",
+          "value": 4.499
+        },
+        {
+          "display": "0.49%",
+          "field": "return_20d",
+          "label": "10Y yield 20-day change",
+          "symbol": "^TNX",
+          "value": 0.49140049140048436
+        },
+        {
           "display": "True",
           "field": "above_50d",
           "label": "SPY above 50-day",
@@ -701,15 +768,44 @@
           "label": "QQQ above 50-day",
           "symbol": "QQQ",
           "value": false
+        },
+        {
+          "display": "True",
+          "field": "above_50d",
+          "label": "Equal-weight S&P above 50-day",
+          "symbol": "RSP",
+          "value": true
+        },
+        {
+          "display": "False",
+          "field": "above_50d",
+          "label": "HYG above 50-day",
+          "symbol": "HYG",
+          "value": false
+        },
+        {
+          "display": "False",
+          "field": "above_50d",
+          "label": "SMH above 50-day",
+          "symbol": "SMH",
+          "value": false
+        },
+        {
+          "display": "False",
+          "field": "above_50d",
+          "label": "SOXX above 50-day",
+          "symbol": "SOXX",
+          "value": false
         }
       ],
       "reasoning": [
-        "When money feels easy, AI stocks usually get more room to run.",
-        "If this falls, even good AI companies can drop because investors pay less for future growth."
+        "This asks whether today's funding environment is friendly to AI and growth stocks.",
+        "It combines fear, the dollar, rates, credit, broad-market trend, and chip-stock trend."
       ],
-      "score": 69.27
+      "score": 59.09
     },
     "macro_risk": {
+      "contributions": [],
       "evidence": [
         {
           "display": "4.5",
@@ -737,9 +833,10 @@
         "Rates and the dollar can push growth stocks around.",
         "If rates rise fast, AI stocks can fall even when company news is still good."
       ],
-      "score": 75.03
+      "score": 62.55
     },
     "market_breadth": {
+      "contributions": [],
       "evidence": [
         {
           "display": "True",
@@ -777,6 +874,7 @@
       "score": 75.24
     },
     "valuation_risk": {
+      "contributions": [],
       "evidence": [
         {
           "display": "8.0%",

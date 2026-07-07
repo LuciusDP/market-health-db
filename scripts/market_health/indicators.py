@@ -26,6 +26,12 @@ def _return(values: list[float], periods: int) -> float | None:
     return pct_change(values[-1], values[-periods - 1])
 
 
+def _above_average(latest: float | None, average: float | None) -> bool | None:
+    if latest is None or average is None:
+        return None
+    return latest > average
+
+
 def build_indicators(market_data: dict) -> dict:
     indicators: dict[str, dict] = {}
     for symbol, payload in market_data["assets"].items():
@@ -44,8 +50,8 @@ def build_indicators(market_data: dict) -> dict:
             "return_63d": _return(closes, 63),
             "sma_50": sma_50,
             "sma_200": sma_200,
-            "above_50d": latest is not None and sma_50 is not None and latest > sma_50,
-            "above_200d": latest is not None and sma_200 is not None and latest > sma_200,
+            "above_50d": _above_average(latest, sma_50),
+            "above_200d": _above_average(latest, sma_200),
             "distance_from_50d": pct_change(latest, sma_50),
             "distance_from_200d": pct_change(latest, sma_200),
         }
@@ -57,4 +63,3 @@ def build_indicators(market_data: dict) -> dict:
         "unavailable_symbols": sorted(market_data.get("errors", {}).keys()),
     }
     return indicators
-

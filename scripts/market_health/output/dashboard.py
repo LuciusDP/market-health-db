@@ -25,7 +25,7 @@ SUBSCORE_ICONS = {
 }
 
 SUBSCORE_TITLES = {
-    "liquidity": "Cash mood",
+    "liquidity": "Money Environment",
     "credit": "Risk appetite",
     "ai_fundamentals": "AI stocks",
     "market_breadth": "Rally breadth",
@@ -35,7 +35,7 @@ SUBSCORE_TITLES = {
 }
 
 SUBSCORE_THRESHOLDS = {
-    "liquidity": (70, 50, "Below 50 means cash conditions may be getting tighter."),
+    "liquidity": (70, 50, "Below 50 means funding conditions may be getting tighter for AI and growth stocks."),
     "credit": (60, 50, "Below 50 is an early warning that investors are less willing to take risk."),
     "ai_fundamentals": (65, 50, "Below 50 means the AI stock group is not confirming the story."),
     "market_breadth": (65, 45, "Below 45 means the rally is too narrow to trust comfortably."),
@@ -54,6 +54,7 @@ WATCH_ITEMS = [
 ]
 
 GLOSSARY = {
+    "Money Environment": "This is not cash sitting on the sidelines. It asks whether funding conditions are friendly for AI and growth stocks today.",
     "VIX level": "VIX is the market's fear gauge. Higher VIX usually means investors expect bigger daily moves.",
     "Shock-risk level": "A quick fear check. If this jumps, crowded AI stocks can move sharply even without company news.",
     "close": "The latest available market price or index level.",
@@ -78,6 +79,44 @@ GLOSSARY = {
     "JNK": "High-yield bond ETF, similar risk appetite signal to HYG.",
     "^TNX": "Yahoo's 10-year Treasury yield proxy.",
     "^VIX": "Yahoo's VIX symbol, the market fear gauge.",
+}
+
+SO_WHAT = {
+    "liquidity": {
+        "title": "So what?",
+        "body": "This is the funding-environment check. If it is green, fresh money has fewer reasons to avoid AI and growth stocks. If it turns yellow or red, do not assume good AI company news will be enough; valuation multiples can compress.",
+        "watch": "Watch VIX, DXY, QQQ vs 50-day, HYG, SMH/SOXX, and the 10Y yield.",
+    },
+    "credit": {
+        "title": "So what?",
+        "body": "This tells you whether investors are comfortable owning risk. Weak credit often shows up before equity holders fully react.",
+        "watch": "Watch HYG/JNK returns and whether HYG is above its 50-day average.",
+    },
+    "ai_fundamentals": {
+        "title": "So what?",
+        "body": "This checks whether the AI trade itself is confirming the story. If NVDA, SMH, and SOXX are weak, be careful calling the setup healthy.",
+        "watch": "Watch NVDA, SMH, SOXX, AVGO, and whether chip leadership is broadening.",
+    },
+    "market_breadth": {
+        "title": "So what?",
+        "body": "This tells you if the rally is broad or only a few large stocks. Narrow rallies can work, but they are more fragile.",
+        "watch": "Watch SPY, QQQ, equal-weight S&P, and small caps.",
+    },
+    "valuation_risk": {
+        "title": "So what?",
+        "body": "This tells you whether prices are stretched. A weak reading does not mean sell automatically, but it means new buys need more patience.",
+        "watch": "Watch distance from the 200-day average for SPY, QQQ, SMH, and NVDA.",
+    },
+    "macro_risk": {
+        "title": "So what?",
+        "body": "This checks whether rates and the dollar are creating headwind for growth stocks.",
+        "watch": "Watch the 10Y yield, its 20-day move, and the dollar trend.",
+    },
+    "geopolitical_risk": {
+        "title": "So what?",
+        "body": "This is the fear check. If volatility jumps, crowded AI winners can move hard even without company-specific bad news.",
+        "watch": "Watch VIX and short-term SPY/QQQ movement.",
+    },
 }
 
 
@@ -236,6 +275,54 @@ def _evidence_rows(payload: dict) -> str:
 
 def _reasoning_items(payload: dict) -> str:
     return "\n".join(f"<li>{escape(item)}</li>" for item in payload.get("reasoning", []))
+
+
+def _so_what_details(name: str) -> str:
+    item = SO_WHAT.get(name)
+    if not item:
+        return ""
+    return f"""
+      <details class="deep-dive">
+        <summary>{escape(item["title"])} <span>How to use this score</span></summary>
+        <p>{escape(item["body"])}</p>
+        <div class="watch-note"><strong>Check next:</strong> {escape(item["watch"])}</div>
+      </details>
+    """
+
+
+def _contribution_rows(payload: dict) -> str:
+    rows = []
+    for item in payload.get("contributions", []):
+        points = item.get("points", 0)
+        if points > 0:
+            point_class = "positive"
+            point_text = f"+{points}"
+        elif points < 0:
+            point_class = "negative"
+            point_text = str(points)
+        else:
+            point_class = "neutral"
+            point_text = "0"
+        rows.append(
+            f"""
+            <tr>
+              <td><strong>{escape(str(item.get("label", "Factor")))}</strong><br><small>{escape(str(item.get("why", "")))}</small></td>
+              <td>{escape(str(item.get("value", "n/a")))}</td>
+              <td><span class="contribution-points {point_class}">{escape(point_text)}</span></td>
+            </tr>
+            """
+        )
+    if not rows:
+        return ""
+    return f"""
+      <div class="contribution-block">
+        <div class="eyebrow">WHY THIS SCORE?</div>
+        <table>
+          <thead><tr><th>Factor</th><th>Today</th><th>Impact</th></tr></thead>
+          <tbody>{''.join(rows)}</tbody>
+        </table>
+      </div>
+    """
 
 
 def _threshold_table() -> str:
@@ -707,6 +794,22 @@ def generate_dashboard(record: dict, history: dict) -> None:
     .pill.status-watch {{ border-color: #fde68a; background: #fef3c7; color: #92400e; }}
     .pill.status-danger {{ border-color: #fecaca; background: #fee2e2; color: #b42318; }}
     .action {{ margin-top: 10px; padding: 10px 12px; border-radius: 8px; background: #f8fafc; border: 1px solid #e5eaf2; }}
+    .deep-dive {{ margin-top: 12px; border: 1px solid #dbeafe; border-radius: 8px; background: linear-gradient(135deg, #eff6ff, #f0fdfa); overflow: hidden; }}
+    .deep-dive summary {{ list-style: none; display: flex; align-items: center; justify-content: space-between; gap: 10px; cursor: pointer; padding: 11px 12px; color: #0f172a; font-weight: 850; }}
+    .deep-dive summary::-webkit-details-marker {{ display: none; }}
+    .deep-dive summary::before {{ content: "?"; display: inline-grid; place-items: center; width: 24px; height: 24px; border-radius: 7px; background: var(--blue); color: #fff; font-size: 14px; margin-right: 8px; flex: 0 0 auto; }}
+    .deep-dive summary span {{ margin-left: auto; color: var(--blue); font-size: 12px; font-weight: 800; text-transform: uppercase; }}
+    .deep-dive p {{ margin: 0; padding: 0 12px 10px; color: #344054; }}
+    .watch-note {{ margin: 0 12px 12px; padding: 10px; border-radius: 8px; background: rgba(255,255,255,.75); color: #344054; }}
+    .contribution-block {{ margin-top: 12px; border: 1px solid #edf0f5; border-radius: 8px; overflow: hidden; background: #fff; }}
+    .contribution-block .eyebrow {{ padding: 10px 12px; background: #f8fafc; }}
+    .contribution-block table {{ font-size: 12px; }}
+    .contribution-block th, .contribution-block td {{ padding: 9px 10px; }}
+    .contribution-block td strong {{ display: inline; font-size: 13px; margin: 0; }}
+    .contribution-points {{ display: inline-grid; place-items: center; min-width: 34px; height: 26px; border-radius: 999px; font-weight: 900; }}
+    .contribution-points.positive {{ color: #166534; background: #dcfce7; }}
+    .contribution-points.negative {{ color: #b42318; background: #fee2e2; }}
+    .contribution-points.neutral {{ color: #475467; background: #eef2f7; }}
     .bar {{ height: 12px; background: #e5e8ef; border-radius: 999px; overflow: hidden; }}
     .bar span {{ display: block; height: 100%; background: var(--blue); }}
     .bar.status-good span {{ background: var(--green); }}
@@ -883,6 +986,8 @@ def _subscore_card(name: str, payload: dict, history: dict, record: dict) -> str
         <strong>Thresholds: green at {good}+; red below {watch}</strong><br>
         {escape(note)}
       </div>
+      {_so_what_details(name)}
+      {_contribution_rows(payload)}
       <ul class="reasoning">{_reasoning_items(payload)}</ul>
       <table>
         <thead><tr><th>Indicator</th><th>Symbol</th><th>Value</th></tr></thead>

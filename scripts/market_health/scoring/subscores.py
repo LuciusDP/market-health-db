@@ -34,13 +34,21 @@ def score_liquidity(indicators: dict) -> tuple[float, list[str]]:
         [
             score_lower_is_better(_value(indicators, "^VIX", "close"), good=14, bad=32),
             score_return(_value(indicators, "DX-Y.NYB", "return_20d"), bullish_threshold=-2, bearish_threshold=3),
+            score_lower_is_better(_value(indicators, "^TNX", "close"), good=3.8, bad=5.2),
+            score_lower_is_better(_value(indicators, "^TNX", "return_20d"), good=-3, bad=10),
+            score_return(_value(indicators, "HYG", "return_20d"), bullish_threshold=1, bearish_threshold=-2.5),
+            score_return(_value(indicators, "JNK", "return_20d"), bullish_threshold=1, bearish_threshold=-2.5),
             bool_score(_value(indicators, "SPY", "above_50d")),
             bool_score(_value(indicators, "QQQ", "above_50d")),
+            bool_score(_value(indicators, "RSP", "above_50d")),
+            bool_score(_value(indicators, "HYG", "above_50d")),
+            bool_score(_value(indicators, "SMH", "above_50d")),
+            bool_score(_value(indicators, "SOXX", "above_50d")),
         ]
     )
     return score, [
-        "When money feels easy, AI stocks usually get more room to run.",
-        "If this falls, even good AI companies can drop because investors pay less for future growth.",
+        "This asks whether today's funding environment is friendly to AI and growth stocks.",
+        "It combines fear, the dollar, rates, credit, broad-market trend, and chip-stock trend.",
     ]
 
 
@@ -102,7 +110,7 @@ def score_macro_risk(indicators: dict) -> tuple[float, list[str]]:
     ten_year_20d = _value(indicators, "^TNX", "return_20d")
     score = average_score(
         [
-            score_lower_is_better(ten_year, good=35, bad=55),
+            score_lower_is_better(ten_year, good=3.5, bad=5.5),
             score_lower_is_better(ten_year_20d, good=-4, bad=15),
             score_lower_is_better(_value(indicators, "DX-Y.NYB", "return_20d"), good=-1, bad=4),
         ]
@@ -140,6 +148,7 @@ def build_subscores(indicators: dict) -> dict:
             "score": score,
             "reasoning": reasoning,
             "evidence": evidence_for_subscore(name, indicators),
+            "contributions": contributions_for_subscore(name, indicators),
         }
     return result
 
@@ -149,8 +158,14 @@ def evidence_for_subscore(name: str, indicators: dict) -> list[dict]:
         "liquidity": [
             _point(indicators, "^VIX", "close", "VIX level"),
             _point(indicators, "DX-Y.NYB", "return_20d", "Dollar 20-day return", "%"),
+            _point(indicators, "^TNX", "close", "10Y Treasury yield proxy"),
+            _point(indicators, "^TNX", "return_20d", "10Y yield 20-day change", "%"),
             _point(indicators, "SPY", "above_50d", "SPY above 50-day"),
             _point(indicators, "QQQ", "above_50d", "QQQ above 50-day"),
+            _point(indicators, "RSP", "above_50d", "Equal-weight S&P above 50-day"),
+            _point(indicators, "HYG", "above_50d", "HYG above 50-day"),
+            _point(indicators, "SMH", "above_50d", "SMH above 50-day"),
+            _point(indicators, "SOXX", "above_50d", "SOXX above 50-day"),
         ],
         "credit": [
             _point(indicators, "HYG", "return_20d", "HYG 20-day return", "%"),
@@ -188,3 +203,95 @@ def evidence_for_subscore(name: str, indicators: dict) -> list[dict]:
         ],
     }
     return evidence.get(name, [])
+
+
+def contributions_for_subscore(name: str, indicators: dict) -> list[dict]:
+    if name != "liquidity":
+        return []
+
+    vix = _value(indicators, "^VIX", "close")
+    dollar = _value(indicators, "DX-Y.NYB", "return_20d")
+    ten_year = _value(indicators, "^TNX", "close")
+    ten_year_change = _value(indicators, "^TNX", "return_20d")
+    spy_above = _value(indicators, "SPY", "above_50d")
+    qqq_above = _value(indicators, "QQQ", "above_50d")
+    hyg_above = _value(indicators, "HYG", "above_50d")
+    smh_above = _value(indicators, "SMH", "above_50d")
+
+    return [
+        _contribution("VIX calm", vix, _vix_points(vix), "Lower fear makes it easier for money to stay in AI and growth stocks."),
+        _contribution("Dollar move", dollar, _dollar_points(dollar), "A stronger dollar can pull money away from risk assets."),
+        _contribution("10Y yield level", ten_year, _yield_points(ten_year), "Lower or stable yields are friendlier to growth stocks."),
+        _contribution("10Y 20-day move", ten_year_change, _yield_change_points(ten_year_change), "Falling yields usually give AI stocks more breathing room."),
+        _contribution("SPY trend", spy_above, _trend_points(spy_above, positive=8, negative=-8), "S&P 500 above its 50-day average means the broad market is still holding up."),
+        _contribution("QQQ trend", qqq_above, _trend_points(qqq_above, positive=10, negative=-12), "QQQ below its 50-day average warns that tech/growth may be losing support."),
+        _contribution("HYG trend", hyg_above, _trend_points(hyg_above, positive=8, negative=-8), "High-yield bonds below trend suggest investors are less comfortable taking risk."),
+        _contribution("SMH trend", smh_above, _trend_points(smh_above, positive=8, negative=-8), "Chip-stock trend matters because AI leadership depends heavily on semiconductors."),
+    ]
+
+
+def _contribution(label: str, value: float | bool | None, points: int, why: str) -> dict:
+    if isinstance(value, float):
+        display = round(value, 2)
+    else:
+        display = value
+    return {
+        "label": label,
+        "value": display,
+        "points": points,
+        "why": why,
+    }
+
+
+def _vix_points(value: float | bool | None) -> int:
+    if not isinstance(value, (int, float)):
+        return 0
+    if value < 15:
+        return 12
+    if value < 20:
+        return 8
+    if value < 30:
+        return -6
+    return -14
+
+
+def _dollar_points(value: float | bool | None) -> int:
+    if not isinstance(value, (int, float)):
+        return 0
+    if value <= -1:
+        return 8
+    if value <= 1:
+        return -2
+    if value <= 3:
+        return -6
+    return -12
+
+
+def _yield_points(value: float | bool | None) -> int:
+    if not isinstance(value, (int, float)):
+        return 0
+    if value <= 3.8:
+        return 8
+    if value <= 4.8:
+        return 2
+    if value <= 5.5:
+        return -7
+    return -12
+
+
+def _yield_change_points(value: float | bool | None) -> int:
+    if not isinstance(value, (int, float)):
+        return 0
+    if value <= -3:
+        return 7
+    if value <= 3:
+        return 2
+    if value <= 10:
+        return -5
+    return -10
+
+
+def _trend_points(value: float | bool | None, positive: int, negative: int) -> int:
+    if value is None:
+        return 0
+    return positive if value else negative
