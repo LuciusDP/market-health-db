@@ -30,6 +30,8 @@
     .eyebrow { color: var(--blue); font-size: 12px; font-weight: 800; letter-spacing: .08em; }
     .hero { display: grid; grid-template-columns: 1.4fr .6fr; gap: 16px; align-items: start; }
     .panel, .card { background: var(--paper); border: 1px solid var(--line); border-radius: 8px; padding: 18px; box-shadow: 0 8px 24px rgba(29, 78, 216, .05); }
+    .hero-card { background: linear-gradient(135deg, #ffffff 0%, #f8fbff 48%, #eefdf5 100%); border-color: #c7d7ee; }
+    .hero-topline { display: flex; align-items: center; justify-content: space-between; gap: 12px; }
     .score { font-size: 64px; line-height: 1; margin: 10px 0; font-weight: 800; }
     .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(330px, 1fr)); gap: 14px; }
     .card strong { display: block; font-size: 30px; margin: 8px 0; }
@@ -61,10 +63,30 @@
     .score-line { display: flex; align-items: center; gap: 12px; margin: 8px 0; }
     .big-score { font-size: 58px; font-weight: 850; line-height: 1; }
     .plain-read { font-size: 18px; font-weight: 700; margin: 10px 0; }
-    .driver-list { list-style: none; margin: 12px 0 0; padding: 0; }
-    .driver-list li { border-top: 1px solid #edf0f5; padding: 11px 0; }
-    .driver-list li:first-child { border-top: 0; }
-    .driver-list p { margin: 6px 0 0; color: #344054; }
+    .focus-strip { display: grid; grid-template-columns: repeat(auto-fit, minmax(210px, 1fr)); gap: 10px; margin: 16px 0 12px; }
+    .focus-chip { display: grid; grid-template-columns: 42px 1fr; align-items: center; gap: 10px; border-radius: 8px; padding: 12px; border: 1px solid #e5eaf2; background: #fff; }
+    .focus-chip > span { width: 42px; height: 42px; display: grid; place-items: center; border-radius: 8px; color: white; font-weight: 900; }
+    .focus-chip small { display: block; margin-bottom: 2px; }
+    .focus-chip strong { font-size: 18px; }
+    .focus-chip.good { border-color: #bbf7d0; background: #f0fdf4; }
+    .focus-chip.good > span { background: var(--green); }
+    .focus-chip.danger { border-color: #fecaca; background: #fff7ed; }
+    .focus-chip.danger > span { background: var(--red); }
+    .driver-card { padding: 0; overflow: hidden; }
+    .driver-card > .eyebrow { display: block; padding: 14px 16px; color: #0f172a; }
+    .driver-positive > .eyebrow { background: #dcfce7; }
+    .driver-caution > .eyebrow { background: #fee2e2; }
+    .driver-grid { display: grid; gap: 10px; padding: 14px; }
+    .driver-tile { border: 1px solid #e5eaf2; border-radius: 8px; padding: 12px; background: #fff; }
+    .driver-tile.status-good { border-color: #bbf7d0; background: #f7fff9; }
+    .driver-tile.status-watch { border-color: #fde68a; background: #fffbeb; }
+    .driver-tile.status-danger { border-color: #fecaca; background: #fff7f7; }
+    .driver-head { display: grid; grid-template-columns: 38px 1fr; align-items: center; gap: 10px; }
+    .driver-head strong { display: inline; font-size: 21px; margin: 0; }
+    .driver-icon { width: 38px; height: 38px; display: grid; place-items: center; border-radius: 8px; background: #eaf2ff; color: var(--blue); font-weight: 900; }
+    .driver-meta { display: flex; align-items: center; gap: 8px; margin: 10px 0 0; }
+    .intent { color: var(--muted); font-size: 12px; font-weight: 800; text-transform: uppercase; }
+    .driver-tile p { margin: 9px 0 0; color: #344054; }
     .delta { color: var(--muted); font-size: 12px; margin-left: 6px; }
     .threshold-row { border-top: 1px solid #edf0f5; padding: 10px 0; display: grid; grid-template-columns: 58px 1fr; gap: 8px; }
     .threshold-row:first-child { border-top: 0; }
@@ -96,11 +118,15 @@
     .subscore-card.status-danger { border-color: #fecaca; }
     td span { color: var(--muted); }
     small { color: var(--muted); font-size: 12px; }
+    .core-actions { background: linear-gradient(180deg, #ffffff, #f8fbff); }
     .core-actions ul { list-style: none; margin: 12px 0; padding: 0; }
     .core-actions li { display: grid; grid-template-columns: 34px 1fr; gap: 10px; border-top: 1px solid #edf0f5; padding: 12px 0; }
     .core-actions li:first-child { border-top: 0; }
     .core-actions p { margin: 4px 0 0; color: #344054; }
     .action-number { display: grid; place-items: center; width: 28px; height: 28px; border-radius: 8px; background: #102a43; color: white; font-weight: 900; }
+    .action-item:nth-child(1) .action-number { background: var(--blue); }
+    .action-item:nth-child(2) .action-number { background: var(--amber); }
+    .action-item:nth-child(3) .action-number { background: var(--green); }
     pre { white-space: pre-wrap; background: #101828; color: #f8fafc; padding: 16px; border-radius: 8px; overflow-x: auto; }
     @media (max-width: 760px) { header, .hero { display: block; } .panel { margin-bottom: 12px; } .score { font-size: 52px; } }
   </style>
@@ -118,20 +144,23 @@
     <section class="hero">
       <div>
 
-    <section class="panel diagnosis">
-      <div class="eyebrow">TODAY'S READ</div>
-      <h2>Late Cycle: Neutral</h2>
+    <section class="panel diagnosis hero-card">
+      <div class="hero-topline">
+        <div class="eyebrow">TODAY'S READ</div>
+        <span class="pill status-watch">Neutral</span>
+      </div>
+      <h2>Late Cycle</h2>
       <div class="score-line">
-        <span class="big-score">67.87</span>
-        <span class='down'>DOWN -0.65</span>
+        <span class="big-score">67.9</span>
+        <span class='down'>DOWN -0.62</span>
       </div>
       <p class="plain-read">The market is okay, but this is not an all-clear signal.</p>
-      <p>
-        The biggest help today is <strong>Volatility</strong>.
-        The thing to check first is <strong>Risk appetite</strong>.
-      </p>
-      <p>This part is holding the market back. Before buying, check: HYG 20-day return: 0.45%; JNK 20-day return: 0.31%; HYG above 50-day: False.</p>
-      <p class="callout">Why the score moved: Cash mood fell from 83.36 to 69.27; Too stretched? rose from 66.52 to 74.64; Volatility fell from 90.0 to 85.23.</p>
+      <div class="focus-strip">
+        <div class="focus-chip good"><span>~</span><div><small>Biggest help</small><strong>Volatility</strong></div></div>
+        <div class="focus-chip danger"><span>!</span><div><small>Check first</small><strong>Risk appetite</strong></div></div>
+      </div>
+      <p>This part is holding the market back. Before buying, check: HYG 20-day return: 0.43%; JNK 20-day return: 0.3%; HYG above 50-day: False.</p>
+      <p class="callout">Why the score moved: Cash mood fell from 83.36 to 69.27; Too stretched? rose from 66.52 to 73.81; Volatility fell from 90.0 to 85.18.</p>
       <p class="muted">
         Read this like a morning checklist, not a buy/sell order. It tells you where to look before touching AI stocks.
       </p>
@@ -139,71 +168,131 @@
 
         <div class="hero" style="grid-template-columns: 1fr 1fr; margin-top: 16px;">
 
-    <section class="card">
+    <section class="card driver-card driver-positive">
       <div class="eyebrow">WHAT LIFTED THE SCORE</div>
-      <ul class="driver-list">
-            <li>
-              <div><span class="mini-icon">~</span><strong>Volatility</strong> <span class="delta">35.23 from 50</span></div>
-              <p>This part helped today. Check: VIX level: 15.9; SPY 5-day return: 1.05%; QQQ 5-day return: -1.89%.</p>
-            </li>
+      <div class="driver-grid">
+            <article class="driver-tile status-good">
+              <div class="driver-head">
+                <span class="driver-icon">~</span>
+                <div>
+                  <strong>Volatility</strong>
+                  <span class="delta">35.18 from 50</span>
+                </div>
+              </div>
+              <div class="driver-meta">
+                <span class="pill status-good">Looks okay</span>
+                <span class="intent">helped</span>
+              </div>
+              <p>This part helped today. Check: VIX level: 15.9; SPY 5-day return: 1.04%; QQQ 5-day return: -1.8%.</p>
+            </article>
 
-            <li>
-              <div><span class="mini-icon">+</span><strong>Rally breadth</strong> <span class="delta">25.24 from 50</span></div>
-              <p>This part helped today. Check: SPY above 200-day: True; QQQ above 200-day: True; Equal-weight S&amp;P 20-day return: 3.71%.</p>
-            </li>
+            <article class="driver-tile status-good">
+              <div class="driver-head">
+                <span class="driver-icon">+</span>
+                <div>
+                  <strong>Rally breadth</strong>
+                  <span class="delta">25.24 from 50</span>
+                </div>
+              </div>
+              <div class="driver-meta">
+                <span class="pill status-good">Looks okay</span>
+                <span class="intent">helped</span>
+              </div>
+              <p>This part helped today. Check: SPY above 200-day: True; QQQ above 200-day: True; Equal-weight S&amp;P 20-day return: 3.62%.</p>
+            </article>
 
-            <li>
-              <div><span class="mini-icon">R</span><strong>Rates &amp; dollar</strong> <span class="delta">25.03 from 50</span></div>
-              <p>This part helped today. Check: 10Y Treasury yield proxy: 4.5; 10Y yield 20-day change: 0.45%; Dollar 20-day return: 0.82%.</p>
-            </li>
-            </ul>
+            <article class="driver-tile status-good">
+              <div class="driver-head">
+                <span class="driver-icon">R</span>
+                <div>
+                  <strong>Rates &amp; dollar</strong>
+                  <span class="delta">25.03 from 50</span>
+                </div>
+              </div>
+              <div class="driver-meta">
+                <span class="pill status-good">Looks okay</span>
+                <span class="intent">helped</span>
+              </div>
+              <p>This part helped today. Check: 10Y Treasury yield proxy: 4.5; 10Y yield 20-day change: 0.49%; Dollar 20-day return: 0.81%.</p>
+            </article>
+            </div>
     </section>
 
 
-    <section class="card">
+    <section class="card driver-card driver-caution">
       <div class="eyebrow">WHY IT IS NOT STRONGER</div>
-      <ul class="driver-list">
-            <li>
-              <div><span class="mini-icon">!</span><strong>Risk appetite</strong> <span class="delta">-1.21 from 50</span></div>
-              <p>This part is holding the market back. Before buying, check: HYG 20-day return: 0.45%; JNK 20-day return: 0.31%; HYG above 50-day: False.</p>
-            </li>
+      <div class="driver-grid">
+            <article class="driver-tile status-danger">
+              <div class="driver-head">
+                <span class="driver-icon">!</span>
+                <div>
+                  <strong>Risk appetite</strong>
+                  <span class="delta">-1.32 from 50</span>
+                </div>
+              </div>
+              <div class="driver-meta">
+                <span class="pill status-danger">Needs attention</span>
+                <span class="intent">check</span>
+              </div>
+              <p>This part is holding the market back. Before buying, check: HYG 20-day return: 0.43%; JNK 20-day return: 0.3%; HYG above 50-day: False.</p>
+            </article>
 
-            <li>
-              <div><span class="mini-icon">AI</span><strong>AI stocks</strong> <span class="delta">9.24 from 50</span></div>
-              <p>This is okay, but not strong enough to relax. Check: NVDA 20-day return: -6.4%; SMH 20-day return: 0.93%; SOXX 20-day return: 1.23%.</p>
-            </li>
+            <article class="driver-tile status-watch">
+              <div class="driver-head">
+                <span class="driver-icon">AI</span>
+                <div>
+                  <strong>AI stocks</strong>
+                  <span class="delta">10.05 from 50</span>
+                </div>
+              </div>
+              <div class="driver-meta">
+                <span class="pill status-watch">Watch</span>
+                <span class="intent">check</span>
+              </div>
+              <p>This is okay, but not strong enough to relax. Check: NVDA 20-day return: -5.96%; SMH 20-day return: 1.41%; SOXX 20-day return: 1.7%.</p>
+            </article>
 
-            <li>
-              <div><span class="mini-icon">$</span><strong>Cash mood</strong> <span class="delta">19.27 from 50</span></div>
-              <p>This is okay, but not strong enough to relax. Check: VIX level: 15.9; Dollar 20-day return: 0.82%; SPY above 50-day: True.</p>
-            </li>
-            </ul>
+            <article class="driver-tile status-watch">
+              <div class="driver-head">
+                <span class="driver-icon">$</span>
+                <div>
+                  <strong>Cash mood</strong>
+                  <span class="delta">19.27 from 50</span>
+                </div>
+              </div>
+              <div class="driver-meta">
+                <span class="pill status-watch">Watch</span>
+                <span class="intent">check</span>
+              </div>
+              <p>This is okay, but not strong enough to relax. Check: VIX level: 15.9; Dollar 20-day return: 0.81%; SPY above 50-day: True.</p>
+            </article>
+            </div>
     </section>
 
         </div>
       </div>
       <aside class="panel">
         <div class="eyebrow">TODAY'S MARKET HEALTH</div>
-        <div class="score">67.87</div>
+        <div class="score">67.9</div>
         <div class='bar status-watch'><span style='width:68%'></span></div>
         <div class="action"><strong>Mostly okay: Be selective</strong><br>The market is supportive, but still check the weak spots.</div>
 
     <section class="card core-actions">
       <div class="eyebrow">3 THINGS TO DO FIRST</div>
       <ul>
-        <li>
+        <li class="action-item">
           <span class="action-number">1</span>
           <div><strong>AI stocks</strong><p>Do not rush. Keep watchlist tight and prefer AI names that are already acting better than SMH/SOXX.</p></div>
         </li>
 
 
-        <li>
+        <li class="action-item">
           <span class="action-number">2</span>
           <div><strong>Risk appetite</strong><p>Check HYG/JNK before buying. Weak credit says investors are not fully comfortable with risk.</p></div>
         </li>
 
 
-        <li>
+        <li class="action-item">
           <span class="action-number">3</span>
           <div><strong>Bonds / rates</strong><p>Rates are not the main problem today. If yields keep easing, growth stocks get breathing room.</p></div>
         </li>
@@ -259,10 +348,10 @@
       <line x1="0" y1="37.5" x2="520" y2="37.5" class="guide"></line>
       <line x1="0" y1="60" x2="520" y2="60" class="guide"></line>
       <line x1="0" y1="82.5" x2="520" y2="82.5" class="guide"></line>
-      <polyline points="0.0,47.22 520.0,48.19"></polyline>
-      <circle cx="520.0" cy="48.19" r="5"></circle>
+      <polyline points="0.0,47.22 520.0,48.15"></polyline>
+      <circle cx="520.0" cy="48.15" r="5"></circle>
     </svg>
-    <p class="muted">Started at 68.52. Latest is 67.87.</p>
+    <p class="muted">Started at 68.52. Latest is 67.9.</p>
 
       </section>
 
@@ -282,17 +371,17 @@
             <tr>
               <td><span class="mini-icon">!</span>Risk appetite</td>
               <td>46.03</td>
-              <td>48.79</td>
-              <td><span class='up'>UP +2.76</span></td>
+              <td>48.68</td>
+              <td><span class='up'>UP +2.65</span></td>
               <td><div class='bar status-danger'><span style='width:49%'></span></div></td>
             </tr>
 
             <tr>
               <td><span class="mini-icon">AI</span>AI stocks</td>
               <td>58.33</td>
-              <td>59.24</td>
-              <td><span class='up'>UP +0.91</span></td>
-              <td><div class='bar status-watch'><span style='width:59%'></span></div></td>
+              <td>60.05</td>
+              <td><span class='up'>UP +1.72</span></td>
+              <td><div class='bar status-watch'><span style='width:60%'></span></div></td>
             </tr>
 
             <tr>
@@ -306,9 +395,9 @@
             <tr>
               <td><span class="mini-icon">%</span>Too stretched?</td>
               <td>66.52</td>
-              <td>74.64</td>
-              <td><span class='up'>UP +8.12</span></td>
-              <td><div class='bar status-good'><span style='width:75%'></span></div></td>
+              <td>73.81</td>
+              <td><span class='up'>UP +7.29</span></td>
+              <td><div class='bar status-good'><span style='width:74%'></span></div></td>
             </tr>
 
             <tr>
@@ -322,8 +411,8 @@
             <tr>
               <td><span class="mini-icon">~</span>Volatility</td>
               <td>90.0</td>
-              <td>85.23</td>
-              <td><span class='down'>DOWN -4.77</span></td>
+              <td>85.18</td>
+              <td><span class='down'>DOWN -4.82</span></td>
               <td><div class='bar status-good'><span style='width:85%'></span></div></td>
             </tr>
             </tbody>
@@ -356,32 +445,32 @@
               <td><code>NVDA <span class='tip' tabindex='0' data-tip='NVIDIA. A core AI leader, so weakness here matters for AI-stock confidence.'>?</span></code></td>
               <td><strong>NVIDIA</strong><br><span>AI leader</span><br><small>20-day return <span class='tip' tabindex='0' data-tip='How much something moved over roughly one trading month.'>?</span></small></td>
               <td>-10.57%</td>
-              <td>-6.4%</td>
-              <td><span class='up'>UP +4.17%</span></td>
+              <td>-5.96%</td>
+              <td><span class='up'>UP +4.61%</span></td>
             </tr>
 
             <tr>
               <td><code>SMH <span class='tip' tabindex='0' data-tip='Semiconductor ETF. Useful for checking whether the AI chip group is healthy.'>?</span></code></td>
               <td><strong>Semiconductor ETF</strong><br><span>AI chip group</span><br><small>20-day return <span class='tip' tabindex='0' data-tip='How much something moved over roughly one trading month.'>?</span></small></td>
               <td>-3.7%</td>
-              <td>0.93%</td>
-              <td><span class='up'>UP +4.64%</span></td>
+              <td>1.41%</td>
+              <td><span class='up'>UP +5.12%</span></td>
             </tr>
 
             <tr>
               <td><code>SOXX <span class='tip' tabindex='0' data-tip='Chip ETF. Another semiconductor group check.'>?</span></code></td>
               <td><strong>Chip ETF</strong><br><span>Chip breadth</span><br><small>20-day return <span class='tip' tabindex='0' data-tip='How much something moved over roughly one trading month.'>?</span></small></td>
               <td>-3.52%</td>
-              <td>1.23%</td>
-              <td><span class='up'>UP +4.75%</span></td>
+              <td>1.7%</td>
+              <td><span class='up'>UP +5.22%</span></td>
             </tr>
 
             <tr>
               <td><code>HYG <span class='tip' tabindex='0' data-tip='High-yield bond ETF. It helps show whether investors still want risky assets.'>?</span></code></td>
               <td><strong>High yield bonds</strong><br><span>Are investors still willing to take risk?</span><br><small>20-day return <span class='tip' tabindex='0' data-tip='How much something moved over roughly one trading month.'>?</span></small></td>
               <td>0.05%</td>
-              <td>0.45%</td>
-              <td><span class='up'>UP +0.4%</span></td>
+              <td>0.43%</td>
+              <td><span class='up'>UP +0.38%</span></td>
             </tr>
 
             <tr>
@@ -442,7 +531,7 @@
             <tr>
               <td>Dollar 20-day return <span class='tip' tabindex='0' data-tip='How much the US dollar moved over about one month. A stronger dollar can tighten financial conditions.'>?</span><br><small>20-day return <span class='tip' tabindex='0' data-tip='How much something moved over roughly one trading month.'>?</span></small></td>
               <td><code>DX-Y.NYB</code></td>
-              <td>0.82%</td>
+              <td>0.81%</td>
             </tr>
 
 
@@ -467,7 +556,7 @@
       <div class="card-top">
         <div>
           <div class="eyebrow">RISK APPETITE</div>
-          <strong>48.79</strong>
+          <strong>48.68</strong>
           <span class="pill status-danger">Needs attention</span>
         </div>
         <div class="icon">!</div>
@@ -476,8 +565,8 @@
 
     <svg class="tiny-chart status-danger" viewBox="0 0 220 58" role="img" aria-label="Subscore mini trend">
       <line x1="0" y1="29.0" x2="220" y2="29.0" class="guide"></line>
-      <polyline points="0.0,31.3 220.0,29.7"></polyline>
-      <circle cx="220.0" cy="29.7" r="3.5"></circle>
+      <polyline points="0.0,31.3 220.0,29.77"></polyline>
+      <circle cx="220.0" cy="29.77" r="3.5"></circle>
     </svg>
 
       <div class="action">
@@ -492,14 +581,14 @@
             <tr>
               <td>HYG 20-day return<br><small>20-day return <span class='tip' tabindex='0' data-tip='How much something moved over roughly one trading month.'>?</span></small></td>
               <td><code>HYG <span class='tip' tabindex='0' data-tip='High-yield bond ETF. It helps show whether investors still want risky assets.'>?</span></code></td>
-              <td>0.45%</td>
+              <td>0.43%</td>
             </tr>
 
 
             <tr>
               <td>JNK 20-day return<br><small>20-day return <span class='tip' tabindex='0' data-tip='How much something moved over roughly one trading month.'>?</span></small></td>
               <td><code>JNK <span class='tip' tabindex='0' data-tip='High-yield bond ETF, similar risk appetite signal to HYG.'>?</span></code></td>
-              <td>0.31%</td>
+              <td>0.3%</td>
             </tr>
 
 
@@ -524,17 +613,17 @@
       <div class="card-top">
         <div>
           <div class="eyebrow">AI STOCKS</div>
-          <strong>59.24</strong>
+          <strong>60.05</strong>
           <span class="pill status-watch">Watch</span>
         </div>
         <div class="icon">AI</div>
       </div>
-      <div class='bar status-watch'><span style='width:59%'></span></div>
+      <div class='bar status-watch'><span style='width:60%'></span></div>
 
     <svg class="tiny-chart status-watch" viewBox="0 0 220 58" role="img" aria-label="Subscore mini trend">
       <line x1="0" y1="29.0" x2="220" y2="29.0" class="guide"></line>
-      <polyline points="0.0,24.17 220.0,23.64"></polyline>
-      <circle cx="220.0" cy="23.64" r="3.5"></circle>
+      <polyline points="0.0,24.17 220.0,23.17"></polyline>
+      <circle cx="220.0" cy="23.17" r="3.5"></circle>
     </svg>
 
       <div class="action">
@@ -549,21 +638,21 @@
             <tr>
               <td>NVDA 20-day return<br><small>20-day return <span class='tip' tabindex='0' data-tip='How much something moved over roughly one trading month.'>?</span></small></td>
               <td><code>NVDA <span class='tip' tabindex='0' data-tip='NVIDIA. A core AI leader, so weakness here matters for AI-stock confidence.'>?</span></code></td>
-              <td>-6.4%</td>
+              <td>-5.96%</td>
             </tr>
 
 
             <tr>
               <td>SMH 20-day return<br><small>20-day return <span class='tip' tabindex='0' data-tip='How much something moved over roughly one trading month.'>?</span></small></td>
               <td><code>SMH <span class='tip' tabindex='0' data-tip='Semiconductor ETF. Useful for checking whether the AI chip group is healthy.'>?</span></code></td>
-              <td>0.93%</td>
+              <td>1.41%</td>
             </tr>
 
 
             <tr>
               <td>SOXX 20-day return<br><small>20-day return <span class='tip' tabindex='0' data-tip='How much something moved over roughly one trading month.'>?</span></small></td>
               <td><code>SOXX <span class='tip' tabindex='0' data-tip='Chip ETF. Another semiconductor group check.'>?</span></code></td>
-              <td>1.23%</td>
+              <td>1.7%</td>
             </tr>
 
 
@@ -620,14 +709,14 @@
             <tr>
               <td>Equal-weight S&amp;P 20-day return<br><small>20-day return <span class='tip' tabindex='0' data-tip='How much something moved over roughly one trading month.'>?</span></small></td>
               <td><code>RSP</code></td>
-              <td>3.71%</td>
+              <td>3.62%</td>
             </tr>
 
 
             <tr>
               <td>Small-cap 20-day return<br><small>20-day return <span class='tip' tabindex='0' data-tip='How much something moved over roughly one trading month.'>?</span></small></td>
               <td><code>IWM</code></td>
-              <td>5.31%</td>
+              <td>5.34%</td>
             </tr>
             </tbody>
       </table>
@@ -638,17 +727,17 @@
       <div class="card-top">
         <div>
           <div class="eyebrow">TOO STRETCHED?</div>
-          <strong>74.64</strong>
+          <strong>73.81</strong>
           <span class="pill status-good">Looks okay</span>
         </div>
         <div class="icon">%</div>
       </div>
-      <div class='bar status-good'><span style='width:75%'></span></div>
+      <div class='bar status-good'><span style='width:74%'></span></div>
 
     <svg class="tiny-chart status-good" viewBox="0 0 220 58" role="img" aria-label="Subscore mini trend">
       <line x1="0" y1="29.0" x2="220" y2="29.0" class="guide"></line>
-      <polyline points="0.0,19.42 220.0,14.71"></polyline>
-      <circle cx="220.0" cy="14.71" r="3.5"></circle>
+      <polyline points="0.0,19.42 220.0,15.19"></polyline>
+      <circle cx="220.0" cy="15.19" r="3.5"></circle>
     </svg>
 
       <div class="action">
@@ -663,28 +752,28 @@
             <tr>
               <td>SPY distance from 200-day<br><small>distance from 200-day <span class='tip' tabindex='0' data-tip='How far price is above or below its 200-day average. Very high can mean the trade is stretched.'>?</span></small></td>
               <td><code>SPY <span class='tip' tabindex='0' data-tip='ETF tracking the S&amp;P 500. Good for checking the broad US stock market.'>?</span></code></td>
-              <td>8.02%</td>
+              <td>8.0%</td>
             </tr>
 
 
             <tr>
               <td>QQQ distance from 200-day<br><small>distance from 200-day <span class='tip' tabindex='0' data-tip='How far price is above or below its 200-day average. Very high can mean the trade is stretched.'>?</span></small></td>
               <td><code>QQQ <span class='tip' tabindex='0' data-tip='ETF tracking Nasdaq 100. Useful for growth and mega-cap tech.'>?</span></code></td>
-              <td>11.66%</td>
+              <td>11.77%</td>
             </tr>
 
 
             <tr>
               <td>SMH distance from 200-day<br><small>distance from 200-day <span class='tip' tabindex='0' data-tip='How far price is above or below its 200-day average. Very high can mean the trade is stretched.'>?</span></small></td>
               <td><code>SMH <span class='tip' tabindex='0' data-tip='Semiconductor ETF. Useful for checking whether the AI chip group is healthy.'>?</span></code></td>
-              <td>34.06%</td>
+              <td>34.69%</td>
             </tr>
 
 
             <tr>
               <td>NVDA distance from 200-day<br><small>distance from 200-day <span class='tip' tabindex='0' data-tip='How far price is above or below its 200-day average. Very high can mean the trade is stretched.'>?</span></small></td>
               <td><code>NVDA <span class='tip' tabindex='0' data-tip='NVIDIA. A core AI leader, so weakness here matters for AI-stock confidence.'>?</span></code></td>
-              <td>0.38%</td>
+              <td>0.86%</td>
             </tr>
             </tbody>
       </table>
@@ -727,14 +816,14 @@
             <tr>
               <td>10Y yield 20-day change <span class='tip' tabindex='0' data-tip='How much the 10-year yield changed over about one month. Negative means yield eased; positive means rate pressure increased.'>?</span><br><small>20-day return <span class='tip' tabindex='0' data-tip='How much something moved over roughly one trading month.'>?</span></small></td>
               <td><code>^TNX <span class='tip' tabindex='0' data-tip='Yahoo&#x27;s 10-year Treasury yield proxy.'>?</span></code></td>
-              <td>0.45%</td>
+              <td>0.49%</td>
             </tr>
 
 
             <tr>
               <td>Dollar 20-day return <span class='tip' tabindex='0' data-tip='How much the US dollar moved over about one month. A stronger dollar can tighten financial conditions.'>?</span><br><small>20-day return <span class='tip' tabindex='0' data-tip='How much something moved over roughly one trading month.'>?</span></small></td>
               <td><code>DX-Y.NYB</code></td>
-              <td>0.82%</td>
+              <td>0.81%</td>
             </tr>
             </tbody>
       </table>
@@ -745,7 +834,7 @@
       <div class="card-top">
         <div>
           <div class="eyebrow">VOLATILITY</div>
-          <strong>85.23</strong>
+          <strong>85.18</strong>
           <span class="pill status-good">Looks okay</span>
         </div>
         <div class="icon">~</div>
@@ -754,8 +843,8 @@
 
     <svg class="tiny-chart status-good" viewBox="0 0 220 58" role="img" aria-label="Subscore mini trend">
       <line x1="0" y1="29.0" x2="220" y2="29.0" class="guide"></line>
-      <polyline points="0.0,5.8 220.0,8.57"></polyline>
-      <circle cx="220.0" cy="8.57" r="3.5"></circle>
+      <polyline points="0.0,5.8 220.0,8.6"></polyline>
+      <circle cx="220.0" cy="8.6" r="3.5"></circle>
     </svg>
 
       <div class="action">
@@ -777,14 +866,14 @@
             <tr>
               <td>SPY 5-day return<br><small>5-day return <span class='tip' tabindex='0' data-tip='How much something moved over roughly one trading week.'>?</span></small></td>
               <td><code>SPY <span class='tip' tabindex='0' data-tip='ETF tracking the S&amp;P 500. Good for checking the broad US stock market.'>?</span></code></td>
-              <td>1.05%</td>
+              <td>1.04%</td>
             </tr>
 
 
             <tr>
               <td>QQQ 5-day return<br><small>5-day return <span class='tip' tabindex='0' data-tip='How much something moved over roughly one trading week.'>?</span></small></td>
               <td><code>QQQ <span class='tip' tabindex='0' data-tip='ETF tracking Nasdaq 100. Useful for growth and mega-cap tech.'>?</span></code></td>
-              <td>-1.89%</td>
+              <td>-1.8%</td>
             </tr>
             </tbody>
       </table>
@@ -838,6 +927,11 @@
                 </li>
 
                 <li>
+                  <a href="https://www.fool.com/investing/2026/07/07/heres-what-wall-street-must-see-before-palantir-st/?.tsrc=rss" target="_blank" rel="noopener noreferrer">Here&#x27;s What Wall Street Must See Before Palantir Stock Can Rally Again</a>
+                  <span>Yahoo Finance Tue, 07 Jul 2026 13:41:00 +0000</span>
+                </li>
+
+                <li>
                   <a href="https://finance.yahoo.com/technology/ai/articles/unimicron-seeks-1-4-billion-134029386.html?.tsrc=rss" target="_blank" rel="noopener noreferrer">Unimicron Seeks $1.4 Billion After 700% AI Rally</a>
                   <span>Yahoo Finance Tue, 07 Jul 2026 13:40:29 +0000</span>
                 </li>
@@ -853,13 +947,8 @@
                 </li>
 
                 <li>
-                  <a href="https://247wallst.com/investing/2026/07/07/cramer-says-forget-the-data-center-darlings-this-boring-ai-stock-at-22x-is-the-buy/?.tsrc=rss" target="_blank" rel="noopener noreferrer">Cramer Says Forget the Data-Center Darlings. This ‘Boring’ AI Stock at 22x Is the Buy.</a>
+                  <a href="https://www.fool.com/investing/2026/07/07/spacex-has-already-dropped-30-from-its-peak-time/?.tsrc=rss" target="_blank" rel="noopener noreferrer">SpaceX Has Already Dropped 30% From Its Peak: Time To Buy Below $165?</a>
                   <span>Yahoo Finance Tue, 07 Jul 2026 13:35:00 +0000</span>
-                </li>
-
-                <li>
-                  <a href="https://247wallst.com/investing/2026/07/07/nvidias-next-growth-wave-may-be-just-beginning-we-see-a-28-upside/?.tsrc=rss" target="_blank" rel="noopener noreferrer">Nvidia’s Next Growth Wave May Be Just Beginning: We See a 28% Upside</a>
-                  <span>Yahoo Finance Tue, 07 Jul 2026 13:30:00 +0000</span>
                 </li>
                 </ul>
             </section>
@@ -923,7 +1012,7 @@
 
 
     <h2>Recent Score History</h2>
-    <pre>2026-07-06: 68.52, 2026-07-07: 67.87</pre>
+    <pre>2026-07-06: 68.52, 2026-07-07: 67.9</pre>
   </main>
 </body>
 </html>

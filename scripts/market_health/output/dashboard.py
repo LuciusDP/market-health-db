@@ -302,18 +302,31 @@ def _drivers_list(title: str, items: list[tuple[str, dict]], mode: str) -> str:
         delta = None if score is None else round(score - 50, 2)
         label = SUBSCORE_TITLES.get(name, name.replace("_", " ").title())
         driver = _plain_driver(name, payload, mode)
+        status = _status_class(score, name)
+        status_label = _status_label(score, name)
+        intent = "helped" if mode == "leader" else "check"
         rows.append(
             f"""
-            <li>
-              <div><span class="mini-icon">{escape(SUBSCORE_ICONS.get(name, "?"))}</span><strong>{escape(label)}</strong> <span class="delta">{_fmt(delta, " from 50")}</span></div>
+            <article class="driver-tile {escape(status)}">
+              <div class="driver-head">
+                <span class="driver-icon">{escape(SUBSCORE_ICONS.get(name, "?"))}</span>
+                <div>
+                  <strong>{escape(label)}</strong>
+                  <span class="delta">{_fmt(delta, " from 50")}</span>
+                </div>
+              </div>
+              <div class="driver-meta">
+                <span class="pill {escape(status)}">{escape(status_label)}</span>
+                <span class="intent">{escape(intent)}</span>
+              </div>
               <p>{escape(driver)}</p>
-            </li>
+            </article>
             """
         )
     return f"""
-    <section class="card">
+    <section class="card driver-card {escape('driver-positive' if mode == 'leader' else 'driver-caution')}">
       <div class="eyebrow">{escape(title.upper())}</div>
-      <ul class="driver-list">{''.join(rows)}</ul>
+      <div class="driver-grid">{''.join(rows)}</div>
     </section>
     """
 
@@ -345,18 +358,21 @@ def _today_diagnosis(record: dict, previous: dict | None) -> str:
     previous_score = previous.get("market_health_score") if previous else None
     score_delta = _change_badge(record.get("market_health_score"), previous_score)
     return f"""
-    <section class="panel diagnosis">
-      <div class="eyebrow">TODAY'S READ</div>
-      <h2>{escape(record.get("risk_regime", "n/a"))}: {escape(record.get("stance", "n/a"))}</h2>
+    <section class="panel diagnosis hero-card">
+      <div class="hero-topline">
+        <div class="eyebrow">TODAY'S READ</div>
+        <span class="pill {_status_class(record.get("market_health_score"))}">{escape(record.get("stance", "n/a"))}</span>
+      </div>
+      <h2>{escape(record.get("risk_regime", "n/a"))}</h2>
       <div class="score-line">
         <span class="big-score">{_fmt(record.get("market_health_score"))}</span>
         {score_delta}
       </div>
       <p class="plain-read">{escape(_plain_score_sentence(record.get("market_health_score")))}</p>
-      <p>
-        The biggest help today is <strong>{escape(leader_name)}</strong>.
-        The thing to check first is <strong>{escape(drag_name)}</strong>.
-      </p>
+      <div class="focus-strip">
+        <div class="focus-chip good"><span>{escape(SUBSCORE_ICONS.get(top_leader[0], "+"))}</span><div><small>Biggest help</small><strong>{escape(leader_name)}</strong></div></div>
+        <div class="focus-chip danger"><span>{escape(SUBSCORE_ICONS.get(top_drag[0], "!"))}</span><div><small>Check first</small><strong>{escape(drag_name)}</strong></div></div>
+      </div>
       <p>{escape(drag_detail)}</p>
       <p class="callout">{escape(_largest_subscore_moves(record, previous))}</p>
       <p class="muted">
@@ -427,7 +443,7 @@ def _core_actions(record: dict) -> str:
 
     rows = "\n".join(
         f"""
-        <li>
+        <li class="action-item">
           <span class="action-number">{escape(number)}</span>
           <div><strong>{escape(title)}</strong><p>{escape(text)}</p></div>
         </li>
@@ -679,6 +695,8 @@ def generate_dashboard(record: dict, history: dict) -> None:
     .eyebrow {{ color: var(--blue); font-size: 12px; font-weight: 800; letter-spacing: .08em; }}
     .hero {{ display: grid; grid-template-columns: 1.4fr .6fr; gap: 16px; align-items: start; }}
     .panel, .card {{ background: var(--paper); border: 1px solid var(--line); border-radius: 8px; padding: 18px; box-shadow: 0 8px 24px rgba(29, 78, 216, .05); }}
+    .hero-card {{ background: linear-gradient(135deg, #ffffff 0%, #f8fbff 48%, #eefdf5 100%); border-color: #c7d7ee; }}
+    .hero-topline {{ display: flex; align-items: center; justify-content: space-between; gap: 12px; }}
     .score {{ font-size: 64px; line-height: 1; margin: 10px 0; font-weight: 800; }}
     .grid {{ display: grid; grid-template-columns: repeat(auto-fit, minmax(330px, 1fr)); gap: 14px; }}
     .card strong {{ display: block; font-size: 30px; margin: 8px 0; }}
@@ -710,10 +728,30 @@ def generate_dashboard(record: dict, history: dict) -> None:
     .score-line {{ display: flex; align-items: center; gap: 12px; margin: 8px 0; }}
     .big-score {{ font-size: 58px; font-weight: 850; line-height: 1; }}
     .plain-read {{ font-size: 18px; font-weight: 700; margin: 10px 0; }}
-    .driver-list {{ list-style: none; margin: 12px 0 0; padding: 0; }}
-    .driver-list li {{ border-top: 1px solid #edf0f5; padding: 11px 0; }}
-    .driver-list li:first-child {{ border-top: 0; }}
-    .driver-list p {{ margin: 6px 0 0; color: #344054; }}
+    .focus-strip {{ display: grid; grid-template-columns: repeat(auto-fit, minmax(210px, 1fr)); gap: 10px; margin: 16px 0 12px; }}
+    .focus-chip {{ display: grid; grid-template-columns: 42px 1fr; align-items: center; gap: 10px; border-radius: 8px; padding: 12px; border: 1px solid #e5eaf2; background: #fff; }}
+    .focus-chip > span {{ width: 42px; height: 42px; display: grid; place-items: center; border-radius: 8px; color: white; font-weight: 900; }}
+    .focus-chip small {{ display: block; margin-bottom: 2px; }}
+    .focus-chip strong {{ font-size: 18px; }}
+    .focus-chip.good {{ border-color: #bbf7d0; background: #f0fdf4; }}
+    .focus-chip.good > span {{ background: var(--green); }}
+    .focus-chip.danger {{ border-color: #fecaca; background: #fff7ed; }}
+    .focus-chip.danger > span {{ background: var(--red); }}
+    .driver-card {{ padding: 0; overflow: hidden; }}
+    .driver-card > .eyebrow {{ display: block; padding: 14px 16px; color: #0f172a; }}
+    .driver-positive > .eyebrow {{ background: #dcfce7; }}
+    .driver-caution > .eyebrow {{ background: #fee2e2; }}
+    .driver-grid {{ display: grid; gap: 10px; padding: 14px; }}
+    .driver-tile {{ border: 1px solid #e5eaf2; border-radius: 8px; padding: 12px; background: #fff; }}
+    .driver-tile.status-good {{ border-color: #bbf7d0; background: #f7fff9; }}
+    .driver-tile.status-watch {{ border-color: #fde68a; background: #fffbeb; }}
+    .driver-tile.status-danger {{ border-color: #fecaca; background: #fff7f7; }}
+    .driver-head {{ display: grid; grid-template-columns: 38px 1fr; align-items: center; gap: 10px; }}
+    .driver-head strong {{ display: inline; font-size: 21px; margin: 0; }}
+    .driver-icon {{ width: 38px; height: 38px; display: grid; place-items: center; border-radius: 8px; background: #eaf2ff; color: var(--blue); font-weight: 900; }}
+    .driver-meta {{ display: flex; align-items: center; gap: 8px; margin: 10px 0 0; }}
+    .intent {{ color: var(--muted); font-size: 12px; font-weight: 800; text-transform: uppercase; }}
+    .driver-tile p {{ margin: 9px 0 0; color: #344054; }}
     .delta {{ color: var(--muted); font-size: 12px; margin-left: 6px; }}
     .threshold-row {{ border-top: 1px solid #edf0f5; padding: 10px 0; display: grid; grid-template-columns: 58px 1fr; gap: 8px; }}
     .threshold-row:first-child {{ border-top: 0; }}
@@ -745,11 +783,15 @@ def generate_dashboard(record: dict, history: dict) -> None:
     .subscore-card.status-danger {{ border-color: #fecaca; }}
     td span {{ color: var(--muted); }}
     small {{ color: var(--muted); font-size: 12px; }}
+    .core-actions {{ background: linear-gradient(180deg, #ffffff, #f8fbff); }}
     .core-actions ul {{ list-style: none; margin: 12px 0; padding: 0; }}
     .core-actions li {{ display: grid; grid-template-columns: 34px 1fr; gap: 10px; border-top: 1px solid #edf0f5; padding: 12px 0; }}
     .core-actions li:first-child {{ border-top: 0; }}
     .core-actions p {{ margin: 4px 0 0; color: #344054; }}
     .action-number {{ display: grid; place-items: center; width: 28px; height: 28px; border-radius: 8px; background: #102a43; color: white; font-weight: 900; }}
+    .action-item:nth-child(1) .action-number {{ background: var(--blue); }}
+    .action-item:nth-child(2) .action-number {{ background: var(--amber); }}
+    .action-item:nth-child(3) .action-number {{ background: var(--green); }}
     pre {{ white-space: pre-wrap; background: #101828; color: #f8fafc; padding: 16px; border-radius: 8px; overflow-x: auto; }}
     @media (max-width: 760px) {{ header, .hero {{ display: block; }} .panel {{ margin-bottom: 12px; }} .score {{ font-size: 52px; }} }}
   </style>
