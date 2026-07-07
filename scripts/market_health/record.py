@@ -3,7 +3,7 @@ from __future__ import annotations
 from scripts.market_health.utils import utc_now_iso
 
 
-def build_daily_record(today: str, indicators: dict, scores: dict, fetch_errors: dict) -> dict:
+def build_daily_record(today: str, indicators: dict, scores: dict, market_errors: dict, news: dict) -> dict:
     return {
         "date": today,
         "market_health_score": scores["market_health_score"],
@@ -22,6 +22,7 @@ def build_daily_record(today: str, indicators: dict, scores: dict, fetch_errors:
             "Score is a weighted blend of liquidity, credit, AI fundamentals, breadth, valuation, macro, and geopolitical proxies.",
             "Each subscore uses stable, explainable market-derived indicators so records remain comparable over time.",
         ],
+        "news": news,
         "backtest": {
             "filled_next_day": False,
             "actual_sp500_return": None,
@@ -35,7 +36,9 @@ def build_daily_record(today: str, indicators: dict, scores: dict, fetch_errors:
             "engine_version": "1.0",
             "generated_at": utc_now_iso(),
             "data_source": "Yahoo Finance chart endpoint",
-            "fetch_errors": fetch_errors,
+            "fetch_errors": {
+                "market_data": market_errors,
+                "news": news.get("errors", {}),
+            },
         },
     }
-

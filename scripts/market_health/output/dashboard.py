@@ -16,6 +16,57 @@ def _fmt(value: float | int | None, suffix: str = "") -> str:
     return f"{value}{suffix}"
 
 
+def _evidence_rows(payload: dict) -> str:
+    rows = []
+    for item in payload.get("evidence", []):
+        rows.append(
+            f"""
+            <tr>
+              <td>{escape(item.get("label", ""))}</td>
+              <td>{escape(item.get("symbol", ""))}</td>
+              <td>{escape(str(item.get("display", "n/a")))}</td>
+            </tr>
+            """
+        )
+    return "\n".join(rows)
+
+
+def _reasoning_items(payload: dict) -> str:
+    return "\n".join(f"<li>{escape(item)}</li>" for item in payload.get("reasoning", []))
+
+
+def _headline_groups(record: dict) -> str:
+    groups = record.get("news", {}).get("groups", {})
+    if not groups:
+        return "<p class='muted'>No headlines available.</p>"
+
+    sections = []
+    for group, headlines in groups.items():
+        items = []
+        for headline in headlines:
+            title = escape(headline.get("title") or "Untitled")
+            link = escape(headline.get("link") or "#")
+            source = escape(headline.get("source") or "Yahoo Finance")
+            published = escape(headline.get("published") or "")
+            items.append(
+                f"""
+                <li>
+                  <a href="{link}" target="_blank" rel="noopener noreferrer">{title}</a>
+                  <span>{source} {published}</span>
+                </li>
+                """
+            )
+        sections.append(
+            f"""
+            <section class="card">
+              <div class="label">{escape(group.title())}</div>
+              <ul class="headline-list">{''.join(items) or '<li>No headlines available.</li>'}</ul>
+            </section>
+            """
+        )
+    return "\n".join(sections)
+
+
 def generate_dashboard(record: dict, history: dict) -> None:
     DASHBOARD_DIR.mkdir(parents=True, exist_ok=True)
     subscores = record.get("sub_scores", {})
@@ -27,10 +78,19 @@ def generate_dashboard(record: dict, history: dict) -> None:
     )
     subscore_cards = "\n".join(
         f"""
-        <section class="card">
-          <div class="label">{escape(name.replace("_", " ").title())}</div>
-          <strong>{_fmt(payload.get("score"))}</strong>
+        <section class="card subscore-card">
+          <div class="card-top">
+            <div>
+              <div class="label">{escape(name.replace("_", " ").title())}</div>
+              <strong>{_fmt(payload.get("score"))}</strong>
+            </div>
+          </div>
           {_bar(payload.get("score"))}
+          <ul class="reasoning">{_reasoning_items(payload)}</ul>
+          <table>
+            <thead><tr><th>Indicator</th><th>Symbol</th><th>Value</th></tr></thead>
+            <tbody>{_evidence_rows(payload)}</tbody>
+          </table>
         </section>
         """
         for name, payload in subscores.items()
@@ -52,10 +112,20 @@ def generate_dashboard(record: dict, history: dict) -> None:
     .hero {{ display: grid; grid-template-columns: minmax(220px, 1fr) minmax(220px, 1fr); gap: 16px; }}
     .panel, .card {{ background: #fff; border: 1px solid #d9dee7; border-radius: 8px; padding: 18px; }}
     .score {{ font-size: 56px; line-height: 1; margin: 10px 0; }}
-    .grid {{ display: grid; grid-template-columns: repeat(auto-fit, minmax(190px, 1fr)); gap: 12px; }}
+    .grid {{ display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 12px; }}
     .card strong {{ display: block; font-size: 28px; margin: 8px 0; }}
     .bar {{ height: 10px; background: #e5e8ef; border-radius: 999px; overflow: hidden; }}
     .bar span {{ display: block; height: 100%; background: #166534; }}
+    .reasoning {{ margin: 14px 0; padding-left: 18px; color: #344054; }}
+    table {{ width: 100%; border-collapse: collapse; font-size: 13px; }}
+    th, td {{ border-top: 1px solid #edf0f5; padding: 8px 4px; text-align: left; vertical-align: top; }}
+    th {{ color: #5f6b7a; font-weight: 600; }}
+    a {{ color: #0b5cad; text-decoration: none; }}
+    a:hover {{ text-decoration: underline; }}
+    .headline-list {{ list-style: none; padding: 0; margin: 12px 0 0; }}
+    .headline-list li {{ border-top: 1px solid #edf0f5; padding: 10px 0; }}
+    .headline-list li:first-child {{ border-top: 0; }}
+    .headline-list span {{ display: block; margin-top: 4px; color: #667085; font-size: 12px; }}
     pre {{ white-space: pre-wrap; background: #101828; color: #f8fafc; padding: 16px; border-radius: 8px; overflow-x: auto; }}
     @media (max-width: 760px) {{ header, .hero {{ display: block; }} .panel {{ margin-bottom: 12px; }} }}
   </style>
@@ -86,6 +156,9 @@ def generate_dashboard(record: dict, history: dict) -> None:
     <h2>Subscores</h2>
     <section class="grid">{subscore_cards}</section>
 
+    <h2>Daily Headlines</h2>
+    <section class="grid">{_headline_groups(record)}</section>
+
     <h2>Prediction Accuracy</h2>
     <section class="panel">
       <p>Lifetime accuracy: <strong>{_fmt(accuracy.get("accuracy"), "%")}</strong></p>
@@ -99,4 +172,3 @@ def generate_dashboard(record: dict, history: dict) -> None:
 </html>
 """
     (DASHBOARD_DIR / "index.html").write_text(html, encoding="utf-8")
-

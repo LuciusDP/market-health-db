@@ -18,6 +18,17 @@ def _basket(indicators: dict, symbols: list[str], field: str) -> list[float | No
     return [_value(indicators, symbol, field) for symbol in symbols]
 
 
+def _point(indicators: dict, symbol: str, field: str, label: str, suffix: str = "") -> dict:
+    value = _value(indicators, symbol, field)
+    return {
+        "label": label,
+        "symbol": symbol,
+        "field": field,
+        "value": value,
+        "display": "n/a" if value is None else f"{round(value, 2) if isinstance(value, float) else value}{suffix}",
+    }
+
+
 def score_liquidity(indicators: dict) -> tuple[float, list[str]]:
     score = average_score(
         [
@@ -125,6 +136,55 @@ def build_subscores(indicators: dict) -> dict:
     result: dict[str, dict] = {}
     for name, func in scoring_functions.items():
         score, reasoning = func(indicators)
-        result[name] = {"score": score, "reasoning": reasoning}
+        result[name] = {
+            "score": score,
+            "reasoning": reasoning,
+            "evidence": evidence_for_subscore(name, indicators),
+        }
     return result
 
+
+def evidence_for_subscore(name: str, indicators: dict) -> list[dict]:
+    evidence = {
+        "liquidity": [
+            _point(indicators, "^VIX", "close", "VIX level"),
+            _point(indicators, "DX-Y.NYB", "return_20d", "Dollar 20-day return", "%"),
+            _point(indicators, "SPY", "above_50d", "SPY above 50-day"),
+            _point(indicators, "QQQ", "above_50d", "QQQ above 50-day"),
+        ],
+        "credit": [
+            _point(indicators, "HYG", "return_20d", "HYG 20-day return", "%"),
+            _point(indicators, "JNK", "return_20d", "JNK 20-day return", "%"),
+            _point(indicators, "HYG", "above_50d", "HYG above 50-day"),
+            _point(indicators, "JNK", "above_50d", "JNK above 50-day"),
+        ],
+        "ai_fundamentals": [
+            _point(indicators, "NVDA", "return_20d", "NVDA 20-day return", "%"),
+            _point(indicators, "SMH", "return_20d", "SMH 20-day return", "%"),
+            _point(indicators, "SOXX", "return_20d", "SOXX 20-day return", "%"),
+            _point(indicators, "AVGO", "above_50d", "AVGO above 50-day"),
+        ],
+        "market_breadth": [
+            _point(indicators, "SPY", "above_200d", "SPY above 200-day"),
+            _point(indicators, "QQQ", "above_200d", "QQQ above 200-day"),
+            _point(indicators, "RSP", "return_20d", "Equal-weight S&P 20-day return", "%"),
+            _point(indicators, "IWM", "return_20d", "Small-cap 20-day return", "%"),
+        ],
+        "valuation_risk": [
+            _point(indicators, "SPY", "distance_from_200d", "SPY distance from 200-day", "%"),
+            _point(indicators, "QQQ", "distance_from_200d", "QQQ distance from 200-day", "%"),
+            _point(indicators, "SMH", "distance_from_200d", "SMH distance from 200-day", "%"),
+            _point(indicators, "NVDA", "distance_from_200d", "NVDA distance from 200-day", "%"),
+        ],
+        "macro_risk": [
+            _point(indicators, "^TNX", "close", "10Y Treasury yield proxy"),
+            _point(indicators, "^TNX", "return_20d", "10Y yield 20-day change", "%"),
+            _point(indicators, "DX-Y.NYB", "return_20d", "Dollar 20-day return", "%"),
+        ],
+        "geopolitical_risk": [
+            _point(indicators, "^VIX", "close", "VIX level"),
+            _point(indicators, "SPY", "return_5d", "SPY 5-day return", "%"),
+            _point(indicators, "QQQ", "return_5d", "QQQ 5-day return", "%"),
+        ],
+    }
+    return evidence.get(name, [])
