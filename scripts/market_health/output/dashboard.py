@@ -30,7 +30,7 @@ SUBSCORE_TITLES = {
     "market_breadth": "Market Breadth",
     "valuation_risk": "Valuation Risk",
     "macro_risk": "Macro Risk",
-    "geopolitical_risk": "Geopolitical Risk",
+    "geopolitical_risk": "Shock Risk",
 }
 
 
@@ -100,6 +100,137 @@ def _threshold_table() -> str:
     return "\n".join(rows)
 
 
+def _threshold_sidebar() -> str:
+    rows = []
+    for threshold, label, action, _meaning in SCORE_BANDS:
+        if threshold == 75:
+            range_text = "75-100"
+        elif threshold == 60:
+            range_text = "60-74"
+        elif threshold == 45:
+            range_text = "45-59"
+        elif threshold == 30:
+            range_text = "30-44"
+        else:
+            range_text = "0-29"
+        rows.append(
+            f"""
+            <div class="threshold-row">
+              <span>{range_text}</span>
+              <strong>{escape(label)}</strong>
+              <small>{escape(action)}</small>
+            </div>
+            """
+        )
+    return "\n".join(rows)
+
+
+def _subscore_rankings(record: dict) -> tuple[list[tuple[str, dict]], list[tuple[str, dict]]]:
+    items = list(record.get("sub_scores", {}).items())
+    leaders = sorted(items, key=lambda item: item[1].get("score") or 0, reverse=True)[:3]
+    drags = sorted(items, key=lambda item: item[1].get("score") or 0)[:3]
+    return leaders, drags
+
+
+def _drivers_list(title: str, items: list[tuple[str, dict]], mode: str) -> str:
+    rows = []
+    for name, payload in items:
+        score = payload.get("score")
+        delta = None if score is None else round(score - 50, 2)
+        label = SUBSCORE_TITLES.get(name, name.replace("_", " ").title())
+        driver = _plain_driver(name, payload, mode)
+        rows.append(
+            f"""
+            <li>
+              <div><strong>{escape(label)}</strong> <span class="delta">{_fmt(delta, " vs neutral")}</span></div>
+              <p>{escape(driver)}</p>
+            </li>
+            """
+        )
+    return f"""
+    <section class="card">
+      <div class="eyebrow">{escape(title.upper())}</div>
+      <ul class="driver-list">{''.join(rows)}</ul>
+    </section>
+    """
+
+
+def _plain_driver(name: str, payload: dict, mode: str) -> str:
+    evidence = payload.get("evidence", [])
+    available = [item for item in evidence if item.get("display") != "n/a"]
+    if not available:
+        return "No reliable driver data was available for this sleeve today."
+    facts = "; ".join(
+        f"{item.get('label')}: {item.get('display')}"
+        for item in available[:3]
+    )
+    if mode == "leader":
+        return f"This sleeve is supporting the score. Key checks: {facts}."
+    score = payload.get("score") or 0
+    if score < 50:
+        return f"This is an active drag. Verify before adding risk: {facts}."
+    return f"This is not weak, but it is below the Strong zone. Check before upgrading exposure: {facts}."
+
+
+def _today_diagnosis(record: dict) -> str:
+    leaders, drags = _subscore_rankings(record)
+    top_leader = leaders[0] if leaders else (None, {})
+    top_drag = drags[0] if drags else (None, {})
+    leader_name = SUBSCORE_TITLES.get(top_leader[0], "n/a")
+    drag_name = SUBSCORE_TITLES.get(top_drag[0], "n/a")
+    drag_detail = _plain_driver(top_drag[0], top_drag[1], "drag") if top_drag[0] else ""
+    return f"""
+    <section class="panel diagnosis">
+      <div class="eyebrow">TODAY'S READ</div>
+      <h2>{escape(record.get("risk_regime", "n/a"))}: {escape(record.get("stance", "n/a"))}</h2>
+      <p>
+        Market health is <strong>{_fmt(record.get("market_health_score"))}</strong>.
+        The strongest support is <strong>{escape(leader_name)}</strong>;
+        the main reason this is not stronger is <strong>{escape(drag_name)}</strong>.
+      </p>
+      <p>{escape(drag_detail)}</p>
+      <p class="muted">
+        Use this as an AI-stock risk climate check: confirm whether AI leadership is broadening,
+        whether credit is improving, and whether rate pressure is moving against long-duration growth.
+      </p>
+    </section>
+    """
+
+
+def _watchlist_panel(record: dict) -> str:
+    indicators = record.get("indicators", {})
+    watch_items = [
+        ("NVDA", "AI leader check", "return_20d"),
+        ("SMH", "Semiconductor ETF confirmation", "return_20d"),
+        ("SOXX", "Chip breadth confirmation", "return_20d"),
+        ("HYG", "Credit risk appetite", "return_20d"),
+        ("^VIX", "Shock-risk level", "close"),
+        ("^TNX", "Rate pressure", "close"),
+    ]
+    rows = []
+    for symbol, label, field in watch_items:
+        value = indicators.get(symbol, {}).get(field)
+        suffix = "%" if "return" in field else ""
+        rows.append(
+            f"""
+            <tr>
+              <td><code>{escape(symbol)}</code></td>
+              <td>{escape(label)}</td>
+              <td>{_fmt(value, suffix)}</td>
+            </tr>
+            """
+        )
+    return f"""
+    <section class="panel">
+      <div class="eyebrow">WHAT TO VERIFY BEFORE TRADING</div>
+      <table>
+        <thead><tr><th>Ticker</th><th>Why it matters</th><th>Current read</th></tr></thead>
+        <tbody>{''.join(rows)}</tbody>
+      </table>
+    </section>
+    """
+
+
 def _headline_groups(record: dict) -> str:
     groups = record.get("news", {}).get("groups", {})
     if not groups:
@@ -124,7 +255,7 @@ def _headline_groups(record: dict) -> str:
         sections.append(
             f"""
             <section class="card">
-              <div class="eyebrow">{escape(group.upper())}</div>
+              <div class="eyebrow">{escape(group.upper())} CONTEXT TO VERIFY</div>
               <ul class="headline-list">{''.join(items) or '<li>No headlines available.</li>'}</ul>
             </section>
             """
@@ -177,6 +308,7 @@ def generate_dashboard(record: dict, history: dict) -> None:
         _subscore_card(name, payload)
         for name, payload in subscores.items()
     )
+    leaders, drags = _subscore_rankings(record)
 
     html = f"""<!doctype html>
 <html lang="en">
@@ -208,7 +340,7 @@ def generate_dashboard(record: dict, history: dict) -> None:
     a:hover {{ text-decoration: underline; }}
     .muted, .label {{ color: var(--muted); }}
     .eyebrow {{ color: var(--blue); font-size: 12px; font-weight: 800; letter-spacing: .08em; }}
-    .hero {{ display: grid; grid-template-columns: 1.1fr .9fr; gap: 16px; }}
+    .hero {{ display: grid; grid-template-columns: 1.4fr .6fr; gap: 16px; align-items: start; }}
     .panel, .card {{ background: var(--paper); border: 1px solid var(--line); border-radius: 8px; padding: 18px; box-shadow: 0 8px 24px rgba(29, 78, 216, .05); }}
     .score {{ font-size: 64px; line-height: 1; margin: 10px 0; font-weight: 800; }}
     .grid {{ display: grid; grid-template-columns: repeat(auto-fit, minmax(330px, 1fr)); gap: 14px; }}
@@ -231,6 +363,16 @@ def generate_dashboard(record: dict, history: dict) -> None:
     .metric-row {{ display: grid; grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); gap: 14px; }}
     .metric-row strong {{ font-size: 26px; }}
     .callout {{ margin: 14px 0 0; padding: 12px; border-left: 4px solid var(--blue); background: #f8fbff; border-radius: 6px; }}
+    .diagnosis h2 {{ margin-top: 8px; font-size: 32px; }}
+    .driver-list {{ list-style: none; margin: 12px 0 0; padding: 0; }}
+    .driver-list li {{ border-top: 1px solid #edf0f5; padding: 11px 0; }}
+    .driver-list li:first-child {{ border-top: 0; }}
+    .driver-list p {{ margin: 6px 0 0; color: #344054; }}
+    .delta {{ color: var(--muted); font-size: 12px; margin-left: 6px; }}
+    .threshold-row {{ border-top: 1px solid #edf0f5; padding: 10px 0; display: grid; grid-template-columns: 58px 1fr; gap: 8px; }}
+    .threshold-row:first-child {{ border-top: 0; }}
+    .threshold-row span {{ color: var(--muted); font-size: 12px; }}
+    .threshold-row small {{ grid-column: 2; color: #344054; }}
     pre {{ white-space: pre-wrap; background: #101828; color: #f8fafc; padding: 16px; border-radius: 8px; overflow-x: auto; }}
     @media (max-width: 760px) {{ header, .hero {{ display: block; }} .panel {{ margin-bottom: 12px; }} .score {{ font-size: 52px; }} }}
   </style>
@@ -246,29 +388,27 @@ def generate_dashboard(record: dict, history: dict) -> None:
     </header>
 
     <section class="hero">
-      <div class="panel">
+      <div>
+        {_today_diagnosis(record)}
+        <div class="hero" style="grid-template-columns: 1fr 1fr; margin-top: 16px;">
+          {_drivers_list("What lifted the score", leaders, "leader")}
+          {_drivers_list("Why it is not stronger", drags, "drag")}
+        </div>
+      </div>
+      <aside class="panel">
         <div class="eyebrow">TODAY'S MARKET HEALTH</div>
         <div class="score">{_fmt(record.get("market_health_score"))}</div>
         {_bar(record.get("market_health_score"))}
         <div class="action"><strong>{escape(band_label)}: {escape(action)}</strong><br>{escape(meaning)}</div>
-      </div>
-      <div class="panel">
-        <div class="eyebrow">REGIME AND AI STANCE</div>
-        <h2>{escape(record.get("risk_regime", "n/a"))}</h2>
-        <p><strong>{escape(record.get("stance", "n/a"))}</strong> stance with {_fmt(record.get("confidence"), "%")} confidence.</p>
-        <p class="muted">The score is not a price target. It is a risk climate check for AI-heavy equity exposure.</p>
-      </div>
+        <h2>Thresholds</h2>
+        {_threshold_sidebar()}
+      </aside>
     </section>
 
-    <h2>Score Thresholds</h2>
-    <section class="panel">
-      <table>
-        <thead><tr><th>Score</th><th>Regime</th><th>Action</th><th>AI portfolio meaning</th></tr></thead>
-        <tbody>{_threshold_table()}</tbody>
-      </table>
-    </section>
+    <h2>Trading Checklist</h2>
+    {_watchlist_panel(record)}
 
-    <h2>Subscores</h2>
+    <h2>Subscore Detail</h2>
     <section class="grid">{subscore_cards}</section>
 
     <h2>Daily Headlines</h2>
