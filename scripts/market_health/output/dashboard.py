@@ -43,6 +43,33 @@ WATCH_ITEMS = [
     ("^TNX", "10Y yield", "Are rates pressuring growth stocks?", "close", ""),
 ]
 
+GLOSSARY = {
+    "VIX level": "VIX is the market's fear gauge. Higher VIX usually means investors expect bigger daily moves.",
+    "Shock-risk level": "A quick fear check. If this jumps, crowded AI stocks can move sharply even without company news.",
+    "close": "The latest available market price or index level.",
+    "level": "The current reading of an index, yield, or price, not a percentage change.",
+    "return_5d": "The percentage move over roughly the last 5 trading days.",
+    "return_20d": "The percentage move over roughly the last 20 trading days, about one trading month.",
+    "5-day return": "How much something moved over roughly one trading week.",
+    "20-day return": "How much something moved over roughly one trading month.",
+    "above_50d": "Whether price is above its 50-day average. Above is usually healthier; below means momentum is weaker.",
+    "above 50-day": "Price is above its average price from the last 50 trading days.",
+    "HYG above 50-day": "HYG tracks high-yield bonds. If it is below its 50-day average, investors may be less comfortable taking risk.",
+    "10Y Treasury yield proxy": "The 10-year US Treasury yield. Higher yields can pressure growth stocks because future profits get discounted more heavily.",
+    "10Y yield 20-day change": "How much the 10-year yield changed over about one month. Negative means yield eased; positive means rate pressure increased.",
+    "Dollar 20-day return": "How much the US dollar moved over about one month. A stronger dollar can tighten financial conditions.",
+    "distance from 200-day": "How far price is above or below its 200-day average. Very high can mean the trade is stretched.",
+    "SPY": "ETF tracking the S&P 500. Good for checking the broad US stock market.",
+    "QQQ": "ETF tracking Nasdaq 100. Useful for growth and mega-cap tech.",
+    "NVDA": "NVIDIA. A core AI leader, so weakness here matters for AI-stock confidence.",
+    "SMH": "Semiconductor ETF. Useful for checking whether the AI chip group is healthy.",
+    "SOXX": "Chip ETF. Another semiconductor group check.",
+    "HYG": "High-yield bond ETF. It helps show whether investors still want risky assets.",
+    "JNK": "High-yield bond ETF, similar risk appetite signal to HYG.",
+    "^TNX": "Yahoo's 10-year Treasury yield proxy.",
+    "^VIX": "Yahoo's VIX symbol, the market fear gauge.",
+}
+
 
 def _band(value: float | None) -> tuple[str, str, str]:
     if value is None:
@@ -64,6 +91,30 @@ def _fmt(value: float | int | None, suffix: str = "") -> str:
     if isinstance(value, float):
         value = round(value, 2)
     return f"{value}{suffix}"
+
+
+def _tip(text: str, key: str | None = None) -> str:
+    explanation = GLOSSARY.get(key or text)
+    if not explanation:
+        return escape(text)
+    return (
+        f"{escape(text)} "
+        f"<span class='tip' tabindex='0' title='{escape(explanation)}'>?</span>"
+    )
+
+
+def _field_tip(field: str) -> str:
+    if field == "return_5d":
+        return _tip("5-day return", "5-day return")
+    if field == "return_20d":
+        return _tip("20-day return", "20-day return")
+    if field == "above_50d":
+        return _tip("above 50-day", "above 50-day")
+    if field == "close":
+        return _tip("level", "level")
+    if field == "distance_from_200d":
+        return _tip("distance from 200-day", "distance from 200-day")
+    return escape(field)
 
 
 def _previous_record(record: dict) -> dict | None:
@@ -110,11 +161,14 @@ def _plain_score_sentence(score: float | int | None) -> str:
 def _evidence_rows(payload: dict) -> str:
     rows = []
     for item in payload.get("evidence", []):
+        label = item.get("label", "")
+        symbol = item.get("symbol", "")
+        field = item.get("field", "")
         rows.append(
             f"""
             <tr>
-              <td>{escape(item.get("label", ""))}</td>
-              <td><code>{escape(item.get("symbol", ""))}</code></td>
+              <td>{_tip(label)}<br><small>{_field_tip(field)}</small></td>
+              <td><code>{_tip(symbol)}</code></td>
               <td>{escape(str(item.get("display", "n/a")))}</td>
             </tr>
             """
@@ -263,8 +317,8 @@ def _watchlist_panel(record: dict, previous: dict | None) -> str:
         rows.append(
             f"""
             <tr>
-              <td><code>{escape(symbol)}</code></td>
-              <td><strong>{escape(label)}</strong><br><span>{escape(why)}</span></td>
+              <td><code>{_tip(symbol)}</code></td>
+              <td><strong>{escape(label)}</strong><br><span>{escape(why)}</span><br><small>{_field_tip(field)}</small></td>
               <td>{_fmt(previous_value, suffix)}</td>
               <td>{_fmt(value, suffix)}</td>
               <td>{_change_badge(value, previous_value, suffix)}</td>
@@ -278,6 +332,86 @@ def _watchlist_panel(record: dict, previous: dict | None) -> str:
         <thead><tr><th>Ticker</th><th>Why look here?</th><th>Yesterday</th><th>Today</th><th>Change</th></tr></thead>
         <tbody>{''.join(rows)}</tbody>
       </table>
+    </section>
+    """
+
+
+def _core_actions(record: dict) -> str:
+    score = record.get("market_health_score") or 0
+    subscores = record.get("sub_scores", {})
+    credit = subscores.get("credit", {}).get("score") or 0
+    ai = subscores.get("ai_fundamentals", {}).get("score") or 0
+    macro = subscores.get("macro_risk", {}).get("score") or 0
+    valuation = subscores.get("valuation_risk", {}).get("score") or 0
+
+    actions = []
+    if score >= 75 and ai >= 65:
+        actions.append(("1", "AI stocks", "Market is helping. Holding strong AI names makes sense; new buys still need clean setups."))
+    elif score >= 60:
+        actions.append(("1", "AI stocks", "Do not rush. Keep watchlist tight and prefer AI names that are already acting better than SMH/SOXX."))
+    else:
+        actions.append(("1", "AI stocks", "Be defensive. Avoid adding broad AI exposure until the score and AI-stock group improve."))
+
+    if credit < 50:
+        actions.append(("2", "Risk appetite", "Check HYG/JNK before buying. Weak credit says investors are not fully comfortable with risk."))
+    else:
+        actions.append(("2", "Risk appetite", "Credit is not flashing red. Still watch whether HYG gets back above its 50-day average."))
+
+    if macro >= 70:
+        actions.append(("3", "Bonds / rates", "Rates are not the main problem today. If yields keep easing, growth stocks get breathing room."))
+    elif macro < 50:
+        actions.append(("3", "Bonds / rates", "Rates are a problem. Consider waiting, or watch bond exposure rather than chasing AI strength."))
+    elif valuation < 55:
+        actions.append(("3", "Stretched prices", "Do not chase extended winners. Wait for pullbacks or stronger confirmation."))
+    else:
+        actions.append(("3", "Other sectors", "No clear oil or bond rotation signal from this model yet. It is mainly saying: watch AI strength, credit, and rates."))
+
+    rows = "\n".join(
+        f"""
+        <li>
+          <span class="action-number">{escape(number)}</span>
+          <div><strong>{escape(title)}</strong><p>{escape(text)}</p></div>
+        </li>
+        """
+        for number, title, text in actions
+    )
+    return f"""
+    <section class="card core-actions">
+      <div class="eyebrow">3 THINGS TO DO FIRST</div>
+      <ul>{rows}</ul>
+      <p class="muted">This is a checklist, not personal financial advice. Use it to decide what to verify before trading.</p>
+    </section>
+    """
+
+
+def _correlation_panel(history: dict) -> str:
+    records = history.get("prediction_accuracy", {}).get("records", [])
+    evaluated = [
+        row for row in records
+        if row.get("actual_sp500_return") is not None
+    ]
+    if len(evaluated) < 30:
+        return f"""
+        <section class="panel">
+          <div class="eyebrow">DOES THIS MODEL MATCH HISTORY?</div>
+          <p><strong>Not enough data yet.</strong></p>
+          <p>
+            We need at least 30 validated daily records before this section can say anything useful.
+            Right now there are {len(evaluated)}. After enough history builds up, this will compare
+            the score against next-day SPY moves and show whether the framework is actually useful.
+          </p>
+        </section>
+        """
+    returns = [float(row["actual_sp500_return"]) for row in evaluated]
+    wins = [1 if value > 0 else 0 for value in returns]
+    positive_days = sum(wins)
+    avg_return = sum(returns) / len(returns)
+    return f"""
+    <section class="panel">
+      <div class="eyebrow">DOES THIS MODEL MATCH HISTORY?</div>
+      <p>Validated days: <strong>{len(evaluated)}</strong></p>
+      <p>SPY was positive on <strong>{positive_days}</strong> of those days.</p>
+      <p>Average next-day SPY move: <strong>{round(avg_return, 2)}%</strong></p>
     </section>
     """
 
@@ -485,6 +619,7 @@ def generate_dashboard(record: dict, history: dict) -> None:
     .threshold-row span {{ color: var(--muted); font-size: 12px; }}
     .threshold-row small {{ grid-column: 2; color: #344054; }}
     .mini-icon {{ display: inline-grid; place-items: center; width: 26px; height: 26px; margin-right: 8px; border-radius: 7px; background: #eaf2ff; color: var(--blue); font-weight: 850; font-size: 12px; }}
+    .tip {{ display: inline-grid; place-items: center; width: 17px; height: 17px; margin-left: 4px; border-radius: 50%; background: #e0ecff; color: var(--blue); font-size: 11px; font-weight: 900; cursor: help; }}
     .up, .down, .flat {{ display: inline-flex; align-items: center; border-radius: 999px; padding: 3px 8px; font-size: 12px; font-weight: 800; white-space: nowrap; }}
     .up {{ color: #166534; background: #dcfce7; }}
     .down {{ color: #b42318; background: #fee2e2; }}
@@ -494,6 +629,12 @@ def generate_dashboard(record: dict, history: dict) -> None:
     .chart circle {{ fill: var(--blue); }}
     .chart .guide {{ stroke: #d9e1ee; stroke-width: 1; stroke-dasharray: 4 5; }}
     td span {{ color: var(--muted); }}
+    small {{ color: var(--muted); font-size: 12px; }}
+    .core-actions ul {{ list-style: none; margin: 12px 0; padding: 0; }}
+    .core-actions li {{ display: grid; grid-template-columns: 34px 1fr; gap: 10px; border-top: 1px solid #edf0f5; padding: 12px 0; }}
+    .core-actions li:first-child {{ border-top: 0; }}
+    .core-actions p {{ margin: 4px 0 0; color: #344054; }}
+    .action-number {{ display: grid; place-items: center; width: 28px; height: 28px; border-radius: 8px; background: #102a43; color: white; font-weight: 900; }}
     pre {{ white-space: pre-wrap; background: #101828; color: #f8fafc; padding: 16px; border-radius: 8px; overflow-x: auto; }}
     @media (max-width: 760px) {{ header, .hero {{ display: block; }} .panel {{ margin-bottom: 12px; }} .score {{ font-size: 52px; }} }}
   </style>
@@ -521,6 +662,7 @@ def generate_dashboard(record: dict, history: dict) -> None:
         <div class="score">{_fmt(record.get("market_health_score"))}</div>
         {_bar(record.get("market_health_score"))}
         <div class="action"><strong>{escape(band_label)}: {escape(action)}</strong><br>{escape(meaning)}</div>
+        {_core_actions(record)}
         <h2>Thresholds</h2>
         {_threshold_sidebar()}
       </aside>
@@ -534,6 +676,9 @@ def generate_dashboard(record: dict, history: dict) -> None:
       </section>
       {_subscore_comparison(record, previous)}
     </section>
+
+    <h2>History Check</h2>
+    {_correlation_panel(history)}
 
     <h2>Trading Checklist</h2>
     {_watchlist_panel(record, previous)}
