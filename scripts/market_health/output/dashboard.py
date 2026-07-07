@@ -34,6 +34,16 @@ SUBSCORE_TITLES = {
     "geopolitical_risk": "Volatility",
 }
 
+SUBSCORE_THRESHOLDS = {
+    "liquidity": (70, 50, "Below 50 means cash conditions may be getting tighter."),
+    "credit": (60, 50, "Below 50 is an early warning that investors are less willing to take risk."),
+    "ai_fundamentals": (65, 50, "Below 50 means the AI stock group is not confirming the story."),
+    "market_breadth": (65, 45, "Below 45 means the rally is too narrow to trust comfortably."),
+    "valuation_risk": (70, 55, "Below 55 means prices may be stretched enough to be careful with new buys."),
+    "macro_risk": (65, 45, "Below 45 means rates or dollar pressure may be hurting growth stocks."),
+    "geopolitical_risk": (70, 50, "Below 50 means volatility is becoming a real problem."),
+}
+
 WATCH_ITEMS = [
     ("NVDA", "NVIDIA", "AI leader", "return_20d", "%"),
     ("SMH", "Semiconductor ETF", "AI chip group", "return_20d", "%"),
@@ -82,7 +92,7 @@ def _band(value: float | None) -> tuple[str, str, str]:
 
 def _bar(value: float | None) -> str:
     score = 0 if value is None else max(0, min(100, int(round(value))))
-    return f"<div class='bar'><span style='width:{score}%'></span></div>"
+    return f"<div class='bar {escape(_status_class(value))}'><span style='width:{score}%'></span></div>"
 
 
 def _fmt(value: float | int | None, suffix: str = "") -> str:
@@ -99,8 +109,33 @@ def _tip(text: str, key: str | None = None) -> str:
         return escape(text)
     return (
         f"{escape(text)} "
-        f"<span class='tip' tabindex='0' title='{escape(explanation)}'>?</span>"
+        f"<span class='tip' tabindex='0' data-tip='{escape(explanation)}'>?</span>"
     )
+
+
+def _status_class(value: float | int | None, name: str | None = None) -> str:
+    if value is None:
+        return "status-neutral"
+    if name and name in SUBSCORE_THRESHOLDS:
+        good, watch, _note = SUBSCORE_THRESHOLDS[name]
+    else:
+        good, watch = 70, 50
+    if value >= good:
+        return "status-good"
+    if value >= watch:
+        return "status-watch"
+    return "status-danger"
+
+
+def _status_label(value: float | int | None, name: str | None = None) -> str:
+    status = _status_class(value, name)
+    if status == "status-good":
+        return "Looks okay"
+    if status == "status-watch":
+        return "Watch"
+    if status == "status-danger":
+        return "Needs attention"
+    return "No data"
 
 
 def _field_tip(field: str) -> str:
@@ -156,6 +191,29 @@ def _plain_score_sentence(score: float | int | None) -> str:
     if score >= 30:
         return "Conditions are shaky. Avoid chasing green candles."
     return "Conditions are hostile. Defense matters more than new buys."
+
+
+def _largest_subscore_moves(record: dict, previous: dict | None) -> str:
+    if not previous:
+        return "No previous daily record yet, so there is no day-over-day explanation."
+    moves = []
+    previous_scores = previous.get("sub_scores", {})
+    for name, payload in record.get("sub_scores", {}).items():
+        today = payload.get("score")
+        yesterday = previous_scores.get(name, {}).get("score")
+        delta = _change(today, yesterday)
+        if delta is None:
+            continue
+        moves.append((abs(delta), delta, name, today, yesterday))
+    if not moves:
+        return "No comparable subscore data was available."
+    moves = sorted(moves, reverse=True)[:3]
+    parts = []
+    for _abs_delta, delta, name, today, yesterday in moves:
+        title = SUBSCORE_TITLES.get(name, name.replace("_", " ").title())
+        direction = "rose" if delta > 0 else "fell" if delta < 0 else "was flat"
+        parts.append(f"{title} {direction} from {_fmt(yesterday)} to {_fmt(today)}")
+    return "Why the score moved: " + "; ".join(parts) + "."
 
 
 def _evidence_rows(payload: dict) -> str:
@@ -300,6 +358,7 @@ def _today_diagnosis(record: dict, previous: dict | None) -> str:
         The thing to check first is <strong>{escape(drag_name)}</strong>.
       </p>
       <p>{escape(drag_detail)}</p>
+      <p class="callout">{escape(_largest_subscore_moves(record, previous))}</p>
       <p class="muted">
         Read this like a morning checklist, not a buy/sell order. It tells you where to look before touching AI stocks.
       </p>
@@ -474,6 +533,42 @@ def _sparkline(score_history: list[dict]) -> str:
     """
 
 
+def _tiny_sparkline(values: list[float | int | None]) -> str:
+    clean_values = [float(value) for value in values if value is not None]
+    if len(clean_values) < 2:
+        return "<div class='tiny-chart muted'>More days needed</div>"
+    width = 220
+    height = 58
+    step = width / (len(clean_values) - 1)
+    points = []
+    for index, value in enumerate(clean_values):
+        x = round(index * step, 2)
+        y = round(height - (value / 100) * height, 2)
+        points.append(f"{x},{y}")
+    status = _status_class(clean_values[-1])
+    return f"""
+    <svg class="tiny-chart {escape(status)}" viewBox="0 0 {width} {height}" role="img" aria-label="Subscore mini trend">
+      <line x1="0" y1="{height * 0.5}" x2="{width}" y2="{height * 0.5}" class="guide"></line>
+      <polyline points="{' '.join(points)}"></polyline>
+      <circle cx="{round((len(clean_values) - 1) * step, 2)}" cy="{round(height - (clean_values[-1] / 100) * height, 2)}" r="3.5"></circle>
+    </svg>
+    """
+
+
+def _subscore_history_values(name: str, history: dict, current_record: dict) -> list[float | None]:
+    values: list[float | None] = []
+    for row in history.get("score_history", [])[-29:]:
+        daily_path = DAILY_DIR / f"{row.get('date')}.json"
+        if not daily_path.exists():
+            continue
+        daily = json.loads(daily_path.read_text(encoding="utf-8"))
+        values.append(daily.get("sub_scores", {}).get(name, {}).get("score"))
+    current_value = current_record.get("sub_scores", {}).get(name, {}).get("score")
+    if not values or values[-1] != current_value:
+        values.append(current_value)
+    return values
+
+
 def _subscore_comparison(record: dict, previous: dict | None) -> str:
     previous_scores = (previous or {}).get("sub_scores", {})
     rows = []
@@ -547,7 +642,7 @@ def generate_dashboard(record: dict, history: dict) -> None:
         for row in score_history[-30:]
     )
     subscore_cards = "\n".join(
-        _subscore_card(name, payload)
+        _subscore_card(name, payload, history, record)
         for name, payload in subscores.items()
     )
     leaders, drags = _subscore_rankings(record)
@@ -590,9 +685,15 @@ def generate_dashboard(record: dict, history: dict) -> None:
     .card-top {{ display: flex; align-items: flex-start; justify-content: space-between; gap: 12px; }}
     .icon {{ width: 42px; height: 42px; border-radius: 8px; display: grid; place-items: center; color: white; background: linear-gradient(135deg, #1d4ed8, #0f766e); font-weight: 800; }}
     .pill {{ display: inline-flex; align-items: center; border: 1px solid #bdd7ff; background: #eff6ff; color: #1d4ed8; border-radius: 999px; padding: 3px 9px; font-size: 12px; font-weight: 700; }}
+    .pill.status-good {{ border-color: #86efac; background: #dcfce7; color: #166534; }}
+    .pill.status-watch {{ border-color: #fde68a; background: #fef3c7; color: #92400e; }}
+    .pill.status-danger {{ border-color: #fecaca; background: #fee2e2; color: #b42318; }}
     .action {{ margin-top: 10px; padding: 10px 12px; border-radius: 8px; background: #f8fafc; border: 1px solid #e5eaf2; }}
     .bar {{ height: 12px; background: #e5e8ef; border-radius: 999px; overflow: hidden; }}
-    .bar span {{ display: block; height: 100%; background: linear-gradient(90deg, var(--red), var(--amber), var(--teal), var(--green)); }}
+    .bar span {{ display: block; height: 100%; background: var(--blue); }}
+    .bar.status-good span {{ background: var(--green); }}
+    .bar.status-watch span {{ background: var(--amber); }}
+    .bar.status-danger span {{ background: var(--red); }}
     .reasoning {{ margin: 14px 0; padding-left: 18px; color: #344054; }}
     .reasoning li {{ margin-bottom: 7px; }}
     table {{ width: 100%; border-collapse: collapse; font-size: 13px; }}
@@ -619,7 +720,11 @@ def generate_dashboard(record: dict, history: dict) -> None:
     .threshold-row span {{ color: var(--muted); font-size: 12px; }}
     .threshold-row small {{ grid-column: 2; color: #344054; }}
     .mini-icon {{ display: inline-grid; place-items: center; width: 26px; height: 26px; margin-right: 8px; border-radius: 7px; background: #eaf2ff; color: var(--blue); font-weight: 850; font-size: 12px; }}
-    .tip {{ display: inline-grid; place-items: center; width: 17px; height: 17px; margin-left: 4px; border-radius: 50%; background: #e0ecff; color: var(--blue); font-size: 11px; font-weight: 900; cursor: help; }}
+    .tip {{ position: relative; display: inline-grid; place-items: center; width: 17px; height: 17px; margin-left: 4px; border-radius: 50%; background: #e0ecff; color: var(--blue); font-size: 11px; font-weight: 900; cursor: help; overflow: visible; }}
+    .tip::after {{ content: attr(data-tip); position: absolute; left: 50%; bottom: calc(100% + 8px); transform: translateX(-50%); width: min(280px, 70vw); padding: 10px 12px; border-radius: 8px; background: #111827; color: #fff; font-size: 12px; line-height: 1.35; font-weight: 600; box-shadow: 0 12px 28px rgba(16,24,40,.22); opacity: 0; pointer-events: none; z-index: 20; transition: opacity .12s ease, transform .12s ease; }}
+    .tip::before {{ content: ""; position: absolute; left: 50%; bottom: calc(100% + 2px); transform: translateX(-50%); border: 6px solid transparent; border-top-color: #111827; opacity: 0; z-index: 21; transition: opacity .12s ease; }}
+    .tip:hover::after, .tip:focus::after {{ opacity: 1; transform: translateX(-50%) translateY(-2px); }}
+    .tip:hover::before, .tip:focus::before {{ opacity: 1; }}
     .up, .down, .flat {{ display: inline-flex; align-items: center; border-radius: 999px; padding: 3px 8px; font-size: 12px; font-weight: 800; white-space: nowrap; }}
     .up {{ color: #166534; background: #dcfce7; }}
     .down {{ color: #b42318; background: #fee2e2; }}
@@ -628,6 +733,16 @@ def generate_dashboard(record: dict, history: dict) -> None:
     .chart polyline {{ fill: none; stroke: var(--blue); stroke-width: 4; stroke-linecap: round; stroke-linejoin: round; }}
     .chart circle {{ fill: var(--blue); }}
     .chart .guide {{ stroke: #d9e1ee; stroke-width: 1; stroke-dasharray: 4 5; }}
+    .tiny-chart {{ width: 100%; height: 62px; margin-top: 12px; background: #fbfdff; border: 1px solid #e5eaf2; border-radius: 8px; padding: 7px; }}
+    .tiny-chart polyline {{ fill: none; stroke: var(--blue); stroke-width: 3; stroke-linecap: round; stroke-linejoin: round; }}
+    .tiny-chart circle {{ fill: var(--blue); }}
+    .tiny-chart .guide {{ stroke: #e5eaf2; stroke-width: 1; stroke-dasharray: 4 5; }}
+    .tiny-chart.status-good polyline, .tiny-chart.status-good circle {{ stroke: var(--green); fill: var(--green); }}
+    .tiny-chart.status-watch polyline, .tiny-chart.status-watch circle {{ stroke: var(--amber); fill: var(--amber); }}
+    .tiny-chart.status-danger polyline, .tiny-chart.status-danger circle {{ stroke: var(--red); fill: var(--red); }}
+    .subscore-card.status-good {{ border-color: #bbf7d0; }}
+    .subscore-card.status-watch {{ border-color: #fde68a; }}
+    .subscore-card.status-danger {{ border-color: #fecaca; }}
     td span {{ color: var(--muted); }}
     small {{ color: var(--muted); font-size: 12px; }}
     .core-actions ul {{ list-style: none; margin: 12px 0; padding: 0; }}
@@ -701,23 +816,31 @@ def generate_dashboard(record: dict, history: dict) -> None:
     (DASHBOARD_DIR / "index.html").write_text(html, encoding="utf-8")
 
 
-def _subscore_card(name: str, payload: dict) -> str:
+def _subscore_card(name: str, payload: dict, history: dict, record: dict) -> str:
     score = payload.get("score")
     band_label, action, meaning = _band(score)
     title = SUBSCORE_TITLES.get(name, name.replace("_", " ").title())
     icon = SUBSCORE_ICONS.get(name, "SC")
+    good, watch, note = SUBSCORE_THRESHOLDS.get(name, (70, 50, "Below the watch line deserves attention."))
+    status = _status_class(score, name)
+    status_label = _status_label(score, name)
+    sparkline = _tiny_sparkline(_subscore_history_values(name, history, record))
     return f"""
-    <section class="card subscore-card">
+    <section class="card subscore-card {escape(status)}">
       <div class="card-top">
         <div>
           <div class="eyebrow">{escape(title.upper())}</div>
           <strong>{_fmt(score)}</strong>
-          <span class="pill">{escape(band_label)}</span>
+          <span class="pill {escape(status)}">{escape(status_label)}</span>
         </div>
         <div class="icon">{escape(icon)}</div>
       </div>
       {_bar(score)}
-      <div class="action"><strong>{escape(action)}</strong><br>{escape(meaning)}</div>
+      {sparkline}
+      <div class="action">
+        <strong>Thresholds: green at {good}+; red below {watch}</strong><br>
+        {escape(note)}
+      </div>
       <ul class="reasoning">{_reasoning_items(payload)}</ul>
       <table>
         <thead><tr><th>Indicator</th><th>Symbol</th><th>Value</th></tr></thead>
