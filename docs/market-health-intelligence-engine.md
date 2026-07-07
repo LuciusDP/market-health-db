@@ -1,7 +1,7 @@
 # Market Health Intelligence Engine
 
 Version: 1.0
-Owner: Lucius
+Owner: Project owner
 Primary Goal: Build a long-term institutional-quality market intelligence database for AI-heavy equity investing.
 
 ---

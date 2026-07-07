@@ -5,31 +5,54 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Market Health Dashboard</title>
   <style>
-    body { margin: 0; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; color: #17202a; background: #f6f7f9; }
-    main { max-width: 1120px; margin: 0 auto; padding: 32px 20px 48px; }
-    header { display: flex; justify-content: space-between; gap: 20px; align-items: flex-start; margin-bottom: 24px; }
-    h1 { margin: 0 0 8px; font-size: 32px; }
-    h2 { margin: 32px 0 12px; font-size: 20px; }
-    .muted, .label { color: #5f6b7a; }
-    .hero { display: grid; grid-template-columns: minmax(220px, 1fr) minmax(220px, 1fr); gap: 16px; }
-    .panel, .card { background: #fff; border: 1px solid #d9dee7; border-radius: 8px; padding: 18px; }
-    .score { font-size: 56px; line-height: 1; margin: 10px 0; }
-    .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 12px; }
-    .card strong { display: block; font-size: 28px; margin: 8px 0; }
-    .bar { height: 10px; background: #e5e8ef; border-radius: 999px; overflow: hidden; }
-    .bar span { display: block; height: 100%; background: #166534; }
+    :root {
+      --ink: #162033;
+      --muted: #667085;
+      --line: #d9e1ee;
+      --paper: #ffffff;
+      --bg: #f3f6fb;
+      --green: #15803d;
+      --teal: #0f766e;
+      --amber: #b45309;
+      --red: #b42318;
+      --blue: #1d4ed8;
+    }
+    * { box-sizing: border-box; }
+    body { margin: 0; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; color: var(--ink); background: var(--bg); }
+    main { max-width: 1240px; margin: 0 auto; padding: 30px 20px 48px; }
+    header { display: flex; justify-content: space-between; gap: 20px; align-items: flex-start; margin-bottom: 22px; }
+    h1 { margin: 0 0 6px; font-size: 34px; letter-spacing: 0; }
+    h2 { margin: 30px 0 12px; font-size: 21px; letter-spacing: 0; }
+    code { background: #eef2f7; border-radius: 4px; padding: 2px 5px; }
+    a { color: var(--blue); text-decoration: none; }
+    a:hover { text-decoration: underline; }
+    .muted, .label { color: var(--muted); }
+    .eyebrow { color: var(--blue); font-size: 12px; font-weight: 800; letter-spacing: .08em; }
+    .hero { display: grid; grid-template-columns: 1.1fr .9fr; gap: 16px; }
+    .panel, .card { background: var(--paper); border: 1px solid var(--line); border-radius: 8px; padding: 18px; box-shadow: 0 8px 24px rgba(29, 78, 216, .05); }
+    .score { font-size: 64px; line-height: 1; margin: 10px 0; font-weight: 800; }
+    .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(330px, 1fr)); gap: 14px; }
+    .card strong { display: block; font-size: 30px; margin: 8px 0; }
+    .card-top { display: flex; align-items: flex-start; justify-content: space-between; gap: 12px; }
+    .icon { width: 42px; height: 42px; border-radius: 8px; display: grid; place-items: center; color: white; background: linear-gradient(135deg, #1d4ed8, #0f766e); font-weight: 800; }
+    .pill { display: inline-flex; align-items: center; border: 1px solid #bdd7ff; background: #eff6ff; color: #1d4ed8; border-radius: 999px; padding: 3px 9px; font-size: 12px; font-weight: 700; }
+    .action { margin-top: 10px; padding: 10px 12px; border-radius: 8px; background: #f8fafc; border: 1px solid #e5eaf2; }
+    .bar { height: 12px; background: #e5e8ef; border-radius: 999px; overflow: hidden; }
+    .bar span { display: block; height: 100%; background: linear-gradient(90deg, var(--red), var(--amber), var(--teal), var(--green)); }
     .reasoning { margin: 14px 0; padding-left: 18px; color: #344054; }
+    .reasoning li { margin-bottom: 7px; }
     table { width: 100%; border-collapse: collapse; font-size: 13px; }
     th, td { border-top: 1px solid #edf0f5; padding: 8px 4px; text-align: left; vertical-align: top; }
-    th { color: #5f6b7a; font-weight: 600; }
-    a { color: #0b5cad; text-decoration: none; }
-    a:hover { text-decoration: underline; }
+    th { color: var(--muted); font-weight: 700; }
     .headline-list { list-style: none; padding: 0; margin: 12px 0 0; }
     .headline-list li { border-top: 1px solid #edf0f5; padding: 10px 0; }
     .headline-list li:first-child { border-top: 0; }
-    .headline-list span { display: block; margin-top: 4px; color: #667085; font-size: 12px; }
+    .headline-list span { display: block; margin-top: 4px; color: var(--muted); font-size: 12px; }
+    .metric-row { display: grid; grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); gap: 14px; }
+    .metric-row strong { font-size: 26px; }
+    .callout { margin: 14px 0 0; padding: 12px; border-left: 4px solid var(--blue); background: #f8fbff; border-radius: 6px; }
     pre { white-space: pre-wrap; background: #101828; color: #f8fafc; padding: 16px; border-radius: 8px; overflow-x: auto; }
-    @media (max-width: 760px) { header, .hero { display: block; } .panel { margin-bottom: 12px; } }
+    @media (max-width: 760px) { header, .hero { display: block; } .panel { margin-bottom: 12px; } .score { font-size: 52px; } }
   </style>
 </head>
 <body>
@@ -37,328 +60,403 @@
     <header>
       <div>
         <h1>Market Health Dashboard</h1>
-        <div class="muted">Generated for 2026-07-06</div>
+        <div class="muted">Generated for 2026-07-07</div>
       </div>
-      <div class="muted">Engine v1.0</div>
+      <div class="pill">Engine v1.0</div>
     </header>
 
     <section class="hero">
       <div class="panel">
-        <div class="label">Today's Market Health</div>
-        <div class="score">68.52</div>
+        <div class="eyebrow">TODAY'S MARKET HEALTH</div>
+        <div class="score">68.88</div>
         <div class='bar'><span style='width:69%'></span></div>
+        <div class="action"><strong>Constructive: Selective risk-on</strong><br>Add only where trend and fundamentals agree.</div>
       </div>
       <div class="panel">
-        <div class="label">Risk Regime</div>
+        <div class="eyebrow">REGIME AND AI STANCE</div>
         <h2>Expansion</h2>
-        <p><strong>Neutral</strong> stance with 84.82% confidence.</p>
+        <p><strong>Neutral</strong> stance with 85.1% confidence.</p>
+        <p class="muted">The score is not a price target. It is a risk climate check for AI-heavy equity exposure.</p>
       </div>
+    </section>
+
+    <h2>Score Thresholds</h2>
+    <section class="panel">
+      <table>
+        <thead><tr><th>Score</th><th>Regime</th><th>Action</th><th>AI portfolio meaning</th></tr></thead>
+        <tbody>
+            <tr>
+              <td>75-100</td>
+              <td><span class="pill">Strong</span></td>
+              <td>Build or hold winners</td>
+              <td>Conditions support risk-taking in quality AI leaders.</td>
+            </tr>
+            
+
+            <tr>
+              <td>60-74</td>
+              <td><span class="pill">Constructive</span></td>
+              <td>Selective risk-on</td>
+              <td>Add only where trend and fundamentals agree.</td>
+            </tr>
+            
+
+            <tr>
+              <td>45-59</td>
+              <td><span class="pill">Mixed</span></td>
+              <td>Watch closely</td>
+              <td>Keep AI exposure focused; avoid chasing extended moves.</td>
+            </tr>
+            
+
+            <tr>
+              <td>30-44</td>
+              <td><span class="pill">Caution</span></td>
+              <td>Reduce weak links</td>
+              <td>Protect capital and demand cleaner setups.</td>
+            </tr>
+            
+
+            <tr>
+              <td>0-29</td>
+              <td><span class="pill">Risk-off</span></td>
+              <td>Defensive posture</td>
+              <td>Liquidity, credit, or trend stress can overpower the AI story.</td>
+            </tr>
+            </tbody>
+      </table>
     </section>
 
     <h2>Subscores</h2>
     <section class="grid">
-        <section class="card subscore-card">
-          <div class="card-top">
-            <div>
-              <div class="label">Liquidity</div>
-              <strong>83.36</strong>
-            </div>
-          </div>
-          <div class='bar'><span style='width:83%'></span></div>
-          <ul class="reasoning"><li>Liquidity proxy uses VIX, dollar trend, and SPY/QQQ 50-day trend.</li>
-<li>Higher score means calmer volatility and easier risk conditions.</li></ul>
-          <table>
-            <thead><tr><th>Indicator</th><th>Symbol</th><th>Value</th></tr></thead>
-            <tbody>
+    <section class="card subscore-card">
+      <div class="card-top">
+        <div>
+          <div class="eyebrow">LIQUIDITY</div>
+          <strong>83.36</strong>
+          <span class="pill">Strong</span>
+        </div>
+        <div class="icon">LQ</div>
+      </div>
+      <div class='bar'><span style='width:83%'></span></div>
+      <div class="action"><strong>Build or hold winners</strong><br>Conditions support risk-taking in quality AI leaders.</div>
+      <ul class="reasoning"><li>Liquidity drives how much investors will pay for long-duration AI growth.</li>
+<li>High score supports AI multiple expansion; low score warns that even strong AI names can de-rate.</li></ul>
+      <table>
+        <thead><tr><th>Indicator</th><th>Symbol</th><th>Value</th></tr></thead>
+        <tbody>
             <tr>
               <td>VIX level</td>
-              <td>^VIX</td>
+              <td><code>^VIX</code></td>
               <td>15.57</td>
             </tr>
             
 
             <tr>
               <td>Dollar 20-day return</td>
-              <td>DX-Y.NYB</td>
-              <td>1.45%</td>
+              <td><code>DX-Y.NYB</code></td>
+              <td>0.89%</td>
             </tr>
             
 
             <tr>
               <td>SPY above 50-day</td>
-              <td>SPY</td>
+              <td><code>SPY</code></td>
               <td>True</td>
             </tr>
             
 
             <tr>
               <td>QQQ above 50-day</td>
-              <td>QQQ</td>
+              <td><code>QQQ</code></td>
               <td>True</td>
             </tr>
             </tbody>
-          </table>
-        </section>
-        
+      </table>
+    </section>
+    
 
-        <section class="card subscore-card">
-          <div class="card-top">
-            <div>
-              <div class="label">Credit</div>
-              <strong>46.03</strong>
-            </div>
-          </div>
-          <div class='bar'><span style='width:46%'></span></div>
-          <ul class="reasoning"><li>Credit proxy uses HYG/JNK performance and trend.</li>
-<li>Weak high-yield bonds usually warn before equity stress becomes obvious.</li></ul>
-          <table>
-            <thead><tr><th>Indicator</th><th>Symbol</th><th>Value</th></tr></thead>
-            <tbody>
+    <section class="card subscore-card">
+      <div class="card-top">
+        <div>
+          <div class="eyebrow">CREDIT</div>
+          <strong>46.03</strong>
+          <span class="pill">Mixed</span>
+        </div>
+        <div class="icon">CR</div>
+      </div>
+      <div class='bar'><span style='width:46%'></span></div>
+      <div class="action"><strong>Watch closely</strong><br>Keep AI exposure focused; avoid chasing extended moves.</div>
+      <ul class="reasoning"><li>Credit stress usually hits speculative growth before earnings stories change.</li>
+<li>Healthy HYG/JNK trends mean the market is still funding risk; weakness argues for smaller AI position sizes.</li></ul>
+      <table>
+        <thead><tr><th>Indicator</th><th>Symbol</th><th>Value</th></tr></thead>
+        <tbody>
             <tr>
               <td>HYG 20-day return</td>
-              <td>HYG</td>
+              <td><code>HYG</code></td>
               <td>0.05%</td>
             </tr>
             
 
             <tr>
               <td>JNK 20-day return</td>
-              <td>JNK</td>
+              <td><code>JNK</code></td>
               <td>0.0%</td>
             </tr>
             
 
             <tr>
               <td>HYG above 50-day</td>
-              <td>HYG</td>
+              <td><code>HYG</code></td>
               <td>False</td>
             </tr>
             
 
             <tr>
               <td>JNK above 50-day</td>
-              <td>JNK</td>
+              <td><code>JNK</code></td>
               <td>False</td>
             </tr>
             </tbody>
-          </table>
-        </section>
-        
+      </table>
+    </section>
+    
 
-        <section class="card subscore-card">
-          <div class="card-top">
-            <div>
-              <div class="label">Ai Fundamentals</div>
-              <strong>58.33</strong>
-            </div>
-          </div>
-          <div class='bar'><span style='width:58%'></span></div>
-          <ul class="reasoning"><li>AI fundamentals proxy uses semiconductor and AI infrastructure equity trends.</li>
-<li>This is a market-implied proxy until earnings, CapEx, and funding data are added.</li></ul>
-          <table>
-            <thead><tr><th>Indicator</th><th>Symbol</th><th>Value</th></tr></thead>
-            <tbody>
+    <section class="card subscore-card">
+      <div class="card-top">
+        <div>
+          <div class="eyebrow">AI FUNDAMENTALS</div>
+          <strong>58.33</strong>
+          <span class="pill">Mixed</span>
+        </div>
+        <div class="icon">AI</div>
+      </div>
+      <div class='bar'><span style='width:58%'></span></div>
+      <div class="action"><strong>Watch closely</strong><br>Keep AI exposure focused; avoid chasing extended moves.</div>
+      <ul class="reasoning"><li>This is the AI trade thermometer: chips, infra, and semiconductor ETFs.</li>
+<li>High score means the market is confirming AI demand; low score says AI leadership is losing sponsorship.</li></ul>
+      <table>
+        <thead><tr><th>Indicator</th><th>Symbol</th><th>Value</th></tr></thead>
+        <tbody>
             <tr>
               <td>NVDA 20-day return</td>
-              <td>NVDA</td>
+              <td><code>NVDA</code></td>
               <td>-10.57%</td>
             </tr>
             
 
             <tr>
               <td>SMH 20-day return</td>
-              <td>SMH</td>
+              <td><code>SMH</code></td>
               <td>-3.7%</td>
             </tr>
             
 
             <tr>
               <td>SOXX 20-day return</td>
-              <td>SOXX</td>
+              <td><code>SOXX</code></td>
               <td>-3.52%</td>
             </tr>
             
 
             <tr>
               <td>AVGO above 50-day</td>
-              <td>AVGO</td>
+              <td><code>AVGO</code></td>
               <td>False</td>
             </tr>
             </tbody>
-          </table>
-        </section>
-        
+      </table>
+    </section>
+    
 
-        <section class="card subscore-card">
-          <div class="card-top">
-            <div>
-              <div class="label">Market Breadth</div>
-              <strong>74.68</strong>
-            </div>
-          </div>
-          <div class='bar'><span style='width:75%'></span></div>
-          <ul class="reasoning"><li>Breadth proxy compares cap-weighted, equal-weight, Nasdaq, and small-cap trends.</li>
-<li>Healthy markets should not depend on only a tiny set of mega-cap winners.</li></ul>
-          <table>
-            <thead><tr><th>Indicator</th><th>Symbol</th><th>Value</th></tr></thead>
-            <tbody>
+    <section class="card subscore-card">
+      <div class="card-top">
+        <div>
+          <div class="eyebrow">MARKET BREADTH</div>
+          <strong>74.68</strong>
+          <span class="pill">Constructive</span>
+        </div>
+        <div class="icon">BR</div>
+      </div>
+      <div class='bar'><span style='width:75%'></span></div>
+      <div class="action"><strong>Selective risk-on</strong><br>Add only where trend and fundamentals agree.</div>
+      <ul class="reasoning"><li>Breadth tells whether AI strength is supported by the wider market.</li>
+<li>Narrow breadth means AI leaders may be crowded; broad strength gives breakouts more staying power.</li></ul>
+      <table>
+        <thead><tr><th>Indicator</th><th>Symbol</th><th>Value</th></tr></thead>
+        <tbody>
             <tr>
               <td>SPY above 200-day</td>
-              <td>SPY</td>
+              <td><code>SPY</code></td>
               <td>True</td>
             </tr>
             
 
             <tr>
               <td>QQQ above 200-day</td>
-              <td>QQQ</td>
+              <td><code>QQQ</code></td>
               <td>True</td>
             </tr>
             
 
             <tr>
               <td>Equal-weight S&amp;P 20-day return</td>
-              <td>RSP</td>
+              <td><code>RSP</code></td>
               <td>1.98%</td>
             </tr>
             
 
             <tr>
               <td>Small-cap 20-day return</td>
-              <td>IWM</td>
+              <td><code>IWM</code></td>
               <td>2.36%</td>
             </tr>
             </tbody>
-          </table>
-        </section>
-        
+      </table>
+    </section>
+    
 
-        <section class="card subscore-card">
-          <div class="card-top">
-            <div>
-              <div class="label">Valuation Risk</div>
-              <strong>66.52</strong>
-            </div>
-          </div>
-          <div class='bar'><span style='width:67%'></span></div>
-          <ul class="reasoning"><li>Valuation risk proxy uses distance above 200-day trend.</li>
-<li>Very extended leadership can still rise, but forward risk/reward becomes less forgiving.</li></ul>
-          <table>
-            <thead><tr><th>Indicator</th><th>Symbol</th><th>Value</th></tr></thead>
-            <tbody>
+    <section class="card subscore-card">
+      <div class="card-top">
+        <div>
+          <div class="eyebrow">VALUATION RISK</div>
+          <strong>66.52</strong>
+          <span class="pill">Constructive</span>
+        </div>
+        <div class="icon">VR</div>
+      </div>
+      <div class='bar'><span style='width:67%'></span></div>
+      <div class="action"><strong>Selective risk-on</strong><br>Add only where trend and fundamentals agree.</div>
+      <ul class="reasoning"><li>Valuation risk rises when AI leaders stretch far above long-term trend.</li>
+<li>Low score does not mean sell automatically; it means new buys need a bigger margin of safety.</li></ul>
+      <table>
+        <thead><tr><th>Indicator</th><th>Symbol</th><th>Value</th></tr></thead>
+        <tbody>
             <tr>
               <td>SPY distance from 200-day</td>
-              <td>SPY</td>
+              <td><code>SPY</code></td>
               <td>8.45%</td>
             </tr>
             
 
             <tr>
               <td>QQQ distance from 200-day</td>
-              <td>QQQ</td>
+              <td><code>QQQ</code></td>
               <td>13.72%</td>
             </tr>
             
 
             <tr>
               <td>SMH distance from 200-day</td>
-              <td>SMH</td>
+              <td><code>SMH</code></td>
               <td>41.33%</td>
             </tr>
             
 
             <tr>
               <td>NVDA distance from 200-day</td>
-              <td>NVDA</td>
+              <td><code>NVDA</code></td>
               <td>2.31%</td>
             </tr>
             </tbody>
-          </table>
-        </section>
-        
+      </table>
+    </section>
+    
 
-        <section class="card subscore-card">
-          <div class="card-top">
-            <div>
-              <div class="label">Macro Risk</div>
-              <strong>72.41</strong>
-            </div>
-          </div>
-          <div class='bar'><span style='width:72%'></span></div>
-          <ul class="reasoning"><li>Macro risk proxy uses Treasury yield pressure and dollar strength.</li>
-<li>Dedicated CPI, payrolls, ISM, and FOMC event modules can be layered in later.</li></ul>
-          <table>
-            <thead><tr><th>Indicator</th><th>Symbol</th><th>Value</th></tr></thead>
-            <tbody>
+    <section class="card subscore-card">
+      <div class="card-top">
+        <div>
+          <div class="eyebrow">MACRO RISK</div>
+          <strong>75.48</strong>
+          <span class="pill">Strong</span>
+        </div>
+        <div class="icon">MR</div>
+      </div>
+      <div class='bar'><span style='width:75%'></span></div>
+      <div class="action"><strong>Build or hold winners</strong><br>Conditions support risk-taking in quality AI leaders.</div>
+      <ul class="reasoning"><li>AI stocks are sensitive to rates because much of their value is future growth.</li>
+<li>Rising yields or dollar pressure can compress multiples even when AI fundamentals remain strong.</li></ul>
+      <table>
+        <thead><tr><th>Indicator</th><th>Symbol</th><th>Value</th></tr></thead>
+        <tbody>
             <tr>
               <td>10Y Treasury yield proxy</td>
-              <td>^TNX</td>
-              <td>4.48</td>
+              <td><code>^TNX</code></td>
+              <td>4.49</td>
             </tr>
             
 
             <tr>
               <td>10Y yield 20-day change</td>
-              <td>^TNX</td>
-              <td>0.04%</td>
+              <td><code>^TNX</code></td>
+              <td>-0.13%</td>
             </tr>
             
 
             <tr>
               <td>Dollar 20-day return</td>
-              <td>DX-Y.NYB</td>
-              <td>1.45%</td>
+              <td><code>DX-Y.NYB</code></td>
+              <td>0.89%</td>
             </tr>
             </tbody>
-          </table>
-        </section>
-        
+      </table>
+    </section>
+    
 
-        <section class="card subscore-card">
-          <div class="card-top">
-            <div>
-              <div class="label">Geopolitical Risk</div>
-              <strong>90.0</strong>
-            </div>
-          </div>
-          <div class='bar'><span style='width:90%'></span></div>
-          <ul class="reasoning"><li>Geopolitical risk proxy uses volatility and short-term market shock behavior.</li>
-<li>News-quality event detection should be added only from credible sources.</li></ul>
-          <table>
-            <thead><tr><th>Indicator</th><th>Symbol</th><th>Value</th></tr></thead>
-            <tbody>
+    <section class="card subscore-card">
+      <div class="card-top">
+        <div>
+          <div class="eyebrow">GEOPOLITICAL RISK</div>
+          <strong>90.0</strong>
+          <span class="pill">Strong</span>
+        </div>
+        <div class="icon">GR</div>
+      </div>
+      <div class='bar'><span style='width:90%'></span></div>
+      <div class="action"><strong>Build or hold winners</strong><br>Conditions support risk-taking in quality AI leaders.</div>
+      <ul class="reasoning"><li>Shock risk matters because AI portfolios are often concentrated in crowded winners.</li>
+<li>Low score means protect against gap risk; high score means headlines are not yet forcing broad de-risking.</li></ul>
+      <table>
+        <thead><tr><th>Indicator</th><th>Symbol</th><th>Value</th></tr></thead>
+        <tbody>
             <tr>
               <td>VIX level</td>
-              <td>^VIX</td>
+              <td><code>^VIX</code></td>
               <td>15.57</td>
             </tr>
             
 
             <tr>
               <td>SPY 5-day return</td>
-              <td>SPY</td>
+              <td><code>SPY</code></td>
               <td>3.06%</td>
             </tr>
             
 
             <tr>
               <td>QQQ 5-day return</td>
-              <td>QQQ</td>
+              <td><code>QQQ</code></td>
               <td>2.31%</td>
             </tr>
             </tbody>
-          </table>
-        </section>
-        </section>
+      </table>
+    </section>
+    </section>
 
     <h2>Daily Headlines</h2>
     <section class="grid">
             <section class="card">
-              <div class="label">Market</div>
+              <div class="eyebrow">MARKET</div>
               <ul class="headline-list">
                 <li>
-                  <a href="https://finance.yahoo.com/m/c71a3345-6ae6-3d18-95eb-134519da74ab/dow-jones-futures%3A-ai-stocks.html?.tsrc=rss" target="_blank" rel="noopener noreferrer">Dow Jones Futures: AI Stocks Astera, Bloom, Tesla Rebound; SpaceX Slides Ahead Of Nasdaq-100 Inclusion</a>
-                  <span>Yahoo Finance Mon, 06 Jul 2026 22:38:10 +0000</span>
+                  <a href="https://finance.yahoo.com/m/c71a3345-6ae6-3d18-95eb-134519da74ab/dow-jones-futures%3A-tech.html?.tsrc=rss" target="_blank" rel="noopener noreferrer">Dow Jones Futures: Tech Futures Slide On Samsung Earnings; SpaceX Falls Ahead Of Nasdaq-100 Inclusion</a>
+                  <span>Yahoo Finance Tue, 07 Jul 2026 01:54:18 +0000</span>
+                </li>
+                
+                <li>
+                  <a href="https://finance.yahoo.com/video/spacex-joins-nasdaq-100-sk-230000351.html?.tsrc=rss" target="_blank" rel="noopener noreferrer">SpaceX joins Nasdaq 100, SK Hynix makes US debut: What to Watch</a>
+                  <span>Yahoo Finance Mon, 06 Jul 2026 23:00:00 +0000</span>
                 </li>
                 
                 <li>
@@ -380,54 +478,54 @@
                   <a href="https://247wallst.com/investing/2026/07/06/top-wall-street-strategist-the-sp-500-could-hit-as-high-as-8800-this-year-but-a-10-20-drop-may-come-first/?.tsrc=rss" target="_blank" rel="noopener noreferrer">Top Wall Street Strategist: The S&amp;P 500 Could Hit As High As 8,800 This Year, But a 10-20% Drop May Come First</a>
                   <span>Yahoo Finance Mon, 06 Jul 2026 20:27:32 +0000</span>
                 </li>
+                </ul>
+            </section>
+            
+
+            <section class="card">
+              <div class="eyebrow">AI</div>
+              <ul class="headline-list">
+                <li>
+                  <a href="https://finance.yahoo.com/m/3903bd54-50b0-3770-8309-92109d15f7f9/spacex-is-in-the-nasdaq-100%2C.html?.tsrc=rss" target="_blank" rel="noopener noreferrer">SpaceX Is in the Nasdaq-100, Now Brace for Volatility</a>
+                  <span>Yahoo Finance Tue, 07 Jul 2026 07:21:00 +0000</span>
+                </li>
                 
                 <li>
-                  <a href="https://247wallst.com/investing/2026/07/06/microsoft-is-cutting-4800-jobs-to-feed-the-ai-machine-should-you-still-own-it/?.tsrc=rss" target="_blank" rel="noopener noreferrer">Microsoft Is Cutting 4,800 Jobs to Feed the AI Machine. Should You Still Own It?</a>
-                  <span>Yahoo Finance Mon, 06 Jul 2026 19:58:58 +0000</span>
+                  <a href="https://www.proactiveinvestors.com/companies/news/1095025/nvidia-s-kyber-rack-delayed-to-2028-tech-giant-s-stumble-hands-rivals-a-rare-opening-1095025.html?.tsrc=rss" target="_blank" rel="noopener noreferrer">Nvidia&#x27;s Kyber rack delayed to 2028: Tech giant&#x27;s stumble hands rivals a rare opening</a>
+                  <span>Yahoo Finance Tue, 07 Jul 2026 06:54:00 +0000</span>
+                </li>
+                
+                <li>
+                  <a href="https://www.fool.com/investing/2026/07/07/stock-market-best-quarter-years-history-says-next/?.tsrc=rss" target="_blank" rel="noopener noreferrer">The Stock Market Just Finished Its Best Quarter in Years. Here&#x27;s What History Says Is Coming Next.</a>
+                  <span>Yahoo Finance Tue, 07 Jul 2026 06:51:00 +0000</span>
+                </li>
+                
+                <li>
+                  <a href="https://www.fool.com/investing/2026/07/07/is-the-spacex-ipo-officially-overhyped/?.tsrc=rss" target="_blank" rel="noopener noreferrer">Is the SpaceX IPO Officially Overhyped?</a>
+                  <span>Yahoo Finance Tue, 07 Jul 2026 06:25:00 +0000</span>
+                </li>
+                
+                <li>
+                  <a href="https://www.fool.com/investing/2026/07/07/teslas-robotaxi-just-launched-in-miami-its-first-c/?.tsrc=rss" target="_blank" rel="noopener noreferrer">Tesla&#x27;s Robotaxi Just Launched in Miami -- Its First City Outside Texas and California. Can It Rescue the Stock?</a>
+                  <span>Yahoo Finance Tue, 07 Jul 2026 06:12:00 +0000</span>
+                </li>
+                
+                <li>
+                  <a href="https://finance.yahoo.com/markets/stocks/articles/why-eyepoint-inc-eypt-among-055352083.html?.tsrc=rss" target="_blank" rel="noopener noreferrer">Here’s Why EyePoint, Inc. (EYPT) Is Among the Best Get Rich Quick Stocks</a>
+                  <span>Yahoo Finance Tue, 07 Jul 2026 05:53:52 +0000</span>
                 </li>
                 </ul>
             </section>
             
 
             <section class="card">
-              <div class="label">Ai</div>
+              <div class="eyebrow">MACRO</div>
               <ul class="headline-list">
                 <li>
-                  <a href="https://247wallst.com/investing/etf/2026/07/06/this-semiconductor-etf-is-up-54-this-year-and-refuses-to-own-intel/?.tsrc=rss" target="_blank" rel="noopener noreferrer">This Semiconductor ETF Is Up 54% This Year and Refuses to Own Intel</a>
-                  <span>Yahoo Finance Mon, 06 Jul 2026 22:49:21 +0000</span>
+                  <a href="https://beincrypto.com/gold-price-retreat-jpmorgan-q4-forecast/?.tsrc=rss" target="_blank" rel="noopener noreferrer">Gold Retreats From 2-Week High as JPMorgan Eyes Q4 Rebound</a>
+                  <span>Yahoo Finance Tue, 07 Jul 2026 01:21:50 +0000</span>
                 </li>
                 
-                <li>
-                  <a href="https://beincrypto.com/jim-cramer-buy-nvidia-delay-claims/?.tsrc=rss" target="_blank" rel="noopener noreferrer">Jim Cramer Says Buy Nvidia as Chipmaker Rejects 2028 AI Delay Claims</a>
-                  <span>Yahoo Finance Mon, 06 Jul 2026 22:30:00 +0000</span>
-                </li>
-                
-                <li>
-                  <a href="https://www.fool.com/investing/2026/07/06/why-charles-schwab-stock-bumped-almost-4-higher-on/?.tsrc=rss" target="_blank" rel="noopener noreferrer">Why Charles Schwab Stock Bumped Almost 4% Higher on Monday</a>
-                  <span>Yahoo Finance Mon, 06 Jul 2026 22:18:33 +0000</span>
-                </li>
-                
-                <li>
-                  <a href="https://www.fool.com/investing/2026/07/06/why-lemonade-stock-is-up-today/?.tsrc=rss" target="_blank" rel="noopener noreferrer">Why Lemonade Stock Leaped Today</a>
-                  <span>Yahoo Finance Mon, 06 Jul 2026 22:17:40 +0000</span>
-                </li>
-                
-                <li>
-                  <a href="https://finance.yahoo.com/technology/ai/articles/siggraph-2026-announces-sponsored-keynote-220500622.html?.tsrc=rss" target="_blank" rel="noopener noreferrer">SIGGRAPH 2026 Announces Sponsored Keynote Presentations Showcasing the Future of Graphics, AI, and Simulation</a>
-                  <span>Yahoo Finance Mon, 06 Jul 2026 22:05:00 +0000</span>
-                </li>
-                
-                <li>
-                  <a href="https://www.fool.com/investing/2026/07/06/is-meta-platforms-a-bargain-or-a-value-trap/?.tsrc=rss" target="_blank" rel="noopener noreferrer">Is Meta Platforms a Bargain or a Value Trap?</a>
-                  <span>Yahoo Finance Mon, 06 Jul 2026 22:05:00 +0000</span>
-                </li>
-                </ul>
-            </section>
-            
-
-            <section class="card">
-              <div class="label">Macro</div>
-              <ul class="headline-list">
                 <li>
                   <a href="https://finance.yahoo.com/markets/world-indices/articles/asian-markets-mixed-tech-recovery-024825236.html?.tsrc=rss" target="_blank" rel="noopener noreferrer">Stock markets meander as US tech stocks climb</a>
                   <span>Yahoo Finance Mon, 06 Jul 2026 20:24:04 +0000</span>
@@ -444,31 +542,41 @@
                 </li>
                 
                 <li>
+                  <a href="https://www.barchart.com/story/news/3148134/dollar-erases-early-gains-as-fed-rate-hike-prospects-ease?.tsrc=rss" target="_blank" rel="noopener noreferrer">Dollar Erases Early Gains as Fed Rate Hike Prospects Ease</a>
+                  <span>Yahoo Finance Mon, 06 Jul 2026 19:35:20 +0000</span>
+                </li>
+                
+                <li>
                   <a href="https://finance.yahoo.com/markets/commodities/articles/gold-rises-two-week-high-175445777.html?.tsrc=rss" target="_blank" rel="noopener noreferrer">Update: Gold Rises to a Two-Week High on Easing Inflation Concerns</a>
                   <span>Yahoo Finance Mon, 06 Jul 2026 17:54:45 +0000</span>
-                </li>
-                
-                <li>
-                  <a href="https://finance.yahoo.com/markets/crypto/articles/michael-saylors-strategy-trims-bitcoin-171638797.html?.tsrc=rss" target="_blank" rel="noopener noreferrer">Michael Saylor&#x27;s Strategy trims Bitcoin holdings</a>
-                  <span>Yahoo Finance Mon, 06 Jul 2026 17:16:38 +0000</span>
-                </li>
-                
-                <li>
-                  <a href="https://finance.yahoo.com/video/strategy-sells-216m-in-bitcoin-to-fund-its-shareholder-dividends-163230774.html?.tsrc=rss" target="_blank" rel="noopener noreferrer">Strategy sells $216M in bitcoin to fund its shareholder dividends</a>
-                  <span>Yahoo Finance Mon, 06 Jul 2026 16:32:30 +0000</span>
                 </li>
                 </ul>
             </section>
             </section>
 
     <h2>Prediction Accuracy</h2>
+    
     <section class="panel">
-      <p>Lifetime accuracy: <strong>n/a</strong></p>
-      <p>Correct: 0 / Evaluated: 0</p>
+      <div class="metric-row">
+        <div>
+          <div class="label">Lifetime Accuracy</div>
+          <strong>0.0%</strong>
+        </div>
+        <div>
+          <div class="label">Evaluated</div>
+          <strong>1</strong>
+        </div>
+        <div>
+          <div class="label">Correct / Wrong</div>
+          <strong>0 / 1</strong>
+        </div>
+      </div>
+      <p class="callout">2026-07-06: Wrong; SPY next-session return 0.87%.</p>
     </section>
+    
 
     <h2>Recent Score History</h2>
-    <pre>2026-07-06: 68.52</pre>
+    <pre>2026-07-06: 68.52, 2026-07-07: 68.88</pre>
   </main>
 </body>
 </html>

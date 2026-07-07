@@ -39,8 +39,8 @@ def score_liquidity(indicators: dict) -> tuple[float, list[str]]:
         ]
     )
     return score, [
-        "Liquidity proxy uses VIX, dollar trend, and SPY/QQQ 50-day trend.",
-        "Higher score means calmer volatility and easier risk conditions.",
+        "Liquidity drives how much investors will pay for long-duration AI growth.",
+        "High score supports AI multiple expansion; low score warns that even strong AI names can de-rate.",
     ]
 
 
@@ -54,8 +54,8 @@ def score_credit(indicators: dict) -> tuple[float, list[str]]:
         ]
     )
     return score, [
-        "Credit proxy uses HYG/JNK performance and trend.",
-        "Weak high-yield bonds usually warn before equity stress becomes obvious.",
+        "Credit stress usually hits speculative growth before earnings stories change.",
+        "Healthy HYG/JNK trends mean the market is still funding risk; weakness argues for smaller AI position sizes.",
     ]
 
 
@@ -67,8 +67,8 @@ def score_ai_fundamentals(indicators: dict) -> tuple[float, list[str]]:
     )
     score = average_score([trend_score, momentum_score])
     return score, [
-        "AI fundamentals proxy uses semiconductor and AI infrastructure equity trends.",
-        "This is a market-implied proxy until earnings, CapEx, and funding data are added.",
+        "This is the AI trade thermometer: chips, infra, and semiconductor ETFs.",
+        "High score means the market is confirming AI demand; low score says AI leadership is losing sponsorship.",
     ]
 
 
@@ -81,8 +81,8 @@ def score_market_breadth(indicators: dict) -> tuple[float, list[str]]:
     )
     score = average_score([above_50, above_200, momentum])
     return score, [
-        "Breadth proxy compares cap-weighted, equal-weight, Nasdaq, and small-cap trends.",
-        "Healthy markets should not depend on only a tiny set of mega-cap winners.",
+        "Breadth tells whether AI strength is supported by the wider market.",
+        "Narrow breadth means AI leaders may be crowded; broad strength gives breakouts more staying power.",
     ]
 
 
@@ -92,8 +92,8 @@ def score_valuation_risk(indicators: dict) -> tuple[float, list[str]]:
     average_stretch = mean(valid_stretches) if valid_stretches else None
     score = score_lower_is_better(average_stretch, good=8, bad=35)
     return round(score, 2), [
-        "Valuation risk proxy uses distance above 200-day trend.",
-        "Very extended leadership can still rise, but forward risk/reward becomes less forgiving.",
+        "Valuation risk rises when AI leaders stretch far above long-term trend.",
+        "Low score does not mean sell automatically; it means new buys need a bigger margin of safety.",
     ]
 
 
@@ -108,8 +108,8 @@ def score_macro_risk(indicators: dict) -> tuple[float, list[str]]:
         ]
     )
     return score, [
-        "Macro risk proxy uses Treasury yield pressure and dollar strength.",
-        "Dedicated CPI, payrolls, ISM, and FOMC event modules can be layered in later.",
+        "AI stocks are sensitive to rates because much of their value is future growth.",
+        "Rising yields or dollar pressure can compress multiples even when AI fundamentals remain strong.",
     ]
 
 
@@ -118,8 +118,8 @@ def score_geopolitical_risk(indicators: dict) -> tuple[float, list[str]]:
     spy_shock = score_return(_value(indicators, "SPY", "return_5d"), bullish_threshold=2, bearish_threshold=-5)
     score = average_score([vix_score, spy_shock])
     return score, [
-        "Geopolitical risk proxy uses volatility and short-term market shock behavior.",
-        "News-quality event detection should be added only from credible sources.",
+        "Shock risk matters because AI portfolios are often concentrated in crowded winners.",
+        "Low score means protect against gap risk; high score means headlines are not yet forcing broad de-risking.",
     ]
 
 

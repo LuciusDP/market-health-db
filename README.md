@@ -4,12 +4,12 @@ Automated market health intelligence database for AI-heavy equity investing.
 
 ## Latest Snapshot
 
-- Date: 2026-07-06
-- Market Health Score: 68.52
+- Date: 2026-07-07
+- Market Health Score: 68.88
 - Risk Regime: Expansion
 - Stance: Neutral
-- Confidence: 84.82%
-- Lifetime Accuracy: None
+- Confidence: 85.1%
+- Lifetime Accuracy: 0.0
 
 ## Outputs
 
@@ -28,10 +28,15 @@ The `Daily Market Health` workflow runs at `07:00 UTC` every Monday through Frid
 The dashboard includes:
 
 - top-level Market Health Score, Risk Regime, stance, and confidence
+- score thresholds and AI portfolio action bands
 - subscore explanations and source indicator evidence
 - daily market, AI, and macro headlines from public RSS sources
 - lifetime prediction accuracy once backtests accumulate
 - recent score history
+
+## Backtesting
+
+Each daily run evaluates the previous daily record when a newer trading session is available. The first record will not show accuracy until at least one later run has created a next-session comparison.
 
 ## GitHub Pages
 

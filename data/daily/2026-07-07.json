@@ -1,20 +1,15 @@
 {
   "backtest": {
-    "actual_nasdaq_return": 1.4341890744043573,
-    "actual_nvda_return": 0.3695534530662181,
-    "actual_soxx_return": 2.6822296249900957,
-    "actual_sp500_return": 0.872740909651859,
-    "actual_vix_return": -3.59133126934984,
-    "evaluated_on": "2026-07-07",
-    "evaluation_notes": [
-      "Prediction is evaluated primarily against next-session SPY return.",
-      "Neutral is correct when SPY is roughly flat; Cautious is correct when downside is contained."
-    ],
-    "filled_next_day": true,
-    "prediction_correct": false
+    "actual_nasdaq_return": null,
+    "actual_nvda_return": null,
+    "actual_soxx_return": null,
+    "actual_sp500_return": null,
+    "actual_vix_return": null,
+    "filled_next_day": false,
+    "prediction_correct": null
   },
-  "confidence": 84.82,
-  "date": "2026-07-06",
+  "confidence": 85.1,
+  "date": "2026-07-07",
   "indicators": {
     "AMD": {
       "above_200d": true,
@@ -83,18 +78,18 @@
     "DX-Y.NYB": {
       "above_200d": true,
       "above_50d": true,
-      "close": 100.855003,
-      "date": "2026-07-06",
-      "distance_from_200d": 2.014215813410458,
-      "distance_from_50d": 1.361098580037945,
+      "close": 100.957001,
+      "date": "2026-07-07",
+      "distance_from_200d": 2.0963088358675996,
+      "distance_from_50d": 1.4197384552686376,
       "group": "liquidity",
       "name": "US Dollar Index",
-      "return_1d": -0.004955383651050749,
-      "return_20d": 1.4535750345608944,
-      "return_5d": -0.49822217345874,
-      "return_63d": 0.8247565812731672,
-      "sma_200": 98.86367522,
-      "sma_50": 99.50070038
+      "return_1d": 0.106101142411541,
+      "return_20d": 0.886380533626463,
+      "return_5d": -0.15132034268300343,
+      "return_63d": 0.9771934093660839,
+      "sma_200": 98.884085185,
+      "sma_50": 99.54374024
     },
     "GOOGL": {
       "above_200d": true,
@@ -371,18 +366,18 @@
     "^TNX": {
       "above_200d": true,
       "above_50d": true,
-      "close": 4.479,
-      "date": "2026-07-06",
-      "distance_from_200d": 5.811481218993642,
-      "distance_from_50d": 0.4273600093274821,
+      "close": 4.485,
+      "date": "2026-07-02",
+      "distance_from_200d": 6.0099486259479695,
+      "distance_from_50d": 0.6453871425237345,
       "group": "rates",
       "name": "US 10Y Treasury Yield",
-      "return_1d": -0.13377926421405117,
-      "return_20d": 0.04467277194548647,
-      "return_5d": 2.4473924977127304,
-      "return_63d": 3.8488291212613213,
-      "sma_200": 4.233,
-      "sma_50": 4.45994
+      "return_1d": 0.22346368715084886,
+      "return_20d": -0.13360053440212294,
+      "return_5d": 2.1174863387978027,
+      "return_63d": 3.8434822875665686,
+      "sma_200": 4.230735,
+      "sma_50": 4.45624
     },
     "^VIX": {
       "above_200d": false,
@@ -430,7 +425,7 @@
       "unavailable_symbols": []
     }
   },
-  "market_health_score": 68.52,
+  "market_health_score": 68.88,
   "metadata": {
     "data_source": "Yahoo Finance chart endpoint",
     "engine_version": "1.0",
@@ -438,50 +433,56 @@
       "market_data": {},
       "news": {}
     },
-    "generated_at": "2026-07-06T22:53:27+00:00"
+    "generated_at": "2026-07-07T07:25:15+00:00"
   },
   "news": {
     "errors": {},
     "groups": {
       "ai": [
         {
-          "link": "https://247wallst.com/investing/etf/2026/07/06/this-semiconductor-etf-is-up-54-this-year-and-refuses-to-own-intel/?.tsrc=rss",
-          "published": "Mon, 06 Jul 2026 22:49:21 +0000",
+          "link": "https://finance.yahoo.com/m/3903bd54-50b0-3770-8309-92109d15f7f9/spacex-is-in-the-nasdaq-100%2C.html?.tsrc=rss",
+          "published": "Tue, 07 Jul 2026 07:21:00 +0000",
           "source": "Yahoo Finance",
-          "title": "This Semiconductor ETF Is Up 54% This Year and Refuses to Own Intel"
+          "title": "SpaceX Is in the Nasdaq-100, Now Brace for Volatility"
         },
         {
-          "link": "https://beincrypto.com/jim-cramer-buy-nvidia-delay-claims/?.tsrc=rss",
-          "published": "Mon, 06 Jul 2026 22:30:00 +0000",
+          "link": "https://www.proactiveinvestors.com/companies/news/1095025/nvidia-s-kyber-rack-delayed-to-2028-tech-giant-s-stumble-hands-rivals-a-rare-opening-1095025.html?.tsrc=rss",
+          "published": "Tue, 07 Jul 2026 06:54:00 +0000",
           "source": "Yahoo Finance",
-          "title": "Jim Cramer Says Buy Nvidia as Chipmaker Rejects 2028 AI Delay Claims"
+          "title": "Nvidia's Kyber rack delayed to 2028: Tech giant's stumble hands rivals a rare opening"
         },
         {
-          "link": "https://www.fool.com/investing/2026/07/06/why-charles-schwab-stock-bumped-almost-4-higher-on/?.tsrc=rss",
-          "published": "Mon, 06 Jul 2026 22:18:33 +0000",
+          "link": "https://www.fool.com/investing/2026/07/07/stock-market-best-quarter-years-history-says-next/?.tsrc=rss",
+          "published": "Tue, 07 Jul 2026 06:51:00 +0000",
           "source": "Yahoo Finance",
-          "title": "Why Charles Schwab Stock Bumped Almost 4% Higher on Monday"
+          "title": "The Stock Market Just Finished Its Best Quarter in Years. Here's What History Says Is Coming Next."
         },
         {
-          "link": "https://www.fool.com/investing/2026/07/06/why-lemonade-stock-is-up-today/?.tsrc=rss",
-          "published": "Mon, 06 Jul 2026 22:17:40 +0000",
+          "link": "https://www.fool.com/investing/2026/07/07/is-the-spacex-ipo-officially-overhyped/?.tsrc=rss",
+          "published": "Tue, 07 Jul 2026 06:25:00 +0000",
           "source": "Yahoo Finance",
-          "title": "Why Lemonade Stock Leaped Today"
+          "title": "Is the SpaceX IPO Officially Overhyped?"
         },
         {
-          "link": "https://finance.yahoo.com/technology/ai/articles/siggraph-2026-announces-sponsored-keynote-220500622.html?.tsrc=rss",
-          "published": "Mon, 06 Jul 2026 22:05:00 +0000",
+          "link": "https://www.fool.com/investing/2026/07/07/teslas-robotaxi-just-launched-in-miami-its-first-c/?.tsrc=rss",
+          "published": "Tue, 07 Jul 2026 06:12:00 +0000",
           "source": "Yahoo Finance",
-          "title": "SIGGRAPH 2026 Announces Sponsored Keynote Presentations Showcasing the Future of Graphics, AI, and Simulation"
+          "title": "Tesla's Robotaxi Just Launched in Miami -- Its First City Outside Texas and California. Can It Rescue the Stock?"
         },
         {
-          "link": "https://www.fool.com/investing/2026/07/06/is-meta-platforms-a-bargain-or-a-value-trap/?.tsrc=rss",
-          "published": "Mon, 06 Jul 2026 22:05:00 +0000",
+          "link": "https://finance.yahoo.com/markets/stocks/articles/why-eyepoint-inc-eypt-among-055352083.html?.tsrc=rss",
+          "published": "Tue, 07 Jul 2026 05:53:52 +0000",
           "source": "Yahoo Finance",
-          "title": "Is Meta Platforms a Bargain or a Value Trap?"
+          "title": "Here\u2019s Why EyePoint, Inc. (EYPT) Is Among the Best Get Rich Quick Stocks"
         }
       ],
       "macro": [
+        {
+          "link": "https://beincrypto.com/gold-price-retreat-jpmorgan-q4-forecast/?.tsrc=rss",
+          "published": "Tue, 07 Jul 2026 01:21:50 +0000",
+          "source": "Yahoo Finance",
+          "title": "Gold Retreats From 2-Week High as JPMorgan Eyes Q4 Rebound"
+        },
         {
           "link": "https://finance.yahoo.com/markets/world-indices/articles/asian-markets-mixed-tech-recovery-024825236.html?.tsrc=rss",
           "published": "Mon, 06 Jul 2026 20:24:04 +0000",
@@ -501,30 +502,30 @@
           "title": "Traders Are Most Positive on Dollar Since 2015 as Fed Hike Looms"
         },
         {
+          "link": "https://www.barchart.com/story/news/3148134/dollar-erases-early-gains-as-fed-rate-hike-prospects-ease?.tsrc=rss",
+          "published": "Mon, 06 Jul 2026 19:35:20 +0000",
+          "source": "Yahoo Finance",
+          "title": "Dollar Erases Early Gains as Fed Rate Hike Prospects Ease"
+        },
+        {
           "link": "https://finance.yahoo.com/markets/commodities/articles/gold-rises-two-week-high-175445777.html?.tsrc=rss",
           "published": "Mon, 06 Jul 2026 17:54:45 +0000",
           "source": "Yahoo Finance",
           "title": "Update: Gold Rises to a Two-Week High on Easing Inflation Concerns"
-        },
-        {
-          "link": "https://finance.yahoo.com/markets/crypto/articles/michael-saylors-strategy-trims-bitcoin-171638797.html?.tsrc=rss",
-          "published": "Mon, 06 Jul 2026 17:16:38 +0000",
-          "source": "Yahoo Finance",
-          "title": "Michael Saylor's Strategy trims Bitcoin holdings"
-        },
-        {
-          "link": "https://finance.yahoo.com/video/strategy-sells-216m-in-bitcoin-to-fund-its-shareholder-dividends-163230774.html?.tsrc=rss",
-          "published": "Mon, 06 Jul 2026 16:32:30 +0000",
-          "source": "Yahoo Finance",
-          "title": "Strategy sells $216M in bitcoin to fund its shareholder dividends"
         }
       ],
       "market": [
         {
-          "link": "https://finance.yahoo.com/m/c71a3345-6ae6-3d18-95eb-134519da74ab/dow-jones-futures%3A-ai-stocks.html?.tsrc=rss",
-          "published": "Mon, 06 Jul 2026 22:38:10 +0000",
+          "link": "https://finance.yahoo.com/m/c71a3345-6ae6-3d18-95eb-134519da74ab/dow-jones-futures%3A-tech.html?.tsrc=rss",
+          "published": "Tue, 07 Jul 2026 01:54:18 +0000",
           "source": "Yahoo Finance",
-          "title": "Dow Jones Futures: AI Stocks Astera, Bloom, Tesla Rebound; SpaceX Slides Ahead Of Nasdaq-100 Inclusion"
+          "title": "Dow Jones Futures: Tech Futures Slide On Samsung Earnings; SpaceX Falls Ahead Of Nasdaq-100 Inclusion"
+        },
+        {
+          "link": "https://finance.yahoo.com/video/spacex-joins-nasdaq-100-sk-230000351.html?.tsrc=rss",
+          "published": "Mon, 06 Jul 2026 23:00:00 +0000",
+          "source": "Yahoo Finance",
+          "title": "SpaceX joins Nasdaq 100, SK Hynix makes US debut: What to Watch"
         },
         {
           "link": "https://stocktwits.com/news-articles/markets/equity/s-and-p-500-nasdaq-end-higher-on-support-from-strong-tech-gains-led-by-nvidia-dow-hits-record-highs-msft-nvda-lmt-avgo-spcx-in-focus/cZm1YfaR7lU?.tsrc=rss",
@@ -549,19 +550,13 @@
           "published": "Mon, 06 Jul 2026 20:27:32 +0000",
           "source": "Yahoo Finance",
           "title": "Top Wall Street Strategist: The S&P 500 Could Hit As High As 8,800 This Year, But a 10-20% Drop May Come First"
-        },
-        {
-          "link": "https://247wallst.com/investing/2026/07/06/microsoft-is-cutting-4800-jobs-to-feed-the-ai-machine-should-you-still-own-it/?.tsrc=rss",
-          "published": "Mon, 06 Jul 2026 19:58:58 +0000",
-          "source": "Yahoo Finance",
-          "title": "Microsoft Is Cutting 4,800 Jobs to Feed the AI Machine. Should You Still Own It?"
         }
       ]
     },
     "source": "Yahoo Finance RSS"
   },
   "prediction": {
-    "confidence": 84.82,
+    "confidence": 85.1,
     "expected_market": "Expansion",
     "next_day_bias": "Neutral",
     "stance": "Neutral"
@@ -605,8 +600,8 @@
         }
       ],
       "reasoning": [
-        "AI fundamentals proxy uses semiconductor and AI infrastructure equity trends.",
-        "This is a market-implied proxy until earnings, CapEx, and funding data are added."
+        "This is the AI trade thermometer: chips, infra, and semiconductor ETFs.",
+        "High score means the market is confirming AI demand; low score says AI leadership is losing sponsorship."
       ],
       "score": 58.33
     },
@@ -642,8 +637,8 @@
         }
       ],
       "reasoning": [
-        "Credit proxy uses HYG/JNK performance and trend.",
-        "Weak high-yield bonds usually warn before equity stress becomes obvious."
+        "Credit stress usually hits speculative growth before earnings stories change.",
+        "Healthy HYG/JNK trends mean the market is still funding risk; weakness argues for smaller AI position sizes."
       ],
       "score": 46.03
     },
@@ -672,8 +667,8 @@
         }
       ],
       "reasoning": [
-        "Geopolitical risk proxy uses volatility and short-term market shock behavior.",
-        "News-quality event detection should be added only from credible sources."
+        "Shock risk matters because AI portfolios are often concentrated in crowded winners.",
+        "Low score means protect against gap risk; high score means headlines are not yet forcing broad de-risking."
       ],
       "score": 90.0
     },
@@ -687,11 +682,11 @@
           "value": 15.57
         },
         {
-          "display": "1.45%",
+          "display": "0.89%",
           "field": "return_20d",
           "label": "Dollar 20-day return",
           "symbol": "DX-Y.NYB",
-          "value": 1.4535750345608944
+          "value": 0.886380533626463
         },
         {
           "display": "True",
@@ -709,40 +704,40 @@
         }
       ],
       "reasoning": [
-        "Liquidity proxy uses VIX, dollar trend, and SPY/QQQ 50-day trend.",
-        "Higher score means calmer volatility and easier risk conditions."
+        "Liquidity drives how much investors will pay for long-duration AI growth.",
+        "High score supports AI multiple expansion; low score warns that even strong AI names can de-rate."
       ],
       "score": 83.36
     },
     "macro_risk": {
       "evidence": [
         {
-          "display": "4.48",
+          "display": "4.49",
           "field": "close",
           "label": "10Y Treasury yield proxy",
           "symbol": "^TNX",
-          "value": 4.479
+          "value": 4.485
         },
         {
-          "display": "0.04%",
+          "display": "-0.13%",
           "field": "return_20d",
           "label": "10Y yield 20-day change",
           "symbol": "^TNX",
-          "value": 0.04467277194548647
+          "value": -0.13360053440212294
         },
         {
-          "display": "1.45%",
+          "display": "0.89%",
           "field": "return_20d",
           "label": "Dollar 20-day return",
           "symbol": "DX-Y.NYB",
-          "value": 1.4535750345608944
+          "value": 0.886380533626463
         }
       ],
       "reasoning": [
-        "Macro risk proxy uses Treasury yield pressure and dollar strength.",
-        "Dedicated CPI, payrolls, ISM, and FOMC event modules can be layered in later."
+        "AI stocks are sensitive to rates because much of their value is future growth.",
+        "Rising yields or dollar pressure can compress multiples even when AI fundamentals remain strong."
       ],
-      "score": 72.41
+      "score": 75.48
     },
     "market_breadth": {
       "evidence": [
@@ -776,8 +771,8 @@
         }
       ],
       "reasoning": [
-        "Breadth proxy compares cap-weighted, equal-weight, Nasdaq, and small-cap trends.",
-        "Healthy markets should not depend on only a tiny set of mega-cap winners."
+        "Breadth tells whether AI strength is supported by the wider market.",
+        "Narrow breadth means AI leaders may be crowded; broad strength gives breakouts more staying power."
       ],
       "score": 74.68
     },
@@ -813,8 +808,8 @@
         }
       ],
       "reasoning": [
-        "Valuation risk proxy uses distance above 200-day trend.",
-        "Very extended leadership can still rise, but forward risk/reward becomes less forgiving."
+        "Valuation risk rises when AI leaders stretch far above long-term trend.",
+        "Low score does not mean sell automatically; it means new buys need a bigger margin of safety."
       ],
       "score": 66.52
     }
