@@ -39,8 +39,8 @@ def score_liquidity(indicators: dict) -> tuple[float, list[str]]:
         ]
     )
     return score, [
-        "Liquidity drives how much investors will pay for long-duration AI growth.",
-        "High score supports AI multiple expansion; low score warns that even strong AI names can de-rate.",
+        "When money feels easy, AI stocks usually get more room to run.",
+        "If this falls, even good AI companies can drop because investors pay less for future growth.",
     ]
 
 
@@ -54,8 +54,8 @@ def score_credit(indicators: dict) -> tuple[float, list[str]]:
         ]
     )
     return score, [
-        "Credit stress usually hits speculative growth before earnings stories change.",
-        "Healthy HYG/JNK trends mean the market is still funding risk; weakness argues for smaller AI position sizes.",
+        "This asks: are investors still comfortable taking risk?",
+        "If bond-market risk appetite is weak, be careful adding to volatile AI names.",
     ]
 
 
@@ -67,8 +67,8 @@ def score_ai_fundamentals(indicators: dict) -> tuple[float, list[str]]:
     )
     score = average_score([trend_score, momentum_score])
     return score, [
-        "This is the AI trade thermometer: chips, infra, and semiconductor ETFs.",
-        "High score means the market is confirming AI demand; low score says AI leadership is losing sponsorship.",
+        "This checks whether the actual AI stock group is acting healthy.",
+        "If NVDA, SMH, and SOXX are weak, the AI story may still be good but the trade is not confirming it.",
     ]
 
 
@@ -81,8 +81,8 @@ def score_market_breadth(indicators: dict) -> tuple[float, list[str]]:
     )
     score = average_score([above_50, above_200, momentum])
     return score, [
-        "Breadth tells whether AI strength is supported by the wider market.",
-        "Narrow breadth means AI leaders may be crowded; broad strength gives breakouts more staying power.",
+        "This asks whether the rally is broad or just a few big names.",
+        "A broad rally is safer. A narrow rally means AI leaders can get crowded fast.",
     ]
 
 
@@ -92,8 +92,8 @@ def score_valuation_risk(indicators: dict) -> tuple[float, list[str]]:
     average_stretch = mean(valid_stretches) if valid_stretches else None
     score = score_lower_is_better(average_stretch, good=8, bad=35)
     return round(score, 2), [
-        "Valuation risk rises when AI leaders stretch far above long-term trend.",
-        "Low score does not mean sell automatically; it means new buys need a bigger margin of safety.",
+        "This checks whether prices have already run too far.",
+        "If this weakens, new buys need more patience because the easy move may already be priced in.",
     ]
 
 
@@ -108,8 +108,8 @@ def score_macro_risk(indicators: dict) -> tuple[float, list[str]]:
         ]
     )
     return score, [
-        "AI stocks are sensitive to rates because much of their value is future growth.",
-        "Rising yields or dollar pressure can compress multiples even when AI fundamentals remain strong.",
+        "Rates and the dollar can push growth stocks around.",
+        "If rates rise fast, AI stocks can fall even when company news is still good.",
     ]
 
 
@@ -118,8 +118,8 @@ def score_geopolitical_risk(indicators: dict) -> tuple[float, list[str]]:
     spy_shock = score_return(_value(indicators, "SPY", "return_5d"), bullish_threshold=2, bearish_threshold=-5)
     score = average_score([vix_score, spy_shock])
     return score, [
-        "Shock risk matters because AI portfolios are often concentrated in crowded winners.",
-        "Low score means protect against gap risk; high score means headlines are not yet forcing broad de-risking.",
+        "This checks whether the market is getting jumpy.",
+        "Low fear helps. Rising fear means crowded AI winners can move sharply without warning.",
     ]
 
 

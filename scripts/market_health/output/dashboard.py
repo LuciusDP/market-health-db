@@ -1,37 +1,47 @@
 from __future__ import annotations
 
+import json
 from html import escape
 
-from scripts.market_health.config import DASHBOARD_DIR
+from scripts.market_health.config import DAILY_DIR, DASHBOARD_DIR
 
 
 SCORE_BANDS = [
-    (75, "Strong", "Build or hold winners", "Conditions support risk-taking in quality AI leaders."),
-    (60, "Constructive", "Selective risk-on", "Add only where trend and fundamentals agree."),
-    (45, "Mixed", "Watch closely", "Keep AI exposure focused; avoid chasing extended moves."),
-    (30, "Caution", "Reduce weak links", "Protect capital and demand cleaner setups."),
-    (0, "Risk-off", "Defensive posture", "Liquidity, credit, or trend stress can overpower the AI story."),
+    (75, "Clear green", "Market is helping", "Good conditions for holding strong AI winners."),
+    (60, "Mostly okay", "Be selective", "The market is supportive, but still check the weak spots."),
+    (45, "Mixed", "Slow down", "Some things are working, some are warning you."),
+    (30, "Warning", "Protect capital", "Do not chase. Wait for cleaner confirmation."),
+    (0, "Danger", "Stay defensive", "Market stress can overwhelm even good AI stories."),
 ]
 
 SUBSCORE_ICONS = {
-    "liquidity": "LQ",
-    "credit": "CR",
+    "liquidity": "$",
+    "credit": "!",
     "ai_fundamentals": "AI",
-    "market_breadth": "BR",
-    "valuation_risk": "VR",
-    "macro_risk": "MR",
-    "geopolitical_risk": "GR",
+    "market_breadth": "+",
+    "valuation_risk": "%",
+    "macro_risk": "R",
+    "geopolitical_risk": "~",
 }
 
 SUBSCORE_TITLES = {
-    "liquidity": "Liquidity",
-    "credit": "Credit",
-    "ai_fundamentals": "AI Fundamentals",
-    "market_breadth": "Market Breadth",
-    "valuation_risk": "Valuation Risk",
-    "macro_risk": "Macro Risk",
-    "geopolitical_risk": "Shock Risk",
+    "liquidity": "Cash mood",
+    "credit": "Risk appetite",
+    "ai_fundamentals": "AI stocks",
+    "market_breadth": "Rally breadth",
+    "valuation_risk": "Too stretched?",
+    "macro_risk": "Rates & dollar",
+    "geopolitical_risk": "Volatility",
 }
+
+WATCH_ITEMS = [
+    ("NVDA", "NVIDIA", "AI leader", "return_20d", "%"),
+    ("SMH", "Semiconductor ETF", "AI chip group", "return_20d", "%"),
+    ("SOXX", "Chip ETF", "Chip breadth", "return_20d", "%"),
+    ("HYG", "High yield bonds", "Are investors still willing to take risk?", "return_20d", "%"),
+    ("^VIX", "VIX", "Is fear rising?", "close", ""),
+    ("^TNX", "10Y yield", "Are rates pressuring growth stocks?", "close", ""),
+]
 
 
 def _band(value: float | None) -> tuple[str, str, str]:
@@ -54,6 +64,47 @@ def _fmt(value: float | int | None, suffix: str = "") -> str:
     if isinstance(value, float):
         value = round(value, 2)
     return f"{value}{suffix}"
+
+
+def _previous_record(record: dict) -> dict | None:
+    current_date = record.get("date")
+    if not current_date:
+        return None
+    previous_files = [path for path in DAILY_DIR.glob("*.json") if path.stem < current_date]
+    if not previous_files:
+        return None
+    return json.loads(sorted(previous_files)[-1].read_text(encoding="utf-8"))
+
+
+def _change(today: float | int | None, yesterday: float | int | None) -> float | None:
+    if today is None or yesterday is None:
+        return None
+    return round(float(today) - float(yesterday), 2)
+
+
+def _change_badge(today: float | int | None, yesterday: float | int | None, suffix: str = "") -> str:
+    delta = _change(today, yesterday)
+    if delta is None:
+        return "<span class='flat'>n/a</span>"
+    if delta > 0:
+        return f"<span class='up'>UP +{delta}{suffix}</span>"
+    if delta < 0:
+        return f"<span class='down'>DOWN {delta}{suffix}</span>"
+    return "<span class='flat'>FLAT</span>"
+
+
+def _plain_score_sentence(score: float | int | None) -> str:
+    if score is None:
+        return "No fresh score yet."
+    if score >= 75:
+        return "The market is helping your AI watchlist today."
+    if score >= 60:
+        return "The market is okay, but this is not an all-clear signal."
+    if score >= 45:
+        return "The market is split. Be picky and check the weak spots."
+    if score >= 30:
+        return "Conditions are shaky. Avoid chasing green candles."
+    return "Conditions are hostile. Defense matters more than new buys."
 
 
 def _evidence_rows(payload: dict) -> str:
@@ -142,7 +193,7 @@ def _drivers_list(title: str, items: list[tuple[str, dict]], mode: str) -> str:
         rows.append(
             f"""
             <li>
-              <div><strong>{escape(label)}</strong> <span class="delta">{_fmt(delta, " vs neutral")}</span></div>
+              <div><span class="mini-icon">{escape(SUBSCORE_ICONS.get(name, "?"))}</span><strong>{escape(label)}</strong> <span class="delta">{_fmt(delta, " from 50")}</span></div>
               <p>{escape(driver)}</p>
             </li>
             """
@@ -165,66 +216,66 @@ def _plain_driver(name: str, payload: dict, mode: str) -> str:
         for item in available[:3]
     )
     if mode == "leader":
-        return f"This sleeve is supporting the score. Key checks: {facts}."
+        return f"This part helped today. Check: {facts}."
     score = payload.get("score") or 0
     if score < 50:
-        return f"This is an active drag. Verify before adding risk: {facts}."
-    return f"This is not weak, but it is below the Strong zone. Check before upgrading exposure: {facts}."
+        return f"This part is holding the market back. Before buying, check: {facts}."
+    return f"This is okay, but not strong enough to relax. Check: {facts}."
 
 
-def _today_diagnosis(record: dict) -> str:
+def _today_diagnosis(record: dict, previous: dict | None) -> str:
     leaders, drags = _subscore_rankings(record)
     top_leader = leaders[0] if leaders else (None, {})
     top_drag = drags[0] if drags else (None, {})
     leader_name = SUBSCORE_TITLES.get(top_leader[0], "n/a")
     drag_name = SUBSCORE_TITLES.get(top_drag[0], "n/a")
     drag_detail = _plain_driver(top_drag[0], top_drag[1], "drag") if top_drag[0] else ""
+    previous_score = previous.get("market_health_score") if previous else None
+    score_delta = _change_badge(record.get("market_health_score"), previous_score)
     return f"""
     <section class="panel diagnosis">
       <div class="eyebrow">TODAY'S READ</div>
       <h2>{escape(record.get("risk_regime", "n/a"))}: {escape(record.get("stance", "n/a"))}</h2>
+      <div class="score-line">
+        <span class="big-score">{_fmt(record.get("market_health_score"))}</span>
+        {score_delta}
+      </div>
+      <p class="plain-read">{escape(_plain_score_sentence(record.get("market_health_score")))}</p>
       <p>
-        Market health is <strong>{_fmt(record.get("market_health_score"))}</strong>.
-        The strongest support is <strong>{escape(leader_name)}</strong>;
-        the main reason this is not stronger is <strong>{escape(drag_name)}</strong>.
+        The biggest help today is <strong>{escape(leader_name)}</strong>.
+        The thing to check first is <strong>{escape(drag_name)}</strong>.
       </p>
       <p>{escape(drag_detail)}</p>
       <p class="muted">
-        Use this as an AI-stock risk climate check: confirm whether AI leadership is broadening,
-        whether credit is improving, and whether rate pressure is moving against long-duration growth.
+        Read this like a morning checklist, not a buy/sell order. It tells you where to look before touching AI stocks.
       </p>
     </section>
     """
 
 
-def _watchlist_panel(record: dict) -> str:
+def _watchlist_panel(record: dict, previous: dict | None) -> str:
     indicators = record.get("indicators", {})
-    watch_items = [
-        ("NVDA", "AI leader check", "return_20d"),
-        ("SMH", "Semiconductor ETF confirmation", "return_20d"),
-        ("SOXX", "Chip breadth confirmation", "return_20d"),
-        ("HYG", "Credit risk appetite", "return_20d"),
-        ("^VIX", "Shock-risk level", "close"),
-        ("^TNX", "Rate pressure", "close"),
-    ]
+    previous_indicators = (previous or {}).get("indicators", {})
     rows = []
-    for symbol, label, field in watch_items:
+    for symbol, label, why, field, suffix in WATCH_ITEMS:
         value = indicators.get(symbol, {}).get(field)
-        suffix = "%" if "return" in field else ""
+        previous_value = previous_indicators.get(symbol, {}).get(field)
         rows.append(
             f"""
             <tr>
               <td><code>{escape(symbol)}</code></td>
-              <td>{escape(label)}</td>
+              <td><strong>{escape(label)}</strong><br><span>{escape(why)}</span></td>
+              <td>{_fmt(previous_value, suffix)}</td>
               <td>{_fmt(value, suffix)}</td>
+              <td>{_change_badge(value, previous_value, suffix)}</td>
             </tr>
             """
         )
     return f"""
     <section class="panel">
-      <div class="eyebrow">WHAT TO VERIFY BEFORE TRADING</div>
+      <div class="eyebrow">WHAT TO CHECK BEFORE YOU TRADE</div>
       <table>
-        <thead><tr><th>Ticker</th><th>Why it matters</th><th>Current read</th></tr></thead>
+        <thead><tr><th>Ticker</th><th>Why look here?</th><th>Yesterday</th><th>Today</th><th>Change</th></tr></thead>
         <tbody>{''.join(rows)}</tbody>
       </table>
     </section>
@@ -263,6 +314,62 @@ def _headline_groups(record: dict) -> str:
     return "\n".join(sections)
 
 
+def _sparkline(score_history: list[dict]) -> str:
+    values = [row.get("market_health_score") for row in score_history if row.get("market_health_score") is not None]
+    if len(values) < 2:
+        return "<p class='muted'>More history needed for a chart.</p>"
+    width = 520
+    height = 150
+    step = width / (len(values) - 1)
+    points = []
+    for index, value in enumerate(values):
+        x = round(index * step, 2)
+        y = round(height - (float(value) / 100) * height, 2)
+        points.append(f"{x},{y}")
+    last = values[-1]
+    first = values[0]
+    return f"""
+    <svg class="chart" viewBox="0 0 {width} {height}" role="img" aria-label="Market health score history">
+      <line x1="0" y1="37.5" x2="{width}" y2="37.5" class="guide"></line>
+      <line x1="0" y1="60" x2="{width}" y2="60" class="guide"></line>
+      <line x1="0" y1="82.5" x2="{width}" y2="82.5" class="guide"></line>
+      <polyline points="{' '.join(points)}"></polyline>
+      <circle cx="{round((len(values) - 1) * step, 2)}" cy="{round(height - (float(last) / 100) * height, 2)}" r="5"></circle>
+    </svg>
+    <p class="muted">Started at {_fmt(first)}. Latest is {_fmt(last)}.</p>
+    """
+
+
+def _subscore_comparison(record: dict, previous: dict | None) -> str:
+    previous_scores = (previous or {}).get("sub_scores", {})
+    rows = []
+    for name, payload in record.get("sub_scores", {}).items():
+        title = SUBSCORE_TITLES.get(name, name.replace("_", " ").title())
+        icon = SUBSCORE_ICONS.get(name, "?")
+        today = payload.get("score")
+        yesterday = previous_scores.get(name, {}).get("score")
+        rows.append(
+            f"""
+            <tr>
+              <td><span class="mini-icon">{escape(icon)}</span>{escape(title)}</td>
+              <td>{_fmt(yesterday)}</td>
+              <td>{_fmt(today)}</td>
+              <td>{_change_badge(today, yesterday)}</td>
+              <td>{_bar(today)}</td>
+            </tr>
+            """
+        )
+    return f"""
+    <section class="panel">
+      <div class="eyebrow">YESTERDAY VS TODAY</div>
+      <table>
+        <thead><tr><th>Area</th><th>Yesterday</th><th>Today</th><th>Move</th><th>Level</th></tr></thead>
+        <tbody>{''.join(rows)}</tbody>
+      </table>
+    </section>
+    """
+
+
 def _accuracy_panel(history: dict) -> str:
     accuracy = history.get("prediction_accuracy", {})
     records = accuracy.get("records", [])
@@ -297,6 +404,7 @@ def _accuracy_panel(history: dict) -> str:
 
 def generate_dashboard(record: dict, history: dict) -> None:
     DASHBOARD_DIR.mkdir(parents=True, exist_ok=True)
+    previous = _previous_record(record)
     subscores = record.get("sub_scores", {})
     score_history = history.get("score_history", [])[-180:]
     band_label, action, meaning = _band(record.get("market_health_score"))
@@ -364,6 +472,9 @@ def generate_dashboard(record: dict, history: dict) -> None:
     .metric-row strong {{ font-size: 26px; }}
     .callout {{ margin: 14px 0 0; padding: 12px; border-left: 4px solid var(--blue); background: #f8fbff; border-radius: 6px; }}
     .diagnosis h2 {{ margin-top: 8px; font-size: 32px; }}
+    .score-line {{ display: flex; align-items: center; gap: 12px; margin: 8px 0; }}
+    .big-score {{ font-size: 58px; font-weight: 850; line-height: 1; }}
+    .plain-read {{ font-size: 18px; font-weight: 700; margin: 10px 0; }}
     .driver-list {{ list-style: none; margin: 12px 0 0; padding: 0; }}
     .driver-list li {{ border-top: 1px solid #edf0f5; padding: 11px 0; }}
     .driver-list li:first-child {{ border-top: 0; }}
@@ -373,6 +484,16 @@ def generate_dashboard(record: dict, history: dict) -> None:
     .threshold-row:first-child {{ border-top: 0; }}
     .threshold-row span {{ color: var(--muted); font-size: 12px; }}
     .threshold-row small {{ grid-column: 2; color: #344054; }}
+    .mini-icon {{ display: inline-grid; place-items: center; width: 26px; height: 26px; margin-right: 8px; border-radius: 7px; background: #eaf2ff; color: var(--blue); font-weight: 850; font-size: 12px; }}
+    .up, .down, .flat {{ display: inline-flex; align-items: center; border-radius: 999px; padding: 3px 8px; font-size: 12px; font-weight: 800; white-space: nowrap; }}
+    .up {{ color: #166534; background: #dcfce7; }}
+    .down {{ color: #b42318; background: #fee2e2; }}
+    .flat {{ color: #475467; background: #eef2f7; }}
+    .chart {{ width: 100%; height: 180px; margin-top: 8px; background: #fbfdff; border: 1px solid #e5eaf2; border-radius: 8px; padding: 10px; }}
+    .chart polyline {{ fill: none; stroke: var(--blue); stroke-width: 4; stroke-linecap: round; stroke-linejoin: round; }}
+    .chart circle {{ fill: var(--blue); }}
+    .chart .guide {{ stroke: #d9e1ee; stroke-width: 1; stroke-dasharray: 4 5; }}
+    td span {{ color: var(--muted); }}
     pre {{ white-space: pre-wrap; background: #101828; color: #f8fafc; padding: 16px; border-radius: 8px; overflow-x: auto; }}
     @media (max-width: 760px) {{ header, .hero {{ display: block; }} .panel {{ margin-bottom: 12px; }} .score {{ font-size: 52px; }} }}
   </style>
@@ -389,7 +510,7 @@ def generate_dashboard(record: dict, history: dict) -> None:
 
     <section class="hero">
       <div>
-        {_today_diagnosis(record)}
+        {_today_diagnosis(record, previous)}
         <div class="hero" style="grid-template-columns: 1fr 1fr; margin-top: 16px;">
           {_drivers_list("What lifted the score", leaders, "leader")}
           {_drivers_list("Why it is not stronger", drags, "drag")}
@@ -405,8 +526,17 @@ def generate_dashboard(record: dict, history: dict) -> None:
       </aside>
     </section>
 
+    <h2>Charts</h2>
+    <section class="hero">
+      <section class="panel">
+        <div class="eyebrow">HEALTH SCORE TREND</div>
+        {_sparkline(score_history)}
+      </section>
+      {_subscore_comparison(record, previous)}
+    </section>
+
     <h2>Trading Checklist</h2>
-    {_watchlist_panel(record)}
+    {_watchlist_panel(record, previous)}
 
     <h2>Subscore Detail</h2>
     <section class="grid">{subscore_cards}</section>
