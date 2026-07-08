@@ -10,6 +10,8 @@ NEWS_QUERIES = {
     "market": ["SPY", "QQQ", "^VIX"],
     "ai": ["NVDA", "AMD", "SMH", "SOXX"],
     "macro": ["^TNX", "DX-Y.NYB"],
+    "geopolitical": ["CL=F", "BZ=F", "GC=F", "^VIX"],
+    "energy": ["XLE", "USO", "CL=F", "BZ=F"],
 }
 
 

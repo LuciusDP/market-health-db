@@ -41,6 +41,8 @@ def backfill_previous_record(today: str, indicators: dict) -> dict | None:
     soxx_return = indicators.get("SOXX", {}).get("return_1d")
     vix_return = indicators.get("^VIX", {}).get("return_1d")
     prediction = previous.get("prediction", {}).get("stance") or previous.get("stance")
+    if spy_return is None:
+        return backtest
 
     backtest.update(
         {
@@ -60,4 +62,3 @@ def backfill_previous_record(today: str, indicators: dict) -> dict | None:
     )
     write_json(previous_path, previous)
     return backtest
-

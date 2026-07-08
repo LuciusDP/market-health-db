@@ -124,10 +124,16 @@ def score_macro_risk(indicators: dict) -> tuple[float, list[str]]:
 def score_geopolitical_risk(indicators: dict) -> tuple[float, list[str]]:
     vix_score = score_lower_is_better(_value(indicators, "^VIX", "close"), good=16, bad=35)
     spy_shock = score_return(_value(indicators, "SPY", "return_5d"), bullish_threshold=2, bearish_threshold=-5)
-    score = average_score([vix_score, spy_shock])
+    qqq_shock = score_return(_value(indicators, "QQQ", "return_5d"), bullish_threshold=2, bearish_threshold=-6)
+    oil_shock = score_lower_is_better(_event_move(indicators, ["BZ=F", "CL=F"], "return_5d"), good=2, bad=10)
+    gold_bid = score_lower_is_better(_value(indicators, "GC=F", "return_5d"), good=1, bad=6)
+    dollar_bid = score_lower_is_better(_value(indicators, "DX-Y.NYB", "return_5d"), good=0.5, bad=3)
+    bond_bid = score_lower_is_better(_value(indicators, "TLT", "return_5d"), good=1, bad=5)
+    energy_rotation = score_lower_is_better(_relative_move(indicators, "XLE", "SMH", "return_5d"), good=2, bad=8)
+    score = average_score([vix_score, spy_shock, qqq_shock, oil_shock, gold_bid, dollar_bid, bond_bid, energy_rotation])
     return score, [
-        "This checks whether the market is getting jumpy.",
-        "Low fear helps. Rising fear means crowded AI winners can move sharply without warning.",
+        "This checks whether a shock is moving from headlines into oil, safe havens, volatility, and AI stocks.",
+        "If oil, gold, dollar, and VIX rise together while QQQ/SMH weaken, reduce risk before the story gets priced in.",
     ]
 
 
@@ -200,12 +206,30 @@ def evidence_for_subscore(name: str, indicators: dict) -> list[dict]:
             _point(indicators, "^VIX", "close", "VIX level"),
             _point(indicators, "SPY", "return_5d", "SPY 5-day return", "%"),
             _point(indicators, "QQQ", "return_5d", "QQQ 5-day return", "%"),
+            _point(indicators, "BZ=F", "return_5d", "Brent oil 5-day return", "%"),
+            _point(indicators, "CL=F", "return_5d", "WTI oil 5-day return", "%"),
+            _point(indicators, "GC=F", "return_5d", "Gold 5-day return", "%"),
+            _point(indicators, "DX-Y.NYB", "return_5d", "Dollar 5-day return", "%"),
+            _point(indicators, "TLT", "return_5d", "Long bond 5-day return", "%"),
+            _point(indicators, "XLE", "return_5d", "Energy stocks 5-day return", "%"),
         ],
     }
     return evidence.get(name, [])
 
 
 def contributions_for_subscore(name: str, indicators: dict) -> list[dict]:
+    if name == "geopolitical_risk":
+        oil_move = _event_move(indicators, ["BZ=F", "CL=F"], "return_5d")
+        energy_vs_ai = _relative_move(indicators, "XLE", "SMH", "return_5d")
+        return [
+            _contribution("VIX fear", _value(indicators, "^VIX", "close"), _vix_points(_value(indicators, "^VIX", "close")), "VIX shows whether fear is spreading into broad market pricing."),
+            _contribution("Oil shock", oil_move, _shock_points(oil_move, good=2, watch=6, bad=10), "A fast oil move can lift inflation fear and hurt growth-stock multiples."),
+            _contribution("Gold bid", _value(indicators, "GC=F", "return_5d"), _shock_points(_value(indicators, "GC=F", "return_5d"), good=1, watch=3, bad=6), "Gold rising quickly can mean investors are paying for safety."),
+            _contribution("Dollar bid", _value(indicators, "DX-Y.NYB", "return_5d"), _shock_points(_value(indicators, "DX-Y.NYB", "return_5d"), good=0.5, watch=1.5, bad=3), "A stronger dollar often tightens global financial conditions."),
+            _contribution("QQQ shock", _value(indicators, "QQQ", "return_5d"), _drawdown_points(_value(indicators, "QQQ", "return_5d"), watch=-3, bad=-6), "QQQ weakness shows the risk is hitting growth and mega-cap tech."),
+            _contribution("Energy over AI", energy_vs_ai, _shock_points(energy_vs_ai, good=2, watch=5, bad=8), "Energy outperforming chips can signal rotation away from AI toward oil shock beneficiaries."),
+        ]
+
     if name != "liquidity":
         return []
 
@@ -295,3 +319,43 @@ def _trend_points(value: float | bool | None, positive: int, negative: int) -> i
     if value is None:
         return 0
     return positive if value else negative
+
+
+def _event_move(indicators: dict, symbols: list[str], field: str) -> float | None:
+    values = [
+        value for value in (_value(indicators, symbol, field) for symbol in symbols)
+        if isinstance(value, (int, float))
+    ]
+    return mean(values) if values else None
+
+
+def _relative_move(indicators: dict, leader: str, laggard: str, field: str) -> float | None:
+    leader_value = _value(indicators, leader, field)
+    laggard_value = _value(indicators, laggard, field)
+    if not isinstance(leader_value, (int, float)) or not isinstance(laggard_value, (int, float)):
+        return None
+    return leader_value - laggard_value
+
+
+def _shock_points(value: float | bool | None, good: float, watch: float, bad: float) -> int:
+    if not isinstance(value, (int, float)):
+        return 0
+    if value <= good:
+        return 6
+    if value <= watch:
+        return -4
+    if value <= bad:
+        return -9
+    return -14
+
+
+def _drawdown_points(value: float | bool | None, watch: float, bad: float) -> int:
+    if not isinstance(value, (int, float)):
+        return 0
+    if value >= 0:
+        return 5
+    if value >= watch:
+        return -3
+    if value >= bad:
+        return -8
+    return -13

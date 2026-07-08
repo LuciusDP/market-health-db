@@ -104,6 +104,22 @@
     .intent { color: var(--muted); font-size: 12px; font-weight: 800; text-transform: uppercase; }
     .driver-tile p { margin: 9px 0 0; color: #344054; }
     .delta { color: var(--muted); font-size: 12px; margin-left: 6px; }
+    .event-radar { margin-top: 16px; background: linear-gradient(135deg, #ffffff 0%, #fff7ed 48%, #f8fafc 100%); border-color: #fed7aa; }
+    .event-radar h2 { margin: 4px 0 8px; }
+    .event-radar-head { display: grid; grid-template-columns: 1fr 180px; gap: 16px; align-items: start; }
+    .event-radar-head p { margin: 0; color: #344054; }
+    .event-score { border: 1px solid #fed7aa; background: #fff; border-radius: 8px; padding: 12px; }
+    .event-score span, .event-score small { display: block; color: var(--muted); }
+    .event-score strong { display: block; font-size: 34px; line-height: 1; margin: 6px 0; }
+    .event-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(210px, 1fr)); gap: 10px; margin-top: 14px; }
+    .event-tile { border: 1px solid #e5eaf2; border-radius: 8px; padding: 12px; background: #fff; }
+    .event-tile.status-good { border-color: #bbf7d0; background: #f7fff9; }
+    .event-tile.status-watch { border-color: #fde68a; background: #fffbeb; }
+    .event-tile.status-danger { border-color: #fecaca; background: #fff7f7; }
+    .event-top { display: flex; align-items: center; justify-content: space-between; gap: 8px; }
+    .event-top strong { font-size: 15px; }
+    .event-value { font-size: 30px; line-height: 1; font-weight: 850; margin: 10px 0 4px; }
+    .event-tile p { margin: 8px 0 0; color: #344054; font-size: 13px; }
     .threshold-row { border-top: 1px solid #edf0f5; padding: 10px 0; display: grid; grid-template-columns: 58px 1fr; gap: 8px; }
     .threshold-row:first-child { border-top: 0; }
     .threshold-row span { color: var(--muted); font-size: 12px; }
@@ -152,7 +168,7 @@
     <header>
       <div>
         <h1>Market Health Dashboard</h1>
-        <div class="muted">Generated for 2026-07-07</div>
+        <div class="muted">Generated for 2026-07-08</div>
       </div>
       <div class="pill">Engine v1.0</div>
     </header>
@@ -167,16 +183,16 @@
       </div>
       <h2>Late Cycle</h2>
       <div class="score-line">
-        <span class="big-score">64.77</span>
-        <span class='down'>DOWN -3.75</span>
+        <span class="big-score">64.47</span>
+        <span class='down'>DOWN -0.3</span>
       </div>
       <p class="plain-read">The market is okay, but this is not an all-clear signal.</p>
       <div class="focus-strip">
-        <div class="focus-chip good"><span>~</span><div><small>Biggest help</small><strong>Volatility</strong></div></div>
+        <div class="focus-chip good"><span>+</span><div><small>Biggest help</small><strong>Rally breadth</strong></div></div>
         <div class="focus-chip danger"><span>!</span><div><small>Check first</small><strong>Risk appetite</strong></div></div>
       </div>
-      <p>This part is holding the market back. Before buying, check: HYG 20-day return: 0.43%; JNK 20-day return: 0.3%; HYG above 50-day: False.</p>
-      <p class="callout">Why the score moved: Money Environment fell from 83.36 to 59.09; Rates &amp; dollar fell from 72.41 to 62.55; Too stretched? rose from 66.52 to 73.81.</p>
+      <p>This part is holding the market back. Before buying, check: HYG 20-day return: 0.42%; JNK 20-day return: 0.33%; HYG above 50-day: False.</p>
+      <p class="callout">Why the score moved: Volatility fell from 85.18 to 69.24; AI stocks rose from 60.05 to 64.73; Money Environment rose from 59.09 to 63.04.</p>
       <p class="muted">
         Read this like a morning checklist, not a buy/sell order. It tells you where to look before touching AI stocks.
       </p>
@@ -189,32 +205,17 @@
       <div class="driver-grid">
             <article class="driver-tile status-good">
               <div class="driver-head">
-                <span class="driver-icon">~</span>
-                <div>
-                  <strong>Volatility</strong>
-                  <span class="delta">35.18 from 50</span>
-                </div>
-              </div>
-              <div class="driver-meta">
-                <span class="pill status-good">Looks okay</span>
-                <span class="intent">helped</span>
-              </div>
-              <p>This part helped today. Check: VIX level: 15.9; SPY 5-day return: 1.04%; QQQ 5-day return: -1.8%.</p>
-            </article>
-
-            <article class="driver-tile status-good">
-              <div class="driver-head">
                 <span class="driver-icon">+</span>
                 <div>
                   <strong>Rally breadth</strong>
-                  <span class="delta">25.24 from 50</span>
+                  <span class="delta">24.85 from 50</span>
                 </div>
               </div>
               <div class="driver-meta">
                 <span class="pill status-good">Looks okay</span>
                 <span class="intent">helped</span>
               </div>
-              <p>This part helped today. Check: SPY above 200-day: True; QQQ above 200-day: True; Equal-weight S&amp;P 20-day return: 3.62%.</p>
+              <p>This part helped today. Check: SPY above 200-day: True; QQQ above 200-day: True; Equal-weight S&amp;P 20-day return: 3.32%.</p>
             </article>
 
             <article class="driver-tile status-good">
@@ -222,14 +223,29 @@
                 <span class="driver-icon">%</span>
                 <div>
                   <strong>Too stretched?</strong>
-                  <span class="delta">23.81 from 50</span>
+                  <span class="delta">22.02 from 50</span>
                 </div>
               </div>
               <div class="driver-meta">
                 <span class="pill status-good">Looks okay</span>
                 <span class="intent">helped</span>
               </div>
-              <p>This part helped today. Check: SPY distance from 200-day: 8.0%; QQQ distance from 200-day: 11.77%; SMH distance from 200-day: 34.69%.</p>
+              <p>This part helped today. Check: SPY distance from 200-day: 7.87%; QQQ distance from 200-day: 11.51%; SMH distance from 200-day: 35.55%.</p>
+            </article>
+
+            <article class="driver-tile status-watch">
+              <div class="driver-head">
+                <span class="driver-icon">~</span>
+                <div>
+                  <strong>Volatility</strong>
+                  <span class="delta">19.24 from 50</span>
+                </div>
+              </div>
+              <div class="driver-meta">
+                <span class="pill status-watch">Watch</span>
+                <span class="intent">helped</span>
+              </div>
+              <p>This part helped today. Check: VIX level: 16.52; SPY 5-day return: 0.91%; QQQ 5-day return: -2.02%.</p>
             </article>
             </div>
     </section>
@@ -243,14 +259,29 @@
                 <span class="driver-icon">!</span>
                 <div>
                   <strong>Risk appetite</strong>
-                  <span class="delta">-1.32 from 50</span>
+                  <span class="delta">-1.25 from 50</span>
                 </div>
               </div>
               <div class="driver-meta">
                 <span class="pill status-danger">Needs attention</span>
                 <span class="intent">check</span>
               </div>
-              <p>This part is holding the market back. Before buying, check: HYG 20-day return: 0.43%; JNK 20-day return: 0.3%; HYG above 50-day: False.</p>
+              <p>This part is holding the market back. Before buying, check: HYG 20-day return: 0.42%; JNK 20-day return: 0.33%; HYG above 50-day: False.</p>
+            </article>
+
+            <article class="driver-tile status-watch">
+              <div class="driver-head">
+                <span class="driver-icon">R</span>
+                <div>
+                  <strong>Rates &amp; dollar</strong>
+                  <span class="delta">10.64 from 50</span>
+                </div>
+              </div>
+              <div class="driver-meta">
+                <span class="pill status-watch">Watch</span>
+                <span class="intent">check</span>
+              </div>
+              <p>This is okay, but not strong enough to relax. Check: 10Y Treasury yield proxy: 4.53; 10Y yield 20-day change: 1.16%; Dollar 20-day return: 0.94%.</p>
             </article>
 
             <article class="driver-tile status-watch">
@@ -258,29 +289,14 @@
                 <span class="driver-icon">$</span>
                 <div>
                   <strong>Money Environment</strong>
-                  <span class="delta">9.09 from 50</span>
+                  <span class="delta">13.04 from 50</span>
                 </div>
               </div>
               <div class="driver-meta">
                 <span class="pill status-watch">Watch</span>
                 <span class="intent">check</span>
               </div>
-              <p>This is okay, but not strong enough to relax. Check: VIX level: 15.9; Dollar 20-day return: 0.81%; 10Y Treasury yield proxy: 4.5.</p>
-            </article>
-
-            <article class="driver-tile status-watch">
-              <div class="driver-head">
-                <span class="driver-icon">AI</span>
-                <div>
-                  <strong>AI stocks</strong>
-                  <span class="delta">10.05 from 50</span>
-                </div>
-              </div>
-              <div class="driver-meta">
-                <span class="pill status-watch">Watch</span>
-                <span class="intent">check</span>
-              </div>
-              <p>This is okay, but not strong enough to relax. Check: NVDA 20-day return: -5.96%; SMH 20-day return: 1.41%; SOXX 20-day return: 1.7%.</p>
+              <p>This is okay, but not strong enough to relax. Check: VIX level: 16.52; Dollar 20-day return: 0.94%; 10Y Treasury yield proxy: 4.53.</p>
             </article>
             </div>
     </section>
@@ -289,8 +305,8 @@
       </div>
       <aside class="panel">
         <div class="eyebrow">TODAY'S MARKET HEALTH</div>
-        <div class="score">64.77</div>
-        <div class='bar status-watch'><span style='width:65%'></span></div>
+        <div class="score">64.47</div>
+        <div class='bar status-watch'><span style='width:64%'></span></div>
         <div class="action"><strong>Mostly okay: Be selective</strong><br>The market is supportive, but still check the weak spots.</div>
 
     <section class="card core-actions">
@@ -355,6 +371,94 @@
       </aside>
     </section>
 
+
+    <section class="panel event-radar">
+      <div class="event-radar-head">
+        <div>
+          <div class="eyebrow">EVENT RISK RADAR</div>
+          <h2>War / Oil / Safe-Haven Check</h2>
+          <p>Event risk is no longer just a headline. Verify oil, VIX, QQQ, and energy-vs-AI before adding risk.</p>
+        </div>
+        <div class="event-score">
+          <span>Geopolitical score</span>
+          <strong>69.24</strong>
+          <small>Lower means more market stress</small>
+        </div>
+      </div>
+      <div class="event-grid">
+            <article class="event-tile status-good">
+              <div class="event-top">
+                <strong>Oil shock <span class='tip' tabindex='0' data-tip='A fast Brent or WTI oil rise can raise inflation fear and pressure growth stocks.'>?</span></strong>
+                <span class='pill status-good'>Contained</span>
+              </div>
+              <div class="event-value">3.82%</div>
+              <small>Brent/WTI 5-day · yesterday n/a</small>
+              <p>Oil jumping means inflation and supply-chain fear can hit growth multiples.</p>
+            </article>
+
+            <article class="event-tile status-watch">
+              <div class="event-top">
+                <strong>Gold bid <span class='tip' tabindex='0' data-tip='Gold rising quickly can mean investors are buying safety, not growth risk.'>?</span></strong>
+                <span class='pill status-watch'>Watch</span>
+              </div>
+              <div class="event-value">2.72%</div>
+              <small>Gold 5-day · yesterday n/a</small>
+              <p>Gold strength says investors may be buying protection.</p>
+            </article>
+
+            <article class="event-tile status-good">
+              <div class="event-top">
+                <strong>Dollar bid <span class='tip' tabindex='0' data-tip='A quick dollar rise can tighten global financial conditions and pressure risk assets.'>?</span></strong>
+                <span class='pill status-good'>Contained</span>
+              </div>
+              <div class="event-value">-0.2%</div>
+              <small>Dollar 5-day · yesterday -0.23%</small>
+              <p>A fast dollar rally tightens global money conditions.</p>
+            </article>
+
+            <article class="event-tile status-good">
+              <div class="event-top">
+                <strong>VIX fear</strong>
+                <span class='pill status-good'>Contained</span>
+              </div>
+              <div class="event-value">16.52</div>
+              <small>VIX level · yesterday 15.9</small>
+              <p>VIX shows whether fear is spreading into broad market pricing.</p>
+            </article>
+
+            <article class="event-tile status-good">
+              <div class="event-top">
+                <strong>QQQ shock</strong>
+                <span class='pill status-good'>Contained</span>
+              </div>
+              <div class="event-value">-2.02%</div>
+              <small>QQQ 5-day · yesterday -1.8%</small>
+              <p>If QQQ is falling, event risk is hitting growth stocks directly.</p>
+            </article>
+
+            <article class="event-tile status-danger">
+              <div class="event-top">
+                <strong>Energy over AI <span class='tip' tabindex='0' data-tip='Energy stocks beating chip stocks can signal rotation toward oil shock beneficiaries and away from AI risk.'>?</span></strong>
+                <span class='pill status-danger'>Risk rising</span>
+              </div>
+              <div class="event-value">9.97%</div>
+              <small>XLE minus SMH 5-day · yesterday n/a</small>
+              <p>Energy beating chips can mean money is rotating away from AI toward oil exposure.</p>
+            </article>
+
+            <article class="event-tile status-good">
+              <div class="event-top">
+                <strong>Bond hiding</strong>
+                <span class='pill status-good'>Contained</span>
+              </div>
+              <div class="event-value">-3.32%</div>
+              <small>TLT 5-day · yesterday n/a</small>
+              <p>Long bonds rising can mean investors are hiding from risk.</p>
+            </article>
+            </div>
+    </section>
+
+
     <h2>Charts</h2>
     <section class="hero">
       <section class="panel">
@@ -364,10 +468,10 @@
       <line x1="0" y1="37.5" x2="520" y2="37.5" class="guide"></line>
       <line x1="0" y1="60" x2="520" y2="60" class="guide"></line>
       <line x1="0" y1="82.5" x2="520" y2="82.5" class="guide"></line>
-      <polyline points="0.0,47.22 520.0,52.85"></polyline>
-      <circle cx="520.0" cy="52.85" r="5"></circle>
+      <polyline points="0.0,47.22 260.0,52.85 520.0,53.3"></polyline>
+      <circle cx="520.0" cy="53.3" r="5"></circle>
     </svg>
-    <p class="muted">Started at 68.52. Latest is 64.77.</p>
+    <p class="muted">Started at 68.52. Latest is 64.47.</p>
 
       </section>
 
@@ -378,58 +482,58 @@
         <tbody>
             <tr>
               <td><span class="mini-icon">$</span>Money Environment</td>
-              <td>83.36</td>
               <td>59.09</td>
-              <td><span class='down'>DOWN -24.27</span></td>
-              <td><div class='bar status-watch'><span style='width:59%'></span></div></td>
+              <td>63.04</td>
+              <td><span class='up'>UP +3.95</span></td>
+              <td><div class='bar status-watch'><span style='width:63%'></span></div></td>
             </tr>
 
             <tr>
               <td><span class="mini-icon">!</span>Risk appetite</td>
-              <td>46.03</td>
               <td>48.68</td>
-              <td><span class='up'>UP +2.65</span></td>
+              <td>48.75</td>
+              <td><span class='up'>UP +0.07</span></td>
               <td><div class='bar status-danger'><span style='width:49%'></span></div></td>
             </tr>
 
             <tr>
               <td><span class="mini-icon">AI</span>AI stocks</td>
-              <td>58.33</td>
               <td>60.05</td>
-              <td><span class='up'>UP +1.72</span></td>
-              <td><div class='bar status-watch'><span style='width:60%'></span></div></td>
+              <td>64.73</td>
+              <td><span class='up'>UP +4.68</span></td>
+              <td><div class='bar status-watch'><span style='width:65%'></span></div></td>
             </tr>
 
             <tr>
               <td><span class="mini-icon">+</span>Rally breadth</td>
-              <td>74.68</td>
               <td>75.24</td>
-              <td><span class='up'>UP +0.56</span></td>
+              <td>74.85</td>
+              <td><span class='down'>DOWN -0.39</span></td>
               <td><div class='bar status-good'><span style='width:75%'></span></div></td>
             </tr>
 
             <tr>
               <td><span class="mini-icon">%</span>Too stretched?</td>
-              <td>66.52</td>
               <td>73.81</td>
-              <td><span class='up'>UP +7.29</span></td>
-              <td><div class='bar status-good'><span style='width:74%'></span></div></td>
+              <td>72.02</td>
+              <td><span class='down'>DOWN -1.79</span></td>
+              <td><div class='bar status-good'><span style='width:72%'></span></div></td>
             </tr>
 
             <tr>
               <td><span class="mini-icon">R</span>Rates &amp; dollar</td>
-              <td>72.41</td>
               <td>62.55</td>
-              <td><span class='down'>DOWN -9.86</span></td>
-              <td><div class='bar status-watch'><span style='width:63%'></span></div></td>
+              <td>60.64</td>
+              <td><span class='down'>DOWN -1.91</span></td>
+              <td><div class='bar status-watch'><span style='width:61%'></span></div></td>
             </tr>
 
             <tr>
               <td><span class="mini-icon">~</span>Volatility</td>
-              <td>90.0</td>
               <td>85.18</td>
-              <td><span class='down'>DOWN -4.82</span></td>
-              <td><div class='bar status-good'><span style='width:85%'></span></div></td>
+              <td>69.24</td>
+              <td><span class='down'>DOWN -15.94</span></td>
+              <td><div class='bar status-watch'><span style='width:69%'></span></div></td>
             </tr>
             </tbody>
       </table>
@@ -444,7 +548,7 @@
           <p><strong>Not enough data yet.</strong></p>
           <p>
             We need at least 30 validated daily records before this section can say anything useful.
-            Right now there are 1. After enough history builds up, this will compare
+            Right now there are 2. After enough history builds up, this will compare
             the score against next-day SPY moves and show whether the framework is actually useful.
           </p>
         </section>
@@ -460,49 +564,81 @@
             <tr>
               <td><code>NVDA <span class='tip' tabindex='0' data-tip='NVIDIA. A core AI leader, so weakness here matters for AI-stock confidence.'>?</span></code></td>
               <td><strong>NVIDIA</strong><br><span>AI leader</span><br><small>20-day return <span class='tip' tabindex='0' data-tip='How much something moved over roughly one trading month.'>?</span></small></td>
-              <td>-10.57%</td>
               <td>-5.96%</td>
-              <td><span class='up'>UP +4.61%</span></td>
+              <td>-3.98%</td>
+              <td><span class='up'>UP +1.97%</span></td>
             </tr>
 
             <tr>
               <td><code>SMH <span class='tip' tabindex='0' data-tip='Semiconductor ETF. Useful for checking whether the AI chip group is healthy.'>?</span></code></td>
               <td><strong>Semiconductor ETF</strong><br><span>AI chip group</span><br><small>20-day return <span class='tip' tabindex='0' data-tip='How much something moved over roughly one trading month.'>?</span></small></td>
-              <td>-3.7%</td>
               <td>1.41%</td>
-              <td><span class='up'>UP +5.12%</span></td>
+              <td>2.06%</td>
+              <td><span class='up'>UP +0.65%</span></td>
             </tr>
 
             <tr>
               <td><code>SOXX <span class='tip' tabindex='0' data-tip='Chip ETF. Another semiconductor group check.'>?</span></code></td>
               <td><strong>Chip ETF</strong><br><span>Chip breadth</span><br><small>20-day return <span class='tip' tabindex='0' data-tip='How much something moved over roughly one trading month.'>?</span></small></td>
-              <td>-3.52%</td>
               <td>1.7%</td>
-              <td><span class='up'>UP +5.22%</span></td>
+              <td>2.21%</td>
+              <td><span class='up'>UP +0.51%</span></td>
             </tr>
 
             <tr>
               <td><code>HYG <span class='tip' tabindex='0' data-tip='High-yield bond ETF. It helps show whether investors still want risky assets.'>?</span></code></td>
               <td><strong>High yield bonds</strong><br><span>Are investors still willing to take risk?</span><br><small>20-day return <span class='tip' tabindex='0' data-tip='How much something moved over roughly one trading month.'>?</span></small></td>
-              <td>0.05%</td>
               <td>0.43%</td>
-              <td><span class='up'>UP +0.38%</span></td>
+              <td>0.42%</td>
+              <td><span class='down'>DOWN -0.01%</span></td>
             </tr>
 
             <tr>
               <td><code>^VIX <span class='tip' tabindex='0' data-tip='Yahoo&#x27;s VIX symbol, the market fear gauge.'>?</span></code></td>
               <td><strong>VIX</strong><br><span>Is fear rising?</span><br><small>level <span class='tip' tabindex='0' data-tip='The current reading of an index, yield, or price, not a percentage change.'>?</span></small></td>
-              <td>15.57</td>
               <td>15.9</td>
-              <td><span class='up'>UP +0.33</span></td>
+              <td>16.52</td>
+              <td><span class='up'>UP +0.62</span></td>
             </tr>
 
             <tr>
               <td><code>^TNX <span class='tip' tabindex='0' data-tip='Yahoo&#x27;s 10-year Treasury yield proxy.'>?</span></code></td>
               <td><strong>10Y yield</strong><br><span>Are rates pressuring growth stocks?</span><br><small>level <span class='tip' tabindex='0' data-tip='The current reading of an index, yield, or price, not a percentage change.'>?</span></small></td>
-              <td>4.48</td>
               <td>4.5</td>
-              <td><span class='up'>UP +0.02</span></td>
+              <td>4.53</td>
+              <td><span class='up'>UP +0.03</span></td>
+            </tr>
+
+            <tr>
+              <td><code>BZ=F <span class='tip' tabindex='0' data-tip='Yahoo&#x27;s Brent crude oil futures symbol.'>?</span></code></td>
+              <td><strong>Brent oil</strong><br><span>Is Middle East risk hitting energy prices?</span><br><small>5-day return <span class='tip' tabindex='0' data-tip='How much something moved over roughly one trading week.'>?</span></small></td>
+              <td>n/a</td>
+              <td>4.09%</td>
+              <td><span class='flat'>n/a</span></td>
+            </tr>
+
+            <tr>
+              <td><code>GC=F <span class='tip' tabindex='0' data-tip='Yahoo&#x27;s gold futures symbol.'>?</span></code></td>
+              <td><strong>Gold</strong><br><span>Is safe-haven demand rising?</span><br><small>5-day return <span class='tip' tabindex='0' data-tip='How much something moved over roughly one trading week.'>?</span></small></td>
+              <td>n/a</td>
+              <td>2.72%</td>
+              <td><span class='flat'>n/a</span></td>
+            </tr>
+
+            <tr>
+              <td><code>TLT <span class='tip' tabindex='0' data-tip='ETF tracking long-duration US Treasury bonds.'>?</span></code></td>
+              <td><strong>Long bonds</strong><br><span>Are investors hiding in duration?</span><br><small>5-day return <span class='tip' tabindex='0' data-tip='How much something moved over roughly one trading week.'>?</span></small></td>
+              <td>n/a</td>
+              <td>-3.32%</td>
+              <td><span class='flat'>n/a</span></td>
+            </tr>
+
+            <tr>
+              <td><code>XLE <span class='tip' tabindex='0' data-tip='Energy sector ETF. Useful for seeing whether money is rotating into oil-linked stocks.'>?</span></code></td>
+              <td><strong>Energy stocks</strong><br><span>Is money rotating toward oil exposure?</span><br><small>5-day return <span class='tip' tabindex='0' data-tip='How much something moved over roughly one trading week.'>?</span></small></td>
+              <td>n/a</td>
+              <td>1.98%</td>
+              <td><span class='flat'>n/a</span></td>
             </tr>
             </tbody>
       </table>
@@ -515,17 +651,17 @@
       <div class="card-top">
         <div>
           <div class="eyebrow">MONEY ENVIRONMENT</div>
-          <strong>59.09</strong>
+          <strong>63.04</strong>
           <span class="pill status-watch">Watch</span>
         </div>
         <div class="icon">$</div>
       </div>
-      <div class='bar status-watch'><span style='width:59%'></span></div>
+      <div class='bar status-watch'><span style='width:63%'></span></div>
 
     <svg class="tiny-chart status-watch" viewBox="0 0 220 58" role="img" aria-label="Subscore mini trend">
       <line x1="0" y1="29.0" x2="220" y2="29.0" class="guide"></line>
-      <polyline points="0.0,9.65 220.0,23.73"></polyline>
-      <circle cx="220.0" cy="23.73" r="3.5"></circle>
+      <polyline points="0.0,9.65 110.0,23.73 220.0,21.44"></polyline>
+      <circle cx="220.0" cy="21.44" r="3.5"></circle>
     </svg>
 
       <div class="action">
@@ -547,25 +683,25 @@
           <tbody>
             <tr>
               <td><strong>VIX calm</strong><br><small>Lower fear makes it easier for money to stay in AI and growth stocks.</small></td>
-              <td>15.9</td>
+              <td>16.52</td>
               <td><span class="contribution-points positive">+8</span></td>
             </tr>
 
             <tr>
               <td><strong>Dollar move</strong><br><small>A stronger dollar can pull money away from risk assets.</small></td>
-              <td>0.81</td>
+              <td>0.94</td>
               <td><span class="contribution-points negative">-2</span></td>
             </tr>
 
             <tr>
               <td><strong>10Y yield level</strong><br><small>Lower or stable yields are friendlier to growth stocks.</small></td>
-              <td>4.5</td>
+              <td>4.53</td>
               <td><span class="contribution-points positive">+2</span></td>
             </tr>
 
             <tr>
               <td><strong>10Y 20-day move</strong><br><small>Falling yields usually give AI stocks more breathing room.</small></td>
-              <td>0.49</td>
+              <td>1.16</td>
               <td><span class="contribution-points positive">+2</span></td>
             </tr>
 
@@ -604,28 +740,28 @@
             <tr>
               <td>VIX level <span class='tip' tabindex='0' data-tip='VIX is the market&#x27;s fear gauge. Higher VIX usually means investors expect bigger daily moves.'>?</span><br><small>level <span class='tip' tabindex='0' data-tip='The current reading of an index, yield, or price, not a percentage change.'>?</span></small></td>
               <td><code>^VIX <span class='tip' tabindex='0' data-tip='Yahoo&#x27;s VIX symbol, the market fear gauge.'>?</span></code></td>
-              <td>15.9</td>
+              <td>16.52</td>
             </tr>
 
 
             <tr>
               <td>Dollar 20-day return <span class='tip' tabindex='0' data-tip='How much the US dollar moved over about one month. A stronger dollar can tighten financial conditions.'>?</span><br><small>20-day return <span class='tip' tabindex='0' data-tip='How much something moved over roughly one trading month.'>?</span></small></td>
               <td><code>DX-Y.NYB</code></td>
-              <td>0.81%</td>
+              <td>0.94%</td>
             </tr>
 
 
             <tr>
               <td>10Y Treasury yield proxy <span class='tip' tabindex='0' data-tip='The 10-year US Treasury yield. Higher yields can pressure growth stocks because future profits get discounted more heavily.'>?</span><br><small>level <span class='tip' tabindex='0' data-tip='The current reading of an index, yield, or price, not a percentage change.'>?</span></small></td>
               <td><code>^TNX <span class='tip' tabindex='0' data-tip='Yahoo&#x27;s 10-year Treasury yield proxy.'>?</span></code></td>
-              <td>4.5</td>
+              <td>4.53</td>
             </tr>
 
 
             <tr>
               <td>10Y yield 20-day change <span class='tip' tabindex='0' data-tip='How much the 10-year yield changed over about one month. Negative means yield eased; positive means rate pressure increased.'>?</span><br><small>20-day return <span class='tip' tabindex='0' data-tip='How much something moved over roughly one trading month.'>?</span></small></td>
               <td><code>^TNX <span class='tip' tabindex='0' data-tip='Yahoo&#x27;s 10-year Treasury yield proxy.'>?</span></code></td>
-              <td>0.49%</td>
+              <td>1.16%</td>
             </tr>
 
 
@@ -667,7 +803,7 @@
             <tr>
               <td>SOXX above 50-day<br><small>above 50-day <span class='tip' tabindex='0' data-tip='Price is above its average price from the last 50 trading days.'>?</span></small></td>
               <td><code>SOXX <span class='tip' tabindex='0' data-tip='Chip ETF. Another semiconductor group check.'>?</span></code></td>
-              <td>False</td>
+              <td>True</td>
             </tr>
             </tbody>
       </table>
@@ -678,7 +814,7 @@
       <div class="card-top">
         <div>
           <div class="eyebrow">RISK APPETITE</div>
-          <strong>48.68</strong>
+          <strong>48.75</strong>
           <span class="pill status-danger">Needs attention</span>
         </div>
         <div class="icon">!</div>
@@ -687,8 +823,8 @@
 
     <svg class="tiny-chart status-danger" viewBox="0 0 220 58" role="img" aria-label="Subscore mini trend">
       <line x1="0" y1="29.0" x2="220" y2="29.0" class="guide"></line>
-      <polyline points="0.0,31.3 220.0,29.77"></polyline>
-      <circle cx="220.0" cy="29.77" r="3.5"></circle>
+      <polyline points="0.0,31.3 110.0,29.77 220.0,29.73"></polyline>
+      <circle cx="220.0" cy="29.73" r="3.5"></circle>
     </svg>
 
       <div class="action">
@@ -711,14 +847,14 @@
             <tr>
               <td>HYG 20-day return<br><small>20-day return <span class='tip' tabindex='0' data-tip='How much something moved over roughly one trading month.'>?</span></small></td>
               <td><code>HYG <span class='tip' tabindex='0' data-tip='High-yield bond ETF. It helps show whether investors still want risky assets.'>?</span></code></td>
-              <td>0.43%</td>
+              <td>0.42%</td>
             </tr>
 
 
             <tr>
               <td>JNK 20-day return<br><small>20-day return <span class='tip' tabindex='0' data-tip='How much something moved over roughly one trading month.'>?</span></small></td>
               <td><code>JNK <span class='tip' tabindex='0' data-tip='High-yield bond ETF, similar risk appetite signal to HYG.'>?</span></code></td>
-              <td>0.3%</td>
+              <td>0.33%</td>
             </tr>
 
 
@@ -743,17 +879,17 @@
       <div class="card-top">
         <div>
           <div class="eyebrow">AI STOCKS</div>
-          <strong>60.05</strong>
+          <strong>64.73</strong>
           <span class="pill status-watch">Watch</span>
         </div>
         <div class="icon">AI</div>
       </div>
-      <div class='bar status-watch'><span style='width:60%'></span></div>
+      <div class='bar status-watch'><span style='width:65%'></span></div>
 
     <svg class="tiny-chart status-watch" viewBox="0 0 220 58" role="img" aria-label="Subscore mini trend">
       <line x1="0" y1="29.0" x2="220" y2="29.0" class="guide"></line>
-      <polyline points="0.0,24.17 220.0,23.17"></polyline>
-      <circle cx="220.0" cy="23.17" r="3.5"></circle>
+      <polyline points="0.0,24.17 110.0,23.17 220.0,20.46"></polyline>
+      <circle cx="220.0" cy="20.46" r="3.5"></circle>
     </svg>
 
       <div class="action">
@@ -776,21 +912,21 @@
             <tr>
               <td>NVDA 20-day return<br><small>20-day return <span class='tip' tabindex='0' data-tip='How much something moved over roughly one trading month.'>?</span></small></td>
               <td><code>NVDA <span class='tip' tabindex='0' data-tip='NVIDIA. A core AI leader, so weakness here matters for AI-stock confidence.'>?</span></code></td>
-              <td>-5.96%</td>
+              <td>-3.98%</td>
             </tr>
 
 
             <tr>
               <td>SMH 20-day return<br><small>20-day return <span class='tip' tabindex='0' data-tip='How much something moved over roughly one trading month.'>?</span></small></td>
               <td><code>SMH <span class='tip' tabindex='0' data-tip='Semiconductor ETF. Useful for checking whether the AI chip group is healthy.'>?</span></code></td>
-              <td>1.41%</td>
+              <td>2.06%</td>
             </tr>
 
 
             <tr>
               <td>SOXX 20-day return<br><small>20-day return <span class='tip' tabindex='0' data-tip='How much something moved over roughly one trading month.'>?</span></small></td>
               <td><code>SOXX <span class='tip' tabindex='0' data-tip='Chip ETF. Another semiconductor group check.'>?</span></code></td>
-              <td>1.7%</td>
+              <td>2.21%</td>
             </tr>
 
 
@@ -808,7 +944,7 @@
       <div class="card-top">
         <div>
           <div class="eyebrow">RALLY BREADTH</div>
-          <strong>75.24</strong>
+          <strong>74.85</strong>
           <span class="pill status-good">Looks okay</span>
         </div>
         <div class="icon">+</div>
@@ -817,8 +953,8 @@
 
     <svg class="tiny-chart status-good" viewBox="0 0 220 58" role="img" aria-label="Subscore mini trend">
       <line x1="0" y1="29.0" x2="220" y2="29.0" class="guide"></line>
-      <polyline points="0.0,14.69 220.0,14.36"></polyline>
-      <circle cx="220.0" cy="14.36" r="3.5"></circle>
+      <polyline points="0.0,14.69 110.0,14.36 220.0,14.59"></polyline>
+      <circle cx="220.0" cy="14.59" r="3.5"></circle>
     </svg>
 
       <div class="action">
@@ -855,14 +991,14 @@
             <tr>
               <td>Equal-weight S&amp;P 20-day return<br><small>20-day return <span class='tip' tabindex='0' data-tip='How much something moved over roughly one trading month.'>?</span></small></td>
               <td><code>RSP</code></td>
-              <td>3.62%</td>
+              <td>3.32%</td>
             </tr>
 
 
             <tr>
               <td>Small-cap 20-day return<br><small>20-day return <span class='tip' tabindex='0' data-tip='How much something moved over roughly one trading month.'>?</span></small></td>
               <td><code>IWM</code></td>
-              <td>5.34%</td>
+              <td>5.16%</td>
             </tr>
             </tbody>
       </table>
@@ -873,17 +1009,17 @@
       <div class="card-top">
         <div>
           <div class="eyebrow">TOO STRETCHED?</div>
-          <strong>73.81</strong>
+          <strong>72.02</strong>
           <span class="pill status-good">Looks okay</span>
         </div>
         <div class="icon">%</div>
       </div>
-      <div class='bar status-good'><span style='width:74%'></span></div>
+      <div class='bar status-good'><span style='width:72%'></span></div>
 
     <svg class="tiny-chart status-good" viewBox="0 0 220 58" role="img" aria-label="Subscore mini trend">
       <line x1="0" y1="29.0" x2="220" y2="29.0" class="guide"></line>
-      <polyline points="0.0,19.42 220.0,15.19"></polyline>
-      <circle cx="220.0" cy="15.19" r="3.5"></circle>
+      <polyline points="0.0,19.42 110.0,15.19 220.0,16.23"></polyline>
+      <circle cx="220.0" cy="16.23" r="3.5"></circle>
     </svg>
 
       <div class="action">
@@ -906,28 +1042,28 @@
             <tr>
               <td>SPY distance from 200-day<br><small>distance from 200-day <span class='tip' tabindex='0' data-tip='How far price is above or below its 200-day average. Very high can mean the trade is stretched.'>?</span></small></td>
               <td><code>SPY <span class='tip' tabindex='0' data-tip='ETF tracking the S&amp;P 500. Good for checking the broad US stock market.'>?</span></code></td>
-              <td>8.0%</td>
+              <td>7.87%</td>
             </tr>
 
 
             <tr>
               <td>QQQ distance from 200-day<br><small>distance from 200-day <span class='tip' tabindex='0' data-tip='How far price is above or below its 200-day average. Very high can mean the trade is stretched.'>?</span></small></td>
               <td><code>QQQ <span class='tip' tabindex='0' data-tip='ETF tracking Nasdaq 100. Useful for growth and mega-cap tech.'>?</span></code></td>
-              <td>11.77%</td>
+              <td>11.51%</td>
             </tr>
 
 
             <tr>
               <td>SMH distance from 200-day<br><small>distance from 200-day <span class='tip' tabindex='0' data-tip='How far price is above or below its 200-day average. Very high can mean the trade is stretched.'>?</span></small></td>
               <td><code>SMH <span class='tip' tabindex='0' data-tip='Semiconductor ETF. Useful for checking whether the AI chip group is healthy.'>?</span></code></td>
-              <td>34.69%</td>
+              <td>35.55%</td>
             </tr>
 
 
             <tr>
               <td>NVDA distance from 200-day<br><small>distance from 200-day <span class='tip' tabindex='0' data-tip='How far price is above or below its 200-day average. Very high can mean the trade is stretched.'>?</span></small></td>
               <td><code>NVDA <span class='tip' tabindex='0' data-tip='NVIDIA. A core AI leader, so weakness here matters for AI-stock confidence.'>?</span></code></td>
-              <td>0.86%</td>
+              <td>2.96%</td>
             </tr>
             </tbody>
       </table>
@@ -938,17 +1074,17 @@
       <div class="card-top">
         <div>
           <div class="eyebrow">RATES &amp; DOLLAR</div>
-          <strong>62.55</strong>
+          <strong>60.64</strong>
           <span class="pill status-watch">Watch</span>
         </div>
         <div class="icon">R</div>
       </div>
-      <div class='bar status-watch'><span style='width:63%'></span></div>
+      <div class='bar status-watch'><span style='width:61%'></span></div>
 
     <svg class="tiny-chart status-watch" viewBox="0 0 220 58" role="img" aria-label="Subscore mini trend">
       <line x1="0" y1="29.0" x2="220" y2="29.0" class="guide"></line>
-      <polyline points="0.0,16.0 220.0,21.72"></polyline>
-      <circle cx="220.0" cy="21.72" r="3.5"></circle>
+      <polyline points="0.0,16.0 110.0,21.72 220.0,22.83"></polyline>
+      <circle cx="220.0" cy="22.83" r="3.5"></circle>
     </svg>
 
       <div class="action">
@@ -971,42 +1107,42 @@
             <tr>
               <td>10Y Treasury yield proxy <span class='tip' tabindex='0' data-tip='The 10-year US Treasury yield. Higher yields can pressure growth stocks because future profits get discounted more heavily.'>?</span><br><small>level <span class='tip' tabindex='0' data-tip='The current reading of an index, yield, or price, not a percentage change.'>?</span></small></td>
               <td><code>^TNX <span class='tip' tabindex='0' data-tip='Yahoo&#x27;s 10-year Treasury yield proxy.'>?</span></code></td>
-              <td>4.5</td>
+              <td>4.53</td>
             </tr>
 
 
             <tr>
               <td>10Y yield 20-day change <span class='tip' tabindex='0' data-tip='How much the 10-year yield changed over about one month. Negative means yield eased; positive means rate pressure increased.'>?</span><br><small>20-day return <span class='tip' tabindex='0' data-tip='How much something moved over roughly one trading month.'>?</span></small></td>
               <td><code>^TNX <span class='tip' tabindex='0' data-tip='Yahoo&#x27;s 10-year Treasury yield proxy.'>?</span></code></td>
-              <td>0.49%</td>
+              <td>1.16%</td>
             </tr>
 
 
             <tr>
               <td>Dollar 20-day return <span class='tip' tabindex='0' data-tip='How much the US dollar moved over about one month. A stronger dollar can tighten financial conditions.'>?</span><br><small>20-day return <span class='tip' tabindex='0' data-tip='How much something moved over roughly one trading month.'>?</span></small></td>
               <td><code>DX-Y.NYB</code></td>
-              <td>0.81%</td>
+              <td>0.94%</td>
             </tr>
             </tbody>
       </table>
     </section>
 
 
-    <section class="card subscore-card status-good">
+    <section class="card subscore-card status-watch">
       <div class="card-top">
         <div>
           <div class="eyebrow">VOLATILITY</div>
-          <strong>85.18</strong>
-          <span class="pill status-good">Looks okay</span>
+          <strong>69.24</strong>
+          <span class="pill status-watch">Watch</span>
         </div>
         <div class="icon">~</div>
       </div>
-      <div class='bar status-good'><span style='width:85%'></span></div>
+      <div class='bar status-watch'><span style='width:69%'></span></div>
 
-    <svg class="tiny-chart status-good" viewBox="0 0 220 58" role="img" aria-label="Subscore mini trend">
+    <svg class="tiny-chart status-watch" viewBox="0 0 220 58" role="img" aria-label="Subscore mini trend">
       <line x1="0" y1="29.0" x2="220" y2="29.0" class="guide"></line>
-      <polyline points="0.0,5.8 220.0,8.6"></polyline>
-      <circle cx="220.0" cy="8.6" r="3.5"></circle>
+      <polyline points="0.0,5.8 110.0,8.6 220.0,17.84"></polyline>
+      <circle cx="220.0" cy="17.84" r="3.5"></circle>
     </svg>
 
       <div class="action">
@@ -1016,34 +1152,120 @@
 
       <details class="deep-dive">
         <summary>So what? <span>How to use this score</span></summary>
-        <p>This is the fear check. If volatility jumps, crowded AI winners can move hard even without company-specific bad news.</p>
-        <div class="watch-note"><strong>Check next:</strong> Watch VIX and short-term SPY/QQQ movement.</div>
+        <p>This is the event-risk check. If oil, gold, dollar, and VIX rise while QQQ/SMH weaken, the headline is becoming a portfolio problem for AI stocks.</p>
+        <div class="watch-note"><strong>Check next:</strong> Watch Brent/WTI, gold, dollar, TLT, VIX, QQQ, SMH, and XLE vs SMH.</div>
       </details>
 
 
-      <ul class="reasoning"><li>This checks whether the market is getting jumpy.</li>
-<li>Low fear helps. Rising fear means crowded AI winners can move sharply without warning.</li></ul>
+      <div class="contribution-block">
+        <div class="eyebrow">WHY THIS SCORE?</div>
+        <table>
+          <thead><tr><th>Factor</th><th>Today</th><th>Impact</th></tr></thead>
+          <tbody>
+            <tr>
+              <td><strong>VIX fear</strong><br><small>VIX shows whether fear is spreading into broad market pricing.</small></td>
+              <td>16.52</td>
+              <td><span class="contribution-points positive">+8</span></td>
+            </tr>
+
+            <tr>
+              <td><strong>Oil shock</strong><br><small>A fast oil move can lift inflation fear and hurt growth-stock multiples.</small></td>
+              <td>3.82</td>
+              <td><span class="contribution-points negative">-4</span></td>
+            </tr>
+
+            <tr>
+              <td><strong>Gold bid</strong><br><small>Gold rising quickly can mean investors are paying for safety.</small></td>
+              <td>2.72</td>
+              <td><span class="contribution-points negative">-4</span></td>
+            </tr>
+
+            <tr>
+              <td><strong>Dollar bid</strong><br><small>A stronger dollar often tightens global financial conditions.</small></td>
+              <td>-0.2</td>
+              <td><span class="contribution-points positive">+6</span></td>
+            </tr>
+
+            <tr>
+              <td><strong>QQQ shock</strong><br><small>QQQ weakness shows the risk is hitting growth and mega-cap tech.</small></td>
+              <td>-2.02</td>
+              <td><span class="contribution-points negative">-3</span></td>
+            </tr>
+
+            <tr>
+              <td><strong>Energy over AI</strong><br><small>Energy outperforming chips can signal rotation away from AI toward oil shock beneficiaries.</small></td>
+              <td>9.97</td>
+              <td><span class="contribution-points negative">-14</span></td>
+            </tr>
+            </tbody>
+        </table>
+      </div>
+
+      <ul class="reasoning"><li>This checks whether a shock is moving from headlines into oil, safe havens, volatility, and AI stocks.</li>
+<li>If oil, gold, dollar, and VIX rise together while QQQ/SMH weaken, reduce risk before the story gets priced in.</li></ul>
       <table>
         <thead><tr><th>Indicator</th><th>Symbol</th><th>Value</th></tr></thead>
         <tbody>
             <tr>
               <td>VIX level <span class='tip' tabindex='0' data-tip='VIX is the market&#x27;s fear gauge. Higher VIX usually means investors expect bigger daily moves.'>?</span><br><small>level <span class='tip' tabindex='0' data-tip='The current reading of an index, yield, or price, not a percentage change.'>?</span></small></td>
               <td><code>^VIX <span class='tip' tabindex='0' data-tip='Yahoo&#x27;s VIX symbol, the market fear gauge.'>?</span></code></td>
-              <td>15.9</td>
+              <td>16.52</td>
             </tr>
 
 
             <tr>
               <td>SPY 5-day return<br><small>5-day return <span class='tip' tabindex='0' data-tip='How much something moved over roughly one trading week.'>?</span></small></td>
               <td><code>SPY <span class='tip' tabindex='0' data-tip='ETF tracking the S&amp;P 500. Good for checking the broad US stock market.'>?</span></code></td>
-              <td>1.04%</td>
+              <td>0.91%</td>
             </tr>
 
 
             <tr>
               <td>QQQ 5-day return<br><small>5-day return <span class='tip' tabindex='0' data-tip='How much something moved over roughly one trading week.'>?</span></small></td>
               <td><code>QQQ <span class='tip' tabindex='0' data-tip='ETF tracking Nasdaq 100. Useful for growth and mega-cap tech.'>?</span></code></td>
-              <td>-1.8%</td>
+              <td>-2.02%</td>
+            </tr>
+
+
+            <tr>
+              <td>Brent oil 5-day return<br><small>5-day return <span class='tip' tabindex='0' data-tip='How much something moved over roughly one trading week.'>?</span></small></td>
+              <td><code>BZ=F <span class='tip' tabindex='0' data-tip='Yahoo&#x27;s Brent crude oil futures symbol.'>?</span></code></td>
+              <td>4.09%</td>
+            </tr>
+
+
+            <tr>
+              <td>WTI oil 5-day return<br><small>5-day return <span class='tip' tabindex='0' data-tip='How much something moved over roughly one trading week.'>?</span></small></td>
+              <td><code>CL=F <span class='tip' tabindex='0' data-tip='Yahoo&#x27;s WTI crude oil futures symbol.'>?</span></code></td>
+              <td>3.55%</td>
+            </tr>
+
+
+            <tr>
+              <td>Gold 5-day return<br><small>5-day return <span class='tip' tabindex='0' data-tip='How much something moved over roughly one trading week.'>?</span></small></td>
+              <td><code>GC=F <span class='tip' tabindex='0' data-tip='Yahoo&#x27;s gold futures symbol.'>?</span></code></td>
+              <td>2.72%</td>
+            </tr>
+
+
+            <tr>
+              <td>Dollar 5-day return<br><small>5-day return <span class='tip' tabindex='0' data-tip='How much something moved over roughly one trading week.'>?</span></small></td>
+              <td><code>DX-Y.NYB</code></td>
+              <td>-0.2%</td>
+            </tr>
+
+
+            <tr>
+              <td>Long bond 5-day return<br><small>5-day return <span class='tip' tabindex='0' data-tip='How much something moved over roughly one trading week.'>?</span></small></td>
+              <td><code>TLT <span class='tip' tabindex='0' data-tip='ETF tracking long-duration US Treasury bonds.'>?</span></code></td>
+              <td>-3.32%</td>
+            </tr>
+
+
+            <tr>
+              <td>Energy stocks 5-day return<br><small>5-day return <span class='tip' tabindex='0' data-tip='How much something moved over roughly one trading week.'>?</span></small></td>
+              <td><code>XLE <span class='tip' tabindex='0' data-tip='Energy sector ETF. Useful for seeing whether money is rotating into oil-linked stocks.'>?</span></code></td>
+              <td>1.98%</td>
             </tr>
             </tbody>
       </table>
@@ -1053,36 +1275,72 @@
     <h2>Daily Headlines</h2>
     <section class="grid">
             <section class="card">
+              <div class="eyebrow">MARKET CONTEXT TO VERIFY</div>
+              <ul class="headline-list">
+                <li>
+                  <a href="https://finance.yahoo.com/m/62c234ef-282b-35df-910f-0f997d2b0413/hedging-is-disappearing.-it%E2%80%99s.html?.tsrc=rss" target="_blank" rel="noopener noreferrer">Hedging Is Disappearing. It’s a Huge Market Risk.</a>
+                  <span>Yahoo Finance Wed, 08 Jul 2026 05:30:00 +0000</span>
+                </li>
+
+                <li>
+                  <a href="https://stocktwits.com/news-articles/markets/equity/nasdaq-sp500-futures-climb-ahead-of-fed-minutes-shrugging-off-iran-concerns/cZmVBc6R7Zs?.tsrc=rss" target="_blank" rel="noopener noreferrer">Nasdaq, S&amp;P 500 Futures Climb Ahead Of Fed Minutes, Shrugging Off Iran Concerns: FCEL, TE, NVTS, MU Stocks In Focus</a>
+                  <span>Yahoo Finance Wed, 08 Jul 2026 01:43:25 +0000</span>
+                </li>
+
+                <li>
+                  <a href="https://stocktwits.com/news-articles/markets/equity/nasdaq-slides-nearly-2-as-higher-treasury-yields-soaring-oil-prices-pressure-tech-and-chip-stocks-meta-amzn-spcx-msft-in-focus/cZmlDzSR7ZV?.tsrc=rss" target="_blank" rel="noopener noreferrer">Nasdaq Slides Nearly 2% As Higher Treasury Yields, Soaring Oil Prices Pressure Tech And Chip Stocks — META, AMZN, SPCX, MSFT In Focus</a>
+                  <span>Yahoo Finance Tue, 07 Jul 2026 21:43:09 +0000</span>
+                </li>
+
+                <li>
+                  <a href="http://www.etf.com/sections/conferences/john-west-perfect-market-timing-still-losing-bet?utm_source=yahoo-finance&amp;utm_medium=rss&amp;utm_campaign=yahoo-finance-rss&amp;.tsrc=rss" target="_blank" rel="noopener noreferrer">John West: Perfect Market Timing Is Still a Losing Bet</a>
+                  <span>Yahoo Finance Tue, 07 Jul 2026 21:14:39 +0000</span>
+                </li>
+
+                <li>
+                  <a href="http://www.etf.com/sections/etf-league-tables/etf-league-tables-strong-inflows-invesco?utm_source=yahoo-finance&amp;utm_medium=rss&amp;utm_campaign=yahoo-finance-rss&amp;.tsrc=rss" target="_blank" rel="noopener noreferrer">ETF League Tables: Strong Inflows for Invesco</a>
+                  <span>Yahoo Finance Tue, 07 Jul 2026 21:00:03 +0000</span>
+                </li>
+
+                <li>
+                  <a href="https://247wallst.com/investing/2026/07/07/trump-just-made-an-obscure-pentagon-office-bigger-than-the-marine-corps-here-are-5-stocks-for-this-1-5-trillion-defense-opportunity/?.tsrc=rss" target="_blank" rel="noopener noreferrer">Trump Just Made An Obscure Pentagon Office Bigger Than The Marine Corps. Here Are 5 Stocks For This $1.5 Trillion Defense Opportunity</a>
+                  <span>Yahoo Finance Tue, 07 Jul 2026 20:57:00 +0000</span>
+                </li>
+                </ul>
+            </section>
+
+
+            <section class="card">
               <div class="eyebrow">AI CONTEXT TO VERIFY</div>
               <ul class="headline-list">
                 <li>
-                  <a href="https://finance.yahoo.com/markets/stocks/articles/amd-stock-rises-self-driving-134311222.html?.tsrc=rss" target="_blank" rel="noopener noreferrer">AMD Stock Rises as Self-Driving Startup Cuts Nvidia Dependence</a>
-                  <span>Yahoo Finance Tue, 07 Jul 2026 13:43:11 +0000</span>
+                  <a href="https://www.fool.com/investing/2026/07/08/sk-hynix-form-f1-is-here-3-things-smart-investors/?.tsrc=rss" target="_blank" rel="noopener noreferrer">The SK Hynix Form F-1 Is Here. 3 Things Smart Investors Need to Know About Its $28 Billion U.S. IPO.</a>
+                  <span>Yahoo Finance Wed, 08 Jul 2026 08:08:00 +0000</span>
                 </li>
 
                 <li>
-                  <a href="https://www.fool.com/investing/2026/07/07/heres-what-wall-street-must-see-before-palantir-st/?.tsrc=rss" target="_blank" rel="noopener noreferrer">Here&#x27;s What Wall Street Must See Before Palantir Stock Can Rally Again</a>
-                  <span>Yahoo Finance Tue, 07 Jul 2026 13:41:00 +0000</span>
+                  <a href="https://www.fool.com/investing/2026/07/08/spacex-bonds-are-trading-like-junk-bonds-what-does/?.tsrc=rss" target="_blank" rel="noopener noreferrer">SpaceX Bonds Are Trading Like Junk Bonds. What Does That Mean for Investors?</a>
+                  <span>Yahoo Finance Wed, 08 Jul 2026 08:02:00 +0000</span>
                 </li>
 
                 <li>
-                  <a href="https://finance.yahoo.com/technology/ai/articles/unimicron-seeks-1-4-billion-134029386.html?.tsrc=rss" target="_blank" rel="noopener noreferrer">Unimicron Seeks $1.4 Billion After 700% AI Rally</a>
-                  <span>Yahoo Finance Tue, 07 Jul 2026 13:40:29 +0000</span>
+                  <a href="https://finance.yahoo.com/technology/ai/articles/vultr-suse-launch-validated-full-080000712.html?.tsrc=rss" target="_blank" rel="noopener noreferrer">Vultr and SUSE Launch Validated Full-Stack NVIDIA Enterprise AI Platform to Accelerate Production Deployments</a>
+                  <span>Yahoo Finance Wed, 08 Jul 2026 08:00:00 +0000</span>
                 </li>
 
                 <li>
-                  <a href="https://finance.yahoo.com/markets/stocks/articles/amd-surges-fresh-tailwinds-133729329.html?.tsrc=rss" target="_blank" rel="noopener noreferrer">AMD Surges on Fresh Tailwinds</a>
-                  <span>Yahoo Finance Tue, 07 Jul 2026 13:37:29 +0000</span>
+                  <a href="https://www.fool.com/investing/2026/07/08/vertex-is-paying-a-102-premium-to-acquire-crinetics-for-10-billion-heres-whether-the-deal-is-worth-it/?.tsrc=rss" target="_blank" rel="noopener noreferrer">Vertex Is Paying a 102% Premium to Acquire Crinetics for $10 Billion. Here&#x27;s Whether the Deal Is Worth It.</a>
+                  <span>Yahoo Finance Wed, 08 Jul 2026 07:48:53 +0000</span>
                 </li>
 
                 <li>
-                  <a href="https://247wallst.com/investing/2026/07/07/walmart-drops-the-price-of-coke-by-33/?.tsrc=rss" target="_blank" rel="noopener noreferrer">Walmart Drops The Price Of Coke By 33%</a>
-                  <span>Yahoo Finance Tue, 07 Jul 2026 13:36:10 +0000</span>
+                  <a href="https://www.fool.com/investing/2026/07/08/2-artificial-intelligence-ai-memory-stocks-to-buy/?.tsrc=rss" target="_blank" rel="noopener noreferrer">2 Artificial Intelligence (AI) Memory Stocks to Buy Hand Over Fist in July</a>
+                  <span>Yahoo Finance Wed, 08 Jul 2026 07:45:00 +0000</span>
                 </li>
 
                 <li>
-                  <a href="https://www.fool.com/investing/2026/07/07/spacex-has-already-dropped-30-from-its-peak-time/?.tsrc=rss" target="_blank" rel="noopener noreferrer">SpaceX Has Already Dropped 30% From Its Peak: Time To Buy Below $165?</a>
-                  <span>Yahoo Finance Tue, 07 Jul 2026 13:35:00 +0000</span>
+                  <a href="https://www.fool.com/investing/2026/07/08/where-will-nvidia-stock-be-in-5-years/?.tsrc=rss" target="_blank" rel="noopener noreferrer">Where Will Nvidia Stock Be in 5 Years?</a>
+                  <span>Yahoo Finance Wed, 08 Jul 2026 07:37:00 +0000</span>
                 </li>
                 </ul>
             </section>
@@ -1092,69 +1350,105 @@
               <div class="eyebrow">MACRO CONTEXT TO VERIFY</div>
               <ul class="headline-list">
                 <li>
-                  <a href="https://finance.yahoo.com/markets/commodities/articles/gold-edges-higher-even-us-132455421.html?.tsrc=rss" target="_blank" rel="noopener noreferrer">Gold Edges Higher Even as US Dollar and Yields Move Up</a>
-                  <span>Yahoo Finance Tue, 07 Jul 2026 13:24:55 +0000</span>
+                  <a href="https://finance.yahoo.com/technology/ai/articles/temasek-targets-big-jump-ai-070301283.html?.tsrc=rss" target="_blank" rel="noopener noreferrer">Temasek targets big jump in AI investments as value of portfolio hits record high</a>
+                  <span>Yahoo Finance Wed, 08 Jul 2026 07:03:01 +0000</span>
                 </li>
 
                 <li>
-                  <a href="https://finance.yahoo.com/markets/stocks/articles/market-chatter-amazon-looking-raise-124600650.html?.tsrc=rss" target="_blank" rel="noopener noreferrer">Update: Market Chatter: Amazon Looking to Raise at Least $25 Billion From US Bond Sale</a>
-                  <span>Yahoo Finance Tue, 07 Jul 2026 12:46:00 +0000</span>
+                  <a href="https://www.thestreet.com/markets/jefferies-joins-barclays-in-backing-agnico-eagle-gold-miner?.tsrc=rss" target="_blank" rel="noopener noreferrer">Jefferies joins Barclays in backing major gold miner</a>
+                  <span>Yahoo Finance Tue, 07 Jul 2026 23:00:00 +0000</span>
                 </li>
 
                 <li>
-                  <a href="https://finance.yahoo.com/markets/stocks/articles/amazon-seeks-raise-least-25-121420419.html?.tsrc=rss" target="_blank" rel="noopener noreferrer">Amazon Seeks to Raise at Least $25 Billion From Bond Sale</a>
-                  <span>Yahoo Finance Tue, 07 Jul 2026 12:14:20 +0000</span>
+                  <a href="https://beincrypto.com/eu-mica-zero-art-issuers-review/?.tsrc=rss" target="_blank" rel="noopener noreferrer">Europe’s MiCA Did Not Approve a Single Asset Under This Category</a>
+                  <span>Yahoo Finance Tue, 07 Jul 2026 20:34:42 +0000</span>
                 </li>
 
                 <li>
-                  <a href="https://finance.yahoo.com/markets/currencies/articles/us-dollar-rises-early-tuesday-115743613.html?.tsrc=rss" target="_blank" rel="noopener noreferrer">US Dollar Rises Early Tuesday Ahead of Trade, Redbook, Consumer Sentiment</a>
-                  <span>Yahoo Finance Tue, 07 Jul 2026 11:57:43 +0000</span>
+                  <a href="https://www.bankless.com/read/how-strategy-can-sell-billions-in-bitcoin?.tsrc=rss" target="_blank" rel="noopener noreferrer">How Strategy Can Sell Billions More in Bitcoin</a>
+                  <span>Yahoo Finance Tue, 07 Jul 2026 20:04:44 +0000</span>
                 </li>
 
                 <li>
-                  <a href="https://finance.yahoo.com/m/b8e98628-fe9f-328a-be3e-8a681fae32e0/u.s.-treasury-yields%2C-dollar.html?.tsrc=rss" target="_blank" rel="noopener noreferrer">U.S. Treasury Yields, Dollar Rise Amid Fresh Mideast Tension</a>
-                  <span>Yahoo Finance Tue, 07 Jul 2026 11:15:26 +0000</span>
+                  <a href="https://www.barchart.com/story/news/3170192/dollar-edges-up-on-weak-stocks-and-crude-oil-strength?.tsrc=rss" target="_blank" rel="noopener noreferrer">Dollar Edges Up on Weak Stocks and Crude Oil Strength</a>
+                  <span>Yahoo Finance Tue, 07 Jul 2026 19:39:22 +0000</span>
                 </li>
 
                 <li>
-                  <a href="https://investorshub.advfn.com/market-news/article/31442/gold-prices-weaken-as-investors-await-federal-reserve-meeting-minutes?.tsrc=rss" target="_blank" rel="noopener noreferrer">Gold prices weaken as investors await Federal Reserve meeting minutes</a>
-                  <span>Yahoo Finance Tue, 07 Jul 2026 10:23:23 +0000</span>
+                  <a href="https://finance.yahoo.com/markets/stocks/articles/amazon-plans-25-billion-bond-192227995.html?.tsrc=rss" target="_blank" rel="noopener noreferrer">Amazon Plans $25 Billion Bond Sale</a>
+                  <span>Yahoo Finance Tue, 07 Jul 2026 19:22:27 +0000</span>
                 </li>
                 </ul>
             </section>
 
 
             <section class="card">
-              <div class="eyebrow">MARKET CONTEXT TO VERIFY</div>
+              <div class="eyebrow">GEOPOLITICAL CONTEXT TO VERIFY</div>
               <ul class="headline-list">
                 <li>
-                  <a href="https://finance.yahoo.com/m/110b2049-5932-3626-b8a1-7e911ed6df13/stock-market-today%3A-nasdaq.html?.tsrc=rss" target="_blank" rel="noopener noreferrer">Stock Market Today: Nasdaq Slides As Samsung Tumbles On Earnings; Micron, Sandisk Lose Big (Live Coverage)</a>
-                  <span>Yahoo Finance Tue, 07 Jul 2026 13:43:18 +0000</span>
+                  <a href="https://finance.yahoo.com/energy/articles/oil-prices-extend-rally-us-022604256.html?.tsrc=rss" target="_blank" rel="noopener noreferrer">Oil prices extend rally as US strikes on Iran revive geopolitical fears</a>
+                  <span>Yahoo Finance Wed, 08 Jul 2026 07:42:10 +0000</span>
                 </li>
 
                 <li>
-                  <a href="https://finance.yahoo.com/markets/stocks/articles/exchange-traded-funds-lower-equity-132222461.html?.tsrc=rss" target="_blank" rel="noopener noreferrer">Exchange-Traded Funds Lower, Equity Futures Mixed Amid Caution Over Chip Sector Outlook</a>
-                  <span>Yahoo Finance Tue, 07 Jul 2026 13:22:22 +0000</span>
+                  <a href="https://finance.yahoo.com/markets/commodities/articles/lake-victoria-gold-mobilizes-senior-070100002.html?.tsrc=rss" target="_blank" rel="noopener noreferrer">Lake Victoria Gold Mobilizes Senior Project Manager to Imwelo as Construction Readiness Advances</a>
+                  <span>Yahoo Finance Wed, 08 Jul 2026 07:01:00 +0000</span>
                 </li>
 
                 <li>
-                  <a href="https://247wallst.com/personal-finance/2026/07/07/playing-it-safe-with-1-7-million-in-cash-and-bonds-is-costing-this-retiree-39000-a-year/?.tsrc=rss" target="_blank" rel="noopener noreferrer">Playing It Safe With $1.7 Million in Cash and Bonds Is Costing This Retiree $39,000 a Year</a>
-                  <span>Yahoo Finance Tue, 07 Jul 2026 12:21:23 +0000</span>
+                  <a href="https://www.proactiveinvestors.com/companies/news/1095091/ftse-100-live-stocks-set-to-slide-as-oil-spikes-after-us-launches-80-strikes-on-iran-1095091.html?.tsrc=rss" target="_blank" rel="noopener noreferrer">FTSE 100 Live: Stocks slide as oil spikes after US launches 80 strikes on Iran</a>
+                  <span>Yahoo Finance Wed, 08 Jul 2026 06:19:00 +0000</span>
                 </li>
 
                 <li>
-                  <a href="https://www.trefis.com/articles/605948/your-biggest-fund-may-be-a-bad-deal/2026-07-07?.tsrc=rss" target="_blank" rel="noopener noreferrer">Your Biggest Fund May Be A Bad Deal</a>
-                  <span>Yahoo Finance Tue, 07 Jul 2026 12:15:57 +0000</span>
+                  <a href="https://beincrypto.com/why-is-the-crypto-market-down-today/?.tsrc=rss" target="_blank" rel="noopener noreferrer">Why Is The Crypto Market Down Today?</a>
+                  <span>Yahoo Finance Wed, 08 Jul 2026 06:09:32 +0000</span>
                 </li>
 
                 <li>
-                  <a href="https://247wallst.com/investing/2026/07/07/insiders-are-dumping-micron-at-the-highest-rate-since-2010-is-it-time-to-get-out/?.tsrc=rss" target="_blank" rel="noopener noreferrer">Insiders Are Dumping Micron At The Highest Rate Since 2010. Is It Time To Get Out?</a>
-                  <span>Yahoo Finance Tue, 07 Jul 2026 12:02:46 +0000</span>
+                  <a href="https://finance.yahoo.com/markets/commodities/articles/orosur-mining-inc-announces-pepas-060000223.html?.tsrc=rss" target="_blank" rel="noopener noreferrer">Orosur Mining Inc Announces Pepas West Developing</a>
+                  <span>Yahoo Finance Wed, 08 Jul 2026 06:00:00 +0000</span>
                 </li>
 
                 <li>
-                  <a href="https://qz.com/spacex-nasdaq-100-index-funds-passive-buying-070726?.tsrc=rss" target="_blank" rel="noopener noreferrer">SpaceX joins Nasdaq-100 index, triggering passive fund buying</a>
-                  <span>Yahoo Finance Tue, 07 Jul 2026 11:51:16 +0000</span>
+                  <a href="https://finance.yahoo.com/energy/articles/oil-prices-jump-iran-attacks-055856180.html?.tsrc=rss" target="_blank" rel="noopener noreferrer">Oil Prices Jump After Iran Attacks Commercial Vessels</a>
+                  <span>Yahoo Finance Wed, 08 Jul 2026 05:58:56 +0000</span>
+                </li>
+                </ul>
+            </section>
+
+
+            <section class="card">
+              <div class="eyebrow">ENERGY CONTEXT TO VERIFY</div>
+              <ul class="headline-list">
+                <li>
+                  <a href="https://finance.yahoo.com/energy/articles/jefferies-boosts-price-target-eog-051100717.html?.tsrc=rss" target="_blank" rel="noopener noreferrer">Jefferies Boosts Price Target on EOG Resources (EOG). Here is Why</a>
+                  <span>Yahoo Finance Wed, 08 Jul 2026 05:11:00 +0000</span>
+                </li>
+
+                <li>
+                  <a href="https://finance.yahoo.com/energy/articles/exxon-mobil-xom-price-target-050508533.html?.tsrc=rss" target="_blank" rel="noopener noreferrer">Exxon Mobil (XOM) Price Target Lowered by $17 at TD Cowen. Here is Why</a>
+                  <span>Yahoo Finance Wed, 08 Jul 2026 05:05:08 +0000</span>
+                </li>
+
+                <li>
+                  <a href="https://finance.yahoo.com/energy/articles/td-cowen-cuts-price-target-050039593.html?.tsrc=rss" target="_blank" rel="noopener noreferrer">TD Cowen Cuts Price Target on TotalEnergies (TTE). Here is Why</a>
+                  <span>Yahoo Finance Wed, 08 Jul 2026 05:00:39 +0000</span>
+                </li>
+
+                <li>
+                  <a href="https://finance.yahoo.com/energy/articles/morgan-stanley-trims-price-target-050024765.html?.tsrc=rss" target="_blank" rel="noopener noreferrer">Morgan Stanley Trims Price Target on Occidental Petroleum (OXY). Here is Why</a>
+                  <span>Yahoo Finance Wed, 08 Jul 2026 05:00:24 +0000</span>
+                </li>
+
+                <li>
+                  <a href="https://finance.yahoo.com/markets/stocks/articles/investors-reacting-federal-signal-fss-043043628.html?.tsrc=rss" target="_blank" rel="noopener noreferrer">How Investors Are Reacting To Federal Signal (FSS) Oil Shock Testing Its Margin Expansion Story</a>
+                  <span>Yahoo Finance Wed, 08 Jul 2026 04:30:43 +0000</span>
+                </li>
+
+                <li>
+                  <a href="https://finance.yahoo.com/m/066551de-6a59-3094-97bf-62396c58c1ae/dow-jones-futures%3A-oil-prices.html?.tsrc=rss" target="_blank" rel="noopener noreferrer">Dow Jones Futures: Oil Prices Keep Rising On Iran News After Samsung Fans AI Fears</a>
+                  <span>Yahoo Finance Wed, 08 Jul 2026 04:30:42 +0000</span>
                 </li>
                 </ul>
             </section>
@@ -1166,23 +1460,23 @@
       <div class="metric-row">
         <div>
           <div class="label">Lifetime Accuracy</div>
-          <strong>0.0%</strong>
+          <strong>50.0%</strong>
         </div>
         <div>
           <div class="label">Evaluated</div>
-          <strong>1</strong>
+          <strong>2</strong>
         </div>
         <div>
           <div class="label">Correct / Wrong</div>
-          <strong>0 / 1</strong>
+          <strong>1 / 1</strong>
         </div>
       </div>
-      <p class="callout">2026-07-06: Wrong; SPY next-session return 0.87%.</p>
+      <p class="callout">2026-07-07: Correct; SPY next-session return -0.48%.</p>
     </section>
 
 
     <h2>Recent Score History</h2>
-    <pre>2026-07-06: 68.52, 2026-07-07: 64.77</pre>
+    <pre>2026-07-06: 68.52, 2026-07-07: 64.77, 2026-07-08: 64.47</pre>
   </main>
 </body>
 </html>

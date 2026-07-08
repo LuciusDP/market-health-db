@@ -51,6 +51,10 @@ WATCH_ITEMS = [
     ("HYG", "High yield bonds", "Are investors still willing to take risk?", "return_20d", "%"),
     ("^VIX", "VIX", "Is fear rising?", "close", ""),
     ("^TNX", "10Y yield", "Are rates pressuring growth stocks?", "close", ""),
+    ("BZ=F", "Brent oil", "Is Middle East risk hitting energy prices?", "return_5d", "%"),
+    ("GC=F", "Gold", "Is safe-haven demand rising?", "return_5d", "%"),
+    ("TLT", "Long bonds", "Are investors hiding in duration?", "return_5d", "%"),
+    ("XLE", "Energy stocks", "Is money rotating toward oil exposure?", "return_5d", "%"),
 ]
 
 GLOSSARY = {
@@ -66,6 +70,10 @@ GLOSSARY = {
     "above_50d": "Whether price is above its 50-day average. Above is usually healthier; below means momentum is weaker.",
     "above 50-day": "Price is above its average price from the last 50 trading days.",
     "HYG above 50-day": "HYG tracks high-yield bonds. If it is below its 50-day average, investors may be less comfortable taking risk.",
+    "Oil shock": "A fast Brent or WTI oil rise can raise inflation fear and pressure growth stocks.",
+    "Gold bid": "Gold rising quickly can mean investors are buying safety, not growth risk.",
+    "Dollar bid": "A quick dollar rise can tighten global financial conditions and pressure risk assets.",
+    "Energy over AI": "Energy stocks beating chip stocks can signal rotation toward oil shock beneficiaries and away from AI risk.",
     "10Y Treasury yield proxy": "The 10-year US Treasury yield. Higher yields can pressure growth stocks because future profits get discounted more heavily.",
     "10Y yield 20-day change": "How much the 10-year yield changed over about one month. Negative means yield eased; positive means rate pressure increased.",
     "Dollar 20-day return": "How much the US dollar moved over about one month. A stronger dollar can tighten financial conditions.",
@@ -77,6 +85,13 @@ GLOSSARY = {
     "SOXX": "Chip ETF. Another semiconductor group check.",
     "HYG": "High-yield bond ETF. It helps show whether investors still want risky assets.",
     "JNK": "High-yield bond ETF, similar risk appetite signal to HYG.",
+    "BZ=F": "Yahoo's Brent crude oil futures symbol.",
+    "CL=F": "Yahoo's WTI crude oil futures symbol.",
+    "GC=F": "Yahoo's gold futures symbol.",
+    "SI=F": "Yahoo's silver futures symbol.",
+    "TLT": "ETF tracking long-duration US Treasury bonds.",
+    "XLE": "Energy sector ETF. Useful for seeing whether money is rotating into oil-linked stocks.",
+    "USO": "Oil ETF. Useful as another oil-price proxy.",
     "^TNX": "Yahoo's 10-year Treasury yield proxy.",
     "^VIX": "Yahoo's VIX symbol, the market fear gauge.",
 }
@@ -114,8 +129,8 @@ SO_WHAT = {
     },
     "geopolitical_risk": {
         "title": "So what?",
-        "body": "This is the fear check. If volatility jumps, crowded AI winners can move hard even without company-specific bad news.",
-        "watch": "Watch VIX and short-term SPY/QQQ movement.",
+        "body": "This is the event-risk check. If oil, gold, dollar, and VIX rise while QQQ/SMH weaken, the headline is becoming a portfolio problem for AI stocks.",
+        "watch": "Watch Brent/WTI, gold, dollar, TLT, VIX, QQQ, SMH, and XLE vs SMH.",
     },
 }
 
@@ -469,6 +484,126 @@ def _today_diagnosis(record: dict, previous: dict | None) -> str:
     """
 
 
+def _event_value(indicators: dict, symbol: str, field: str) -> float | int | bool | None:
+    return indicators.get(symbol, {}).get(field)
+
+
+def _average_event_value(indicators: dict, symbols: list[str], field: str) -> float | None:
+    values = [
+        value for value in (_event_value(indicators, symbol, field) for symbol in symbols)
+        if isinstance(value, (int, float))
+    ]
+    if not values:
+        return None
+    return round(sum(float(value) for value in values) / len(values), 2)
+
+
+def _relative_event_value(indicators: dict, leader: str, laggard: str, field: str) -> float | None:
+    leader_value = _event_value(indicators, leader, field)
+    laggard_value = _event_value(indicators, laggard, field)
+    if not isinstance(leader_value, (int, float)) or not isinstance(laggard_value, (int, float)):
+        return None
+    return round(float(leader_value) - float(laggard_value), 2)
+
+
+def _event_status(value: float | int | None, watch: float, danger: float, lower_is_bad: bool = False) -> str:
+    if value is None:
+        return "status-neutral"
+    if lower_is_bad:
+        if value <= danger:
+            return "status-danger"
+        if value <= watch:
+            return "status-watch"
+        return "status-good"
+    if value >= danger:
+        return "status-danger"
+    if value >= watch:
+        return "status-watch"
+    return "status-good"
+
+
+def _event_badge(value: float | int | None, watch: float, danger: float, lower_is_bad: bool = False) -> str:
+    status = _event_status(value, watch, danger, lower_is_bad)
+    if status == "status-danger":
+        label = "Risk rising"
+    elif status == "status-watch":
+        label = "Watch"
+    elif status == "status-good":
+        label = "Contained"
+    else:
+        label = "No data"
+    return f"<span class='pill {escape(status)}'>{escape(label)}</span>"
+
+
+def _event_risk_panel(record: dict, previous: dict | None) -> str:
+    indicators = record.get("indicators", {})
+    previous_indicators = (previous or {}).get("indicators", {})
+    oil = _average_event_value(indicators, ["BZ=F", "CL=F"], "return_5d")
+    previous_oil = _average_event_value(previous_indicators, ["BZ=F", "CL=F"], "return_5d")
+    gold = _event_value(indicators, "GC=F", "return_5d")
+    dollar = _event_value(indicators, "DX-Y.NYB", "return_5d")
+    vix = _event_value(indicators, "^VIX", "close")
+    qqq = _event_value(indicators, "QQQ", "return_5d")
+    tlt = _event_value(indicators, "TLT", "return_5d")
+    energy_vs_ai = _relative_event_value(indicators, "XLE", "SMH", "return_5d")
+    previous_energy_vs_ai = _relative_event_value(previous_indicators, "XLE", "SMH", "return_5d")
+    geo_score = record.get("sub_scores", {}).get("geopolitical_risk", {}).get("score")
+    rows = [
+        ("Oil shock", "Brent/WTI 5-day", oil, previous_oil, "%", 4, 8, False, "Oil jumping means inflation and supply-chain fear can hit growth multiples."),
+        ("Gold bid", "Gold 5-day", gold, _event_value(previous_indicators, "GC=F", "return_5d"), "%", 2.5, 5, False, "Gold strength says investors may be buying protection."),
+        ("Dollar bid", "Dollar 5-day", dollar, _event_value(previous_indicators, "DX-Y.NYB", "return_5d"), "%", 1.2, 2.5, False, "A fast dollar rally tightens global money conditions."),
+        ("VIX fear", "VIX level", vix, _event_value(previous_indicators, "^VIX", "close"), "", 20, 30, False, "VIX shows whether fear is spreading into broad market pricing."),
+        ("QQQ shock", "QQQ 5-day", qqq, _event_value(previous_indicators, "QQQ", "return_5d"), "%", -3, -6, True, "If QQQ is falling, event risk is hitting growth stocks directly."),
+        ("Energy over AI", "XLE minus SMH 5-day", energy_vs_ai, previous_energy_vs_ai, "%", 4, 8, False, "Energy beating chips can mean money is rotating away from AI toward oil exposure."),
+        ("Bond hiding", "TLT 5-day", tlt, _event_value(previous_indicators, "TLT", "return_5d"), "%", 2.5, 5, False, "Long bonds rising can mean investors are hiding from risk."),
+    ]
+    cards = []
+    danger_count = 0
+    watch_count = 0
+    for label, metric, value, previous_value, suffix, watch, danger, lower_is_bad, why in rows:
+        status = _event_status(value, watch, danger, lower_is_bad)
+        if status == "status-danger":
+            danger_count += 1
+        elif status == "status-watch":
+            watch_count += 1
+        cards.append(
+            f"""
+            <article class="event-tile {escape(status)}">
+              <div class="event-top">
+                <strong>{_tip(label)}</strong>
+                {_event_badge(value, watch, danger, lower_is_bad)}
+              </div>
+              <div class="event-value">{_fmt(value, suffix)}</div>
+              <small>{escape(metric)} · yesterday {_fmt(previous_value, suffix)}</small>
+              <p>{escape(why)}</p>
+            </article>
+            """
+        )
+    if danger_count:
+        summary = "Event risk is no longer just a headline. Verify oil, VIX, QQQ, and energy-vs-AI before adding risk."
+    elif watch_count:
+        summary = "Some stress signals are moving. Keep AI buys smaller until oil, dollar, and VIX calm down."
+    else:
+        summary = "Headline risk is visible, but market pricing is not confirming a broad panic yet."
+    return f"""
+    <section class="panel event-radar">
+      <div class="event-radar-head">
+        <div>
+          <div class="eyebrow">EVENT RISK RADAR</div>
+          <h2>War / Oil / Safe-Haven Check</h2>
+          <p>{escape(summary)}</p>
+        </div>
+        <div class="event-score">
+          <span>Geopolitical score</span>
+          <strong>{_fmt(geo_score)}</strong>
+          <small>Lower means more market stress</small>
+        </div>
+      </div>
+      <div class="event-grid">{''.join(cards)}</div>
+    </section>
+    """
+
+
 def _watchlist_panel(record: dict, previous: dict | None) -> str:
     indicators = record.get("indicators", {})
     previous_indicators = (previous or {}).get("indicators", {})
@@ -505,9 +640,12 @@ def _core_actions(record: dict) -> str:
     ai = subscores.get("ai_fundamentals", {}).get("score") or 0
     macro = subscores.get("macro_risk", {}).get("score") or 0
     valuation = subscores.get("valuation_risk", {}).get("score") or 0
+    geopolitical = subscores.get("geopolitical_risk", {}).get("score") or 0
 
     actions = []
-    if score >= 75 and ai >= 65:
+    if geopolitical < 50:
+        actions.append(("1", "Event risk", "Before touching AI, check oil, gold, VIX, and QQQ. If oil and VIX are both jumping, reduce new risk first."))
+    elif score >= 75 and ai >= 65:
         actions.append(("1", "AI stocks", "Market is helping. Holding strong AI names makes sense; new buys still need clean setups."))
     elif score >= 60:
         actions.append(("1", "AI stocks", "Do not rush. Keep watchlist tight and prefer AI names that are already acting better than SMH/SOXX."))
@@ -519,7 +657,9 @@ def _core_actions(record: dict) -> str:
     else:
         actions.append(("2", "Risk appetite", "Credit is not flashing red. Still watch whether HYG gets back above its 50-day average."))
 
-    if macro >= 70:
+    if geopolitical < 50:
+        actions.append(("3", "Oil / havens", "Do not chase oil or gold blindly. First verify whether XLE/USO and gold are confirming the headline for more than one day."))
+    elif macro >= 70:
         actions.append(("3", "Bonds / rates", "Rates are not the main problem today. If yields keep easing, growth stocks get breathing room."))
     elif macro < 50:
         actions.append(("3", "Bonds / rates", "Rates are a problem. Consider waiting, or watch bond exposure rather than chasing AI strength."))
@@ -856,6 +996,22 @@ def generate_dashboard(record: dict, history: dict) -> None:
     .intent {{ color: var(--muted); font-size: 12px; font-weight: 800; text-transform: uppercase; }}
     .driver-tile p {{ margin: 9px 0 0; color: #344054; }}
     .delta {{ color: var(--muted); font-size: 12px; margin-left: 6px; }}
+    .event-radar {{ margin-top: 16px; background: linear-gradient(135deg, #ffffff 0%, #fff7ed 48%, #f8fafc 100%); border-color: #fed7aa; }}
+    .event-radar h2 {{ margin: 4px 0 8px; }}
+    .event-radar-head {{ display: grid; grid-template-columns: 1fr 180px; gap: 16px; align-items: start; }}
+    .event-radar-head p {{ margin: 0; color: #344054; }}
+    .event-score {{ border: 1px solid #fed7aa; background: #fff; border-radius: 8px; padding: 12px; }}
+    .event-score span, .event-score small {{ display: block; color: var(--muted); }}
+    .event-score strong {{ display: block; font-size: 34px; line-height: 1; margin: 6px 0; }}
+    .event-grid {{ display: grid; grid-template-columns: repeat(auto-fit, minmax(210px, 1fr)); gap: 10px; margin-top: 14px; }}
+    .event-tile {{ border: 1px solid #e5eaf2; border-radius: 8px; padding: 12px; background: #fff; }}
+    .event-tile.status-good {{ border-color: #bbf7d0; background: #f7fff9; }}
+    .event-tile.status-watch {{ border-color: #fde68a; background: #fffbeb; }}
+    .event-tile.status-danger {{ border-color: #fecaca; background: #fff7f7; }}
+    .event-top {{ display: flex; align-items: center; justify-content: space-between; gap: 8px; }}
+    .event-top strong {{ font-size: 15px; }}
+    .event-value {{ font-size: 30px; line-height: 1; font-weight: 850; margin: 10px 0 4px; }}
+    .event-tile p {{ margin: 8px 0 0; color: #344054; font-size: 13px; }}
     .threshold-row {{ border-top: 1px solid #edf0f5; padding: 10px 0; display: grid; grid-template-columns: 58px 1fr; gap: 8px; }}
     .threshold-row:first-child {{ border-top: 0; }}
     .threshold-row span {{ color: var(--muted); font-size: 12px; }}
@@ -927,6 +1083,8 @@ def generate_dashboard(record: dict, history: dict) -> None:
         {_threshold_sidebar()}
       </aside>
     </section>
+
+    {_event_risk_panel(record, previous)}
 
     <h2>Charts</h2>
     <section class="hero">

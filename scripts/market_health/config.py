@@ -34,6 +34,13 @@ ASSETS = [
     Asset("^VIX", "CBOE Volatility Index", "volatility"),
     Asset("^TNX", "US 10Y Treasury Yield", "rates"),
     Asset("DX-Y.NYB", "US Dollar Index", "liquidity"),
+    Asset("CL=F", "WTI Crude Oil Futures", "event_risk"),
+    Asset("BZ=F", "Brent Crude Oil Futures", "event_risk"),
+    Asset("GC=F", "Gold Futures", "safe_haven"),
+    Asset("SI=F", "Silver Futures", "safe_haven"),
+    Asset("TLT", "20+ Year Treasury Bond ETF", "safe_haven"),
+    Asset("XLE", "Energy Select Sector SPDR Fund", "energy"),
+    Asset("USO", "United States Oil Fund", "energy"),
     Asset("NVDA", "NVIDIA", "ai_stock"),
     Asset("AMD", "AMD", "ai_stock"),
     Asset("AVGO", "Broadcom", "ai_stock"),
@@ -57,4 +64,3 @@ SUBSCORE_WEIGHTS = {
     "macro_risk": 0.12,
     "geopolitical_risk": 0.08,
 }
-
