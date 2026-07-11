@@ -2,10 +2,9 @@ name: Daily Market Health
 
 on:
   schedule:
-    # Main run after the regular US market close.
-    - cron: "30 22 * * 1-5"
-    # Morning retry/catch-up for late data, holidays, or transient Yahoo/GitHub issues.
-    - cron: "0 8 * * 2-6"
+    # Four daily refreshes. GitHub cron is UTC; during UK summer time these are
+    # 07:00, 12:00, 16:00, and 20:00 London time.
+    - cron: "0 6,11,15,19 * * *"
   workflow_dispatch:
 
 permissions:

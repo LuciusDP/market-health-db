@@ -58,22 +58,51 @@ WATCH_ITEMS = [
 ]
 
 PORTFOLIO_CONTEXT = {
+    "AAPL": ("Mega-cap quality", "Market breadth + QQQ", "Often follows mega-cap tech, consumer demand, and broad index flows."),
     "AMD": ("AI chip", "AI stocks + Money Environment", "Moves with chip demand, SMH/SOXX, rates, and AI capex headlines."),
     "AEM": ("Gold miner", "Gold bid + Dollar bid", "Usually reacts to gold, real yields, dollar strength, and geopolitical risk."),
+    "AENA.MC": ("Airport operator", "Travel + Macro", "Watch passenger demand, European consumer strength, and fuel/geopolitical shocks."),
+    "AIR.PA": ("Aerospace", "Travel + Industrial cycle", "Sensitive to aircraft orders, supply chains, defense/aerospace news, and Europe macro."),
     "BABA": ("China consumer/cloud", "Macro + Dollar", "Sensitive to China sentiment, dollar pressure, and global risk appetite."),
-    "AAPL": ("Mega-cap quality", "Market breadth + QQQ", "Often follows mega-cap tech, consumer demand, and broad index flows."),
+    "BARC.L": ("UK bank", "Rates + Credit", "Banks care about rates, credit stress, and UK economic confidence."),
+    "BP.L": ("Energy major", "Oil shock + Energy rotation", "Moves with oil prices, refining margins, and geopolitical supply risk."),
     "CRCL": ("Crypto/fintech", "Risk appetite + Liquidity", "Sensitive to risk appetite, rates, crypto sentiment, and regulation headlines."),
+    "DBK.DE": ("European bank", "Rates + Credit", "Watch eurozone rates, credit spreads, and bank-sector risk appetite."),
+    "EZJ.L": ("Airline", "Travel + Oil shock", "Airlines benefit from travel demand but can be hurt by fuel spikes."),
+    "GFS": ("Foundry", "AI chips + Industrial demand", "Tracks semiconductor cycle, foundry demand, and chip capex sentiment."),
+    "IAG.L": ("Airline", "Travel + Oil shock", "Sensitive to passenger demand, fuel prices, labor costs, and Europe macro."),
+    "ISP.MI": ("European bank", "Rates + Credit", "Watch Italy/eurozone rates, loan growth, and credit stress."),
     "LULU": ("Consumer discretionary", "Market breadth + Macro", "Tied to consumer spending, margins, and whether investors want cyclicals."),
     "MKS.L": ("UK consumer", "Macro + UK rates", "Watch UK consumer data, sterling, and domestic retail sentiment."),
+    "NDA-FI.HE": ("Nordic bank", "Rates + Credit", "Watch Nordic credit, rates, and European bank sentiment."),
     "NWG.L": ("UK bank", "Rates + Credit", "Banks care about rates, credit stress, and economic confidence."),
     "NVTS": ("Power semiconductor", "AI stocks + Valuation risk", "High-beta chip exposure; can move hard when AI/chip risk appetite changes."),
     "NVDA": ("AI leader", "AI stocks + Valuation risk", "Core AI bellwether; weakness here can change the whole AI tape."),
     "ORCL": ("AI infrastructure", "AI capex + Rates", "Tied to cloud infrastructure demand and AI data-center spending."),
     "PLTR": ("AI software", "AI stocks + Valuation risk", "High-multiple AI software; sensitive to rates and risk appetite."),
+    "RYA.IR": ("Airline", "Travel + Oil shock", "Sensitive to European travel demand, fuel costs, and consumer confidence."),
+    "SGLN.L": ("Gold ETC", "Gold bid + Dollar", "A direct safe-haven proxy; watch gold, real yields, and dollar strength."),
+    "SHEL.L": ("Energy major", "Oil shock + Energy rotation", "Moves with oil, gas, refining margins, and geopolitical energy risk."),
+    "SMCI": ("AI server", "AI capex + Valuation risk", "High-beta AI infrastructure exposure; watch data-center capex and margin headlines."),
     "STM": ("European chip", "AI chips + Macro", "Exposed to semis, autos/industrial demand, Europe macro, and dollar/euro moves."),
+    "STMPA.PA": ("European chip", "AI chips + Macro", "Paris-listed STMicroelectronics; watch European semis and industrial/auto demand."),
+    "SWKS": ("Wireless chip", "Chips + Apple cycle", "Tied to smartphone demand, Apple supply chain, and semiconductor risk appetite."),
+    "TTE.PA": ("Energy major", "Oil shock + Energy rotation", "Moves with oil/gas prices and European energy sentiment."),
     "TSLA": ("EV / autonomy", "QQQ + Risk appetite", "High-beta growth stock; reacts to rates, China, margins, and autonomy headlines."),
+    "UCG.MI": ("European bank", "Rates + Credit", "Watch Italy/eurozone rates, credit stress, and European bank risk appetite."),
+    "UNH": ("Healthcare defensive", "Defensive + Policy risk", "Can behave defensively but is sensitive to healthcare policy and utilization trends."),
     "UBER": ("Consumer platform", "Market breadth + Consumer", "Tied to consumer activity, margins, and broad growth-stock sentiment."),
 }
+
+PORTFOLIO_GROUPS = [
+    ("AI / Semiconductors", ["AMD", "NVDA", "NVTS", "SMCI", "GFS", "SWKS", "STM", "STMPA.PA", "ORCL", "PLTR"]),
+    ("US Growth / Consumer", ["AAPL", "TSLA", "UBER", "LULU", "CRCL", "BABA"]),
+    ("Gold / Defensive", ["AEM", "SGLN.L", "UNH"]),
+    ("UK Banks / Consumer", ["NWG.L", "BARC.L", "MKS.L"]),
+    ("European Banks", ["UCG.MI", "DBK.DE", "ISP.MI", "NDA-FI.HE"]),
+    ("Travel / Aerospace", ["AIR.PA", "IAG.L", "AENA.MC", "EZJ.L", "RYA.IR"]),
+    ("Energy", ["SHEL.L", "BP.L", "TTE.PA"]),
+]
 
 GLOSSARY = {
     "Money Environment": "This is not cash sitting on the sidelines. It asks whether funding conditions are friendly for AI and growth stocks today.",
@@ -676,43 +705,24 @@ def _portfolio_watchlist_panel(record: dict, previous: dict | None) -> str:
     rows = []
     leaders = []
     laggards = []
-    for asset in PORTFOLIO_ASSETS:
-        row = indicators.get(asset.symbol, {})
-        previous_row = previous_indicators.get(asset.symbol, {})
-        return_20d = row.get("return_20d")
-        relative_qqq = None if return_20d is None or qqq_20d is None else round(return_20d - qqq_20d, 2)
-        status = _portfolio_status(row)
-        if isinstance(return_20d, (int, float)):
-            if return_20d > 0:
-                leaders.append((return_20d, asset.symbol))
-            else:
-                laggards.append((return_20d, asset.symbol))
-        theme, dashboard_link, why = PORTFOLIO_CONTEXT.get(asset.symbol, ("Watchlist", "Market health", "Watch price, volume, and related dashboard risk signals."))
-        volume_ratio = row.get("volume_ratio_20d")
-        volume_label = "n/a" if volume_ratio is None else f"{round(volume_ratio, 2)}x"
+    assets_by_symbol = {asset.symbol: asset for asset in PORTFOLIO_ASSETS}
+    for group_name, symbols in PORTFOLIO_GROUPS:
+        available_symbols = [symbol for symbol in symbols if symbol in assets_by_symbol]
         rows.append(
             f"""
-            <tr>
-              <td>
-                <strong>{escape(asset.symbol)}</strong><br>
-                <small>{escape(asset.name)}</small>
-              </td>
-              <td>
-                <span class="pill {escape(status)}">{escape(_portfolio_status_label(status))}</span><br>
-                <small>{escape(theme)}</small>
-              </td>
-              <td>{_fmt(row.get("return_5d"), "%")}<br><small>{_change_badge(row.get("return_5d"), previous_row.get("return_5d"), "%")}</small></td>
-              <td>
-                <div class="portfolio-bar {escape(status)}"><span style="width:{_portfolio_bar_width(return_20d)}%"></span></div>
-                <strong>{_fmt(return_20d, "%")}</strong>
-                <small>vs QQQ {_fmt(relative_qqq, "%")}</small>
-              </td>
-              <td>{escape(volume_label)}<br><small>{_field_tip("volume_ratio_20d")}</small></td>
-              <td><strong>{escape(dashboard_link)}</strong><br><small>{escape(why)}</small></td>
-              <td><small>{escape(_portfolio_headline(asset.symbol, asset.name, record))}</small></td>
+            <tr class="portfolio-group-row">
+              <td colspan="7">{escape(group_name)}</td>
             </tr>
             """
         )
+        for symbol in available_symbols:
+            asset = assets_by_symbol[symbol]
+            rows.append(_portfolio_row(asset, indicators, previous_indicators, qqq_20d, leaders, laggards, record))
+    shown_symbols = {symbol for _group, symbols in PORTFOLIO_GROUPS for symbol in symbols}
+    for asset in PORTFOLIO_ASSETS:
+        if asset.symbol in shown_symbols:
+            continue
+        rows.append(_portfolio_row(asset, indicators, previous_indicators, qqq_20d, leaders, laggards, record))
     leaders = sorted(leaders, reverse=True)[:3]
     laggards = sorted(laggards)[:3]
     leader_text = ", ".join(f"{symbol} {_fmt(value, '%')}" for value, symbol in leaders) or "n/a"
@@ -722,8 +732,8 @@ def _portfolio_watchlist_panel(record: dict, previous: dict | None) -> str:
       <div class="portfolio-head">
         <div>
           <div class="eyebrow">PORTFOLIO WATCHLIST</div>
-          <h2>Holdings Trend Map</h2>
-          <p>Quickly shows which names are leading, which are lagging, and which dashboard risks explain the move.</p>
+          <h2>Grouped Trend Map</h2>
+          <p>Grouped by the market forces that usually move them: AI, banks, energy, travel, consumer, and safe havens.</p>
         </div>
         <div class="portfolio-summary">
           <div><span>20D leaders</span><strong>{escape(leader_text)}</strong></div>
@@ -735,6 +745,43 @@ def _portfolio_watchlist_panel(record: dict, previous: dict | None) -> str:
         <tbody>{''.join(rows)}</tbody>
       </table>
     </section>
+    """
+
+
+def _portfolio_row(asset, indicators: dict, previous_indicators: dict, qqq_20d: float | int | None, leaders: list, laggards: list, record: dict) -> str:
+    row = indicators.get(asset.symbol, {})
+    previous_row = previous_indicators.get(asset.symbol, {})
+    return_20d = row.get("return_20d")
+    relative_qqq = None if return_20d is None or qqq_20d is None else round(return_20d - qqq_20d, 2)
+    status = _portfolio_status(row)
+    if isinstance(return_20d, (int, float)):
+        if return_20d > 0:
+            leaders.append((return_20d, asset.symbol))
+        else:
+            laggards.append((return_20d, asset.symbol))
+    theme, dashboard_link, why = PORTFOLIO_CONTEXT.get(asset.symbol, ("Watchlist", "Market health", "Watch price, volume, and related dashboard risk signals."))
+    volume_ratio = row.get("volume_ratio_20d")
+    volume_label = "n/a" if volume_ratio is None else f"{round(volume_ratio, 2)}x"
+    return f"""
+    <tr>
+      <td>
+        <strong>{escape(asset.symbol)}</strong><br>
+        <small>{escape(asset.name)}</small>
+      </td>
+      <td>
+        <span class="pill {escape(status)}">{escape(_portfolio_status_label(status))}</span><br>
+        <small>{escape(theme)}</small>
+      </td>
+      <td>{_fmt(row.get("return_5d"), "%")}<br><small>{_change_badge(row.get("return_5d"), previous_row.get("return_5d"), "%")}</small></td>
+      <td>
+        <div class="portfolio-bar {escape(status)}"><span style="width:{_portfolio_bar_width(return_20d)}%"></span></div>
+        <strong>{_fmt(return_20d, "%")}</strong>
+        <small>vs QQQ {_fmt(relative_qqq, "%")}</small>
+      </td>
+      <td>{escape(volume_label)}<br><small>{_field_tip("volume_ratio_20d")}</small></td>
+      <td><strong>{escape(dashboard_link)}</strong><br><small>{escape(why)}</small></td>
+      <td><small>{escape(_portfolio_headline(asset.symbol, asset.name, record))}</small></td>
+    </tr>
     """
 
 
@@ -1223,6 +1270,7 @@ def generate_dashboard(record: dict, history: dict) -> None:
     .portfolio-summary strong {{ display: block; margin-top: 4px; font-size: 14px; }}
     .portfolio-table {{ min-width: 1080px; }}
     .portfolio-table td strong {{ display: inline; font-size: 14px; margin: 0; }}
+    .portfolio-group-row td {{ background: #eef2ff; color: #1d4ed8; font-size: 12px; font-weight: 900; letter-spacing: .08em; text-transform: uppercase; }}
     .portfolio-bar {{ position: relative; height: 10px; min-width: 120px; background: #e5e8ef; border-radius: 999px; overflow: hidden; margin-bottom: 5px; }}
     .portfolio-bar span {{ display: block; height: 100%; background: var(--blue); }}
     .portfolio-bar.status-good span {{ background: var(--green); }}

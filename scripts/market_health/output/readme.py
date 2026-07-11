@@ -29,7 +29,7 @@ Automated market health intelligence database for AI-heavy equity investing.
 
 ## Automation
 
-The `Daily Market Health` workflow runs at `07:00 UTC` every Monday through Friday and can also be run manually from GitHub Actions.
+The `Daily Market Health` workflow runs four times daily at `06:00`, `11:00`, `15:00`, and `19:00` UTC. During UK summer time this maps to 07:00, 12:00, 16:00, and 20:00 London time. It can also be run manually from GitHub Actions.
 
 ## Dashboard Contents
 
