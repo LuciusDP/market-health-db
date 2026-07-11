@@ -20,7 +20,7 @@ class Asset:
     group: str
 
 
-ASSETS = [
+BASE_ASSETS = [
     Asset("^GSPC", "S&P 500", "major_index"),
     Asset("^IXIC", "Nasdaq Composite", "major_index"),
     Asset("SPY", "SPDR S&P 500 ETF", "major_etf"),
@@ -53,6 +53,35 @@ ASSETS = [
     Asset("GOOGL", "Alphabet", "hyperscaler"),
     Asset("ORCL", "Oracle", "hyperscaler"),
 ]
+
+PORTFOLIO_ASSETS = [
+    Asset("AMD", "AMD", "portfolio_ai_chip"),
+    Asset("AEM", "Agnico Eagle Mines", "portfolio_safe_haven"),
+    Asset("BABA", "Alibaba", "portfolio_global_consumer"),
+    Asset("AAPL", "Apple", "portfolio_mega_cap"),
+    Asset("CRCL", "Circle Internet Group", "portfolio_fintech"),
+    Asset("LULU", "Lululemon", "portfolio_consumer"),
+    Asset("MKS.L", "Marks and Spencer", "portfolio_uk_consumer"),
+    Asset("NWG.L", "NatWest Group", "portfolio_financial"),
+    Asset("NVTS", "Navitas Semiconductor", "portfolio_ai_chip"),
+    Asset("NVDA", "NVIDIA", "portfolio_ai_chip"),
+    Asset("ORCL", "Oracle", "portfolio_ai_infra"),
+    Asset("PLTR", "Palantir", "portfolio_ai_software"),
+    Asset("STM", "STMicroelectronics", "portfolio_chip"),
+    Asset("TSLA", "Tesla", "portfolio_consumer_ai"),
+    Asset("UBER", "Uber", "portfolio_consumer_platform"),
+]
+
+
+def _dedupe_assets(*groups: list[Asset]) -> list[Asset]:
+    assets: dict[str, Asset] = {}
+    for group in groups:
+        for asset in group:
+            assets.setdefault(asset.symbol, asset)
+    return list(assets.values())
+
+
+ASSETS = _dedupe_assets(BASE_ASSETS, PORTFOLIO_ASSETS)
 
 
 SUBSCORE_WEIGHTS = {

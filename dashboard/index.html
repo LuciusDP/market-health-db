@@ -120,6 +120,21 @@
     .event-top strong { font-size: 15px; }
     .event-value { font-size: 30px; line-height: 1; font-weight: 850; margin: 10px 0 4px; }
     .event-tile p { margin: 8px 0 0; color: #344054; font-size: 13px; }
+    .portfolio-panel { margin-top: 16px; overflow-x: auto; }
+    .portfolio-head { display: grid; grid-template-columns: 1fr minmax(260px, .55fr); gap: 16px; align-items: start; margin-bottom: 12px; }
+    .portfolio-head h2 { margin: 4px 0 8px; }
+    .portfolio-head p { margin: 0; color: #344054; }
+    .portfolio-summary { display: grid; gap: 8px; }
+    .portfolio-summary div { border: 1px solid #e5eaf2; border-radius: 8px; padding: 10px; background: #f8fafc; }
+    .portfolio-summary span { display: block; color: var(--muted); font-size: 12px; font-weight: 800; text-transform: uppercase; }
+    .portfolio-summary strong { display: block; margin-top: 4px; font-size: 14px; }
+    .portfolio-table { min-width: 1080px; }
+    .portfolio-table td strong { display: inline; font-size: 14px; margin: 0; }
+    .portfolio-bar { position: relative; height: 10px; min-width: 120px; background: #e5e8ef; border-radius: 999px; overflow: hidden; margin-bottom: 5px; }
+    .portfolio-bar span { display: block; height: 100%; background: var(--blue); }
+    .portfolio-bar.status-good span { background: var(--green); }
+    .portfolio-bar.status-watch span { background: var(--amber); }
+    .portfolio-bar.status-danger span { background: var(--red); }
     .threshold-row { border-top: 1px solid #edf0f5; padding: 10px 0; display: grid; grid-template-columns: 58px 1fr; gap: 8px; }
     .threshold-row:first-child { border-top: 0; }
     .threshold-row span { color: var(--muted); font-size: 12px; }
@@ -456,6 +471,325 @@
               <p>Long bonds rising can mean investors are hiding from risk.</p>
             </article>
             </div>
+    </section>
+
+
+    <section class="panel portfolio-panel">
+      <div class="portfolio-head">
+        <div>
+          <div class="eyebrow">PORTFOLIO WATCHLIST</div>
+          <h2>Holdings Trend Map</h2>
+          <p>Quickly shows which names are leading, which are lagging, and which dashboard risks explain the move.</p>
+        </div>
+        <div class="portfolio-summary">
+          <div><span>20D leaders</span><strong>AMD 23.32%, UBER 8.64%, AAPL 8.14%</strong></div>
+          <div><span>20D laggards</span><strong>NVTS -34.29%, ORCL -30.12%, CRCL -16.2%</strong></div>
+        </div>
+      </div>
+      <table class="portfolio-table">
+        <thead><tr><th>Name</th><th>Read</th><th>5D</th><th>20D trend</th><th>Volume</th><th>Dashboard link</th><th>Recent headline / what to verify</th></tr></thead>
+        <tbody>
+            <tr>
+              <td>
+                <strong>AMD</strong><br>
+                <small>AMD</small>
+              </td>
+              <td>
+                <span class="pill status-good">Leadership</span><br>
+                <small>AI chip</small>
+              </td>
+              <td>7.74%<br><small><span class='up'>UP +12.28%</span></small></td>
+              <td>
+                <div class="portfolio-bar status-good"><span style="width:97%"></span></div>
+                <strong>23.32%</strong>
+                <small>vs QQQ 18.73%</small>
+              </td>
+              <td>0.68x<br><small>volume vs 20-day <span class='tip' tabindex='0' data-tip='Today&#x27;s trading volume divided by the last 20 trading days&#x27; average volume. Above 1 means activity is heavier than usual.'>?</span></small></td>
+              <td><strong>AI stocks + Money Environment</strong><br><small>Moves with chip demand, SMH/SOXX, rates, and AI capex headlines.</small></td>
+              <td><small>Shares of Intel and AMD Have Plummeted in the Last Few Days. Is It Time to Panic?</small></td>
+            </tr>
+
+            <tr>
+              <td>
+                <strong>AEM</strong><br>
+                <small>Agnico Eagle Mines</small>
+              </td>
+              <td>
+                <span class="pill status-watch">Watch trend</span><br>
+                <small>Gold miner</small>
+              </td>
+              <td>-4.54%<br><small><span class='flat'>n/a</span></small></td>
+              <td>
+                <div class="portfolio-bar status-watch"><span style="width:43%"></span></div>
+                <strong>-3.68%</strong>
+                <small>vs QQQ -8.27%</small>
+              </td>
+              <td>0.56x<br><small>volume vs 20-day <span class='tip' tabindex='0' data-tip='Today&#x27;s trading volume divided by the last 20 trading days&#x27; average volume. Above 1 means activity is heavier than usual.'>?</span></small></td>
+              <td><strong>Gold bid + Dollar bid</strong><br><small>Usually reacts to gold, real yields, dollar strength, and geopolitical risk.</small></td>
+              <td><small>Agnico Eagle Mines (AEM) Stock Sinks As Market Gains: What You Should Know</small></td>
+            </tr>
+
+            <tr>
+              <td>
+                <strong>BABA</strong><br>
+                <small>Alibaba</small>
+              </td>
+              <td>
+                <span class="pill status-watch">Watch trend</span><br>
+                <small>China consumer/cloud</small>
+              </td>
+              <td>16.84%<br><small><span class='flat'>n/a</span></small></td>
+              <td>
+                <div class="portfolio-bar status-watch"><span style="width:45%"></span></div>
+                <strong>-2.64%</strong>
+                <small>vs QQQ -7.23%</small>
+              </td>
+              <td>1.07x<br><small>volume vs 20-day <span class='tip' tabindex='0' data-tip='Today&#x27;s trading volume divided by the last 20 trading days&#x27; average volume. Above 1 means activity is heavier than usual.'>?</span></small></td>
+              <td><strong>Macro + Dollar</strong><br><small>Sensitive to China sentiment, dollar pressure, and global risk appetite.</small></td>
+              <td><small>No major matched headline in today&#x27;s public RSS feed.</small></td>
+            </tr>
+
+            <tr>
+              <td>
+                <strong>AAPL</strong><br>
+                <small>Apple</small>
+              </td>
+              <td>
+                <span class="pill status-good">Leadership</span><br>
+                <small>Mega-cap quality</small>
+              </td>
+              <td>2.17%<br><small><span class='flat'>n/a</span></small></td>
+              <td>
+                <div class="portfolio-bar status-good"><span style="width:66%"></span></div>
+                <strong>8.14%</strong>
+                <small>vs QQQ 3.55%</small>
+              </td>
+              <td>0.53x<br><small>volume vs 20-day <span class='tip' tabindex='0' data-tip='Today&#x27;s trading volume divided by the last 20 trading days&#x27; average volume. Above 1 means activity is heavier than usual.'>?</span></small></td>
+              <td><strong>Market breadth + QQQ</strong><br><small>Often follows mega-cap tech, consumer demand, and broad index flows.</small></td>
+              <td><small>Apple CEO Tim Cook Announces $30 Billion Broadcom Deal to Produce 15 Billion Chips</small></td>
+            </tr>
+
+            <tr>
+              <td>
+                <strong>CRCL</strong><br>
+                <small>Circle Internet Group</small>
+              </td>
+              <td>
+                <span class="pill status-danger">Pressure</span><br>
+                <small>Crypto/fintech</small>
+              </td>
+              <td>2.35%<br><small><span class='flat'>n/a</span></small></td>
+              <td>
+                <div class="portfolio-bar status-danger"><span style="width:18%"></span></div>
+                <strong>-16.2%</strong>
+                <small>vs QQQ -20.79%</small>
+              </td>
+              <td>2.51x<br><small>volume vs 20-day <span class='tip' tabindex='0' data-tip='Today&#x27;s trading volume divided by the last 20 trading days&#x27; average volume. Above 1 means activity is heavier than usual.'>?</span></small></td>
+              <td><strong>Risk appetite + Liquidity</strong><br><small>Sensitive to risk appetite, rates, crypto sentiment, and regulation headlines.</small></td>
+              <td><small>Circle Just Won a U.S. National Bank Charter. Here&#x27;s Why It Matters for the Stock.</small></td>
+            </tr>
+
+            <tr>
+              <td>
+                <strong>LULU</strong><br>
+                <small>Lululemon</small>
+              </td>
+              <td>
+                <span class="pill status-watch">Watch trend</span><br>
+                <small>Consumer discretionary</small>
+              </td>
+              <td>0.7%<br><small><span class='flat'>n/a</span></small></td>
+              <td>
+                <div class="portfolio-bar status-watch"><span style="width:51%"></span></div>
+                <strong>0.28%</strong>
+                <small>vs QQQ -4.31%</small>
+              </td>
+              <td>0.88x<br><small>volume vs 20-day <span class='tip' tabindex='0' data-tip='Today&#x27;s trading volume divided by the last 20 trading days&#x27; average volume. Above 1 means activity is heavier than usual.'>?</span></small></td>
+              <td><strong>Market breadth + Macro</strong><br><small>Tied to consumer spending, margins, and whether investors want cyclicals.</small></td>
+              <td><small>Lululemon (LULU) Outperforms Broader Market: What You Need to Know</small></td>
+            </tr>
+
+            <tr>
+              <td>
+                <strong>MKS.L</strong><br>
+                <small>Marks and Spencer</small>
+              </td>
+              <td>
+                <span class="pill status-neutral">Mixed</span><br>
+                <small>UK consumer</small>
+              </td>
+              <td>-1.31%<br><small><span class='flat'>n/a</span></small></td>
+              <td>
+                <div class="portfolio-bar status-neutral"><span style="width:51%"></span></div>
+                <strong>0.45%</strong>
+                <small>vs QQQ -4.14%</small>
+              </td>
+              <td>1.75x<br><small>volume vs 20-day <span class='tip' tabindex='0' data-tip='Today&#x27;s trading volume divided by the last 20 trading days&#x27; average volume. Above 1 means activity is heavier than usual.'>?</span></small></td>
+              <td><strong>Macro + UK rates</strong><br><small>Watch UK consumer data, sterling, and domestic retail sentiment.</small></td>
+              <td><small>Marks &amp; Spencer to Show See Now, Buy Now Collection at London Fashion Week in September</small></td>
+            </tr>
+
+            <tr>
+              <td>
+                <strong>NWG.L</strong><br>
+                <small>NatWest Group</small>
+              </td>
+              <td>
+                <span class="pill status-neutral">Mixed</span><br>
+                <small>UK bank</small>
+              </td>
+              <td>-2.99%<br><small><span class='flat'>n/a</span></small></td>
+              <td>
+                <div class="portfolio-bar status-neutral"><span style="width:66%"></span></div>
+                <strong>7.85%</strong>
+                <small>vs QQQ 3.26%</small>
+              </td>
+              <td>1.02x<br><small>volume vs 20-day <span class='tip' tabindex='0' data-tip='Today&#x27;s trading volume divided by the last 20 trading days&#x27; average volume. Above 1 means activity is heavier than usual.'>?</span></small></td>
+              <td><strong>Rates + Credit</strong><br><small>Banks care about rates, credit stress, and economic confidence.</small></td>
+              <td><small>No major matched headline in today&#x27;s public RSS feed.</small></td>
+            </tr>
+
+            <tr>
+              <td>
+                <strong>NVTS</strong><br>
+                <small>Navitas Semiconductor</small>
+              </td>
+              <td>
+                <span class="pill status-danger">Pressure</span><br>
+                <small>Power semiconductor</small>
+              </td>
+              <td>-6.85%<br><small><span class='flat'>n/a</span></small></td>
+              <td>
+                <div class="portfolio-bar status-danger"><span style="width:4%"></span></div>
+                <strong>-34.29%</strong>
+                <small>vs QQQ -38.88%</small>
+              </td>
+              <td>0.51x<br><small>volume vs 20-day <span class='tip' tabindex='0' data-tip='Today&#x27;s trading volume divided by the last 20 trading days&#x27; average volume. Above 1 means activity is heavier than usual.'>?</span></small></td>
+              <td><strong>AI stocks + Valuation risk</strong><br><small>High-beta chip exposure; can move hard when AI/chip risk appetite changes.</small></td>
+              <td><small>Why Shares in Nvidia Partner, Navitas Semiconductor, Soared Higher by 151% in the First Half of 2026</small></td>
+            </tr>
+
+            <tr>
+              <td>
+                <strong>NVDA</strong><br>
+                <small>NVIDIA</small>
+              </td>
+              <td>
+                <span class="pill status-neutral">Mixed</span><br>
+                <small>AI leader</small>
+              </td>
+              <td>8.28%<br><small><span class='up'>UP +9.35%</span></small></td>
+              <td>
+                <div class="portfolio-bar status-neutral"><span style="width:61%"></span></div>
+                <strong>5.26%</strong>
+                <small>vs QQQ 0.67%</small>
+              </td>
+              <td>1.01x<br><small>volume vs 20-day <span class='tip' tabindex='0' data-tip='Today&#x27;s trading volume divided by the last 20 trading days&#x27; average volume. Above 1 means activity is heavier than usual.'>?</span></small></td>
+              <td><strong>AI stocks + Valuation risk</strong><br><small>Core AI bellwether; weakness here can change the whole AI tape.</small></td>
+              <td><small>If You&#x27;d Invested $10,000 in Nvidia 10 Years Ago, Here&#x27;s How Much You&#x27;d Have Today. Spoiler Alert: The Answer Is Mind-Boggling.</small></td>
+            </tr>
+
+            <tr>
+              <td>
+                <strong>ORCL</strong><br>
+                <small>Oracle</small>
+              </td>
+              <td>
+                <span class="pill status-danger">Pressure</span><br>
+                <small>AI infrastructure</small>
+              </td>
+              <td>0.26%<br><small><span class='up'>UP +2.68%</span></small></td>
+              <td>
+                <div class="portfolio-bar status-danger"><span style="width:4%"></span></div>
+                <strong>-30.12%</strong>
+                <small>vs QQQ -34.71%</small>
+              </td>
+              <td>0.86x<br><small>volume vs 20-day <span class='tip' tabindex='0' data-tip='Today&#x27;s trading volume divided by the last 20 trading days&#x27; average volume. Above 1 means activity is heavier than usual.'>?</span></small></td>
+              <td><strong>AI capex + Rates</strong><br><small>Tied to cloud infrastructure demand and AI data-center spending.</small></td>
+              <td><small>No major matched headline in today&#x27;s public RSS feed.</small></td>
+            </tr>
+
+            <tr>
+              <td>
+                <strong>PLTR</strong><br>
+                <small>Palantir</small>
+              </td>
+              <td>
+                <span class="pill status-watch">Watch trend</span><br>
+                <small>AI software</small>
+              </td>
+              <td>-1.94%<br><small><span class='flat'>n/a</span></small></td>
+              <td>
+                <div class="portfolio-bar status-watch"><span style="width:45%"></span></div>
+                <strong>-2.63%</strong>
+                <small>vs QQQ -7.21%</small>
+              </td>
+              <td>0.7x<br><small>volume vs 20-day <span class='tip' tabindex='0' data-tip='Today&#x27;s trading volume divided by the last 20 trading days&#x27; average volume. Above 1 means activity is heavier than usual.'>?</span></small></td>
+              <td><strong>AI stocks + Valuation risk</strong><br><small>High-multiple AI software; sensitive to rates and risk appetite.</small></td>
+              <td><small>No major matched headline in today&#x27;s public RSS feed.</small></td>
+            </tr>
+
+            <tr>
+              <td>
+                <strong>STM</strong><br>
+                <small>STMicroelectronics</small>
+              </td>
+              <td>
+                <span class="pill status-neutral">Mixed</span><br>
+                <small>European chip</small>
+              </td>
+              <td>4.55%<br><small><span class='flat'>n/a</span></small></td>
+              <td>
+                <div class="portfolio-bar status-neutral"><span style="width:52%"></span></div>
+                <strong>1.02%</strong>
+                <small>vs QQQ -3.57%</small>
+              </td>
+              <td>0.6x<br><small>volume vs 20-day <span class='tip' tabindex='0' data-tip='Today&#x27;s trading volume divided by the last 20 trading days&#x27; average volume. Above 1 means activity is heavier than usual.'>?</span></small></td>
+              <td><strong>AI chips + Macro</strong><br><small>Exposed to semis, autos/industrial demand, Europe macro, and dollar/euro moves.</small></td>
+              <td><small>No major matched headline in today&#x27;s public RSS feed.</small></td>
+            </tr>
+
+            <tr>
+              <td>
+                <strong>TSLA</strong><br>
+                <small>Tesla</small>
+              </td>
+              <td>
+                <span class="pill status-watch">Watch trend</span><br>
+                <small>EV / autonomy</small>
+              </td>
+              <td>3.64%<br><small><span class='flat'>n/a</span></small></td>
+              <td>
+                <div class="portfolio-bar status-watch"><span style="width:64%"></span></div>
+                <strong>6.86%</strong>
+                <small>vs QQQ 2.27%</small>
+              </td>
+              <td>0.72x<br><small>volume vs 20-day <span class='tip' tabindex='0' data-tip='Today&#x27;s trading volume divided by the last 20 trading days&#x27; average volume. Above 1 means activity is heavier than usual.'>?</span></small></td>
+              <td><strong>QQQ + Risk appetite</strong><br><small>High-beta growth stock; reacts to rates, China, margins, and autonomy headlines.</small></td>
+              <td><small>If You Have $1,000 to Invest in EV Stocks, Should It Go to Tesla or Rivian?</small></td>
+            </tr>
+
+            <tr>
+              <td>
+                <strong>UBER</strong><br>
+                <small>Uber</small>
+              </td>
+              <td>
+                <span class="pill status-good">Leadership</span><br>
+                <small>Consumer platform</small>
+              </td>
+              <td>0.15%<br><small><span class='flat'>n/a</span></small></td>
+              <td>
+                <div class="portfolio-bar status-good"><span style="width:67%"></span></div>
+                <strong>8.64%</strong>
+                <small>vs QQQ 4.06%</small>
+              </td>
+              <td>0.45x<br><small>volume vs 20-day <span class='tip' tabindex='0' data-tip='Today&#x27;s trading volume divided by the last 20 trading days&#x27; average volume. Above 1 means activity is heavier than usual.'>?</span></small></td>
+              <td><strong>Market breadth + Consumer</strong><br><small>Tied to consumer activity, margins, and broad growth-stock sentiment.</small></td>
+              <td><small>No major matched headline in today&#x27;s public RSS feed.</small></td>
+            </tr>
+            </tbody>
+      </table>
     </section>
 
 
@@ -1314,6 +1648,11 @@
               <div class="eyebrow">AI CONTEXT TO VERIFY</div>
               <ul class="headline-list">
                 <li>
+                  <a href="https://www.fool.com/investing/2026/07/11/microns-biggest-long-term-growth-catalyst-has-noth/?.tsrc=rss" target="_blank" rel="noopener noreferrer">Micron&#x27;s Biggest Long-Term Growth Catalyst Has Nothing to Do With AI Data Centers</a>
+                  <span>Yahoo Finance Sat, 11 Jul 2026 08:49:00 +0000</span>
+                </li>
+
+                <li>
                   <a href="https://www.fool.com/investing/2026/07/11/oil-price-plunge-but-trumpflation-is-getting-worse/?.tsrc=rss" target="_blank" rel="noopener noreferrer">Oil Prices Are Plunging, but Trumpflation Is Getting Worse -- Here&#x27;s Why</a>
                   <span>Yahoo Finance Sat, 11 Jul 2026 08:26:00 +0000</span>
                 </li>
@@ -1336,11 +1675,6 @@
                 <li>
                   <a href="https://www.fool.com/investing/2026/07/11/this-overlooked-investment-could-set-you-up-for-li/?.tsrc=rss" target="_blank" rel="noopener noreferrer">This Overlooked Investment Could Set You Up for Life. Here&#x27;s How.</a>
                   <span>Yahoo Finance Sat, 11 Jul 2026 07:05:00 +0000</span>
-                </li>
-
-                <li>
-                  <a href="https://www.fool.com/investing/2026/07/11/micron-sanjay-mehrotra-announces-250-billion-expan/?.tsrc=rss" target="_blank" rel="noopener noreferrer">Micron CEO Sanjay Mehrotra Announces $250 Billion Investment for Expanded Artificial Intelligence (AI) Memory Chip Development</a>
-                  <span>Yahoo Finance Sat, 11 Jul 2026 06:55:00 +0000</span>
                 </li>
                 </ul>
             </section>

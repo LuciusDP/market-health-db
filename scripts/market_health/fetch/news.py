@@ -5,6 +5,8 @@ import urllib.parse
 import urllib.request
 import xml.etree.ElementTree as ET
 
+from scripts.market_health.config import PORTFOLIO_ASSETS
+
 
 NEWS_QUERIES = {
     "market": ["SPY", "QQQ", "^VIX"],
@@ -17,6 +19,7 @@ NEWS_QUERIES = {
 
 def collect_headlines(limit_per_group: int = 6) -> dict:
     groups: dict[str, list[dict]] = {}
+    portfolio_symbols: dict[str, list[dict]] = {}
     errors: dict[str, str] = {}
     seen: set[str] = set()
 
@@ -37,7 +40,14 @@ def collect_headlines(limit_per_group: int = 6) -> dict:
             groups[group] = []
             errors[group] = str(exc)
 
-    return {"groups": groups, "errors": errors, "source": "Yahoo Finance RSS"}
+    for asset in PORTFOLIO_ASSETS:
+        try:
+            portfolio_symbols[asset.symbol] = fetch_yahoo_rss([asset.symbol])[:2]
+        except Exception as exc:  # noqa: BLE001 - keep daily workflow alive.
+            portfolio_symbols[asset.symbol] = []
+            errors[f"portfolio:{asset.symbol}"] = str(exc)
+
+    return {"groups": groups, "portfolio_symbols": portfolio_symbols, "errors": errors, "source": "Yahoo Finance RSS"}
 
 
 def fetch_yahoo_rss(symbols: list[str]) -> list[dict]:

@@ -3,7 +3,7 @@ from __future__ import annotations
 import json
 from html import escape
 
-from scripts.market_health.config import DAILY_DIR, DASHBOARD_DIR
+from scripts.market_health.config import DAILY_DIR, DASHBOARD_DIR, PORTFOLIO_ASSETS
 
 
 SCORE_BANDS = [
@@ -57,6 +57,24 @@ WATCH_ITEMS = [
     ("XLE", "Energy stocks", "Is money rotating toward oil exposure?", "return_5d", "%"),
 ]
 
+PORTFOLIO_CONTEXT = {
+    "AMD": ("AI chip", "AI stocks + Money Environment", "Moves with chip demand, SMH/SOXX, rates, and AI capex headlines."),
+    "AEM": ("Gold miner", "Gold bid + Dollar bid", "Usually reacts to gold, real yields, dollar strength, and geopolitical risk."),
+    "BABA": ("China consumer/cloud", "Macro + Dollar", "Sensitive to China sentiment, dollar pressure, and global risk appetite."),
+    "AAPL": ("Mega-cap quality", "Market breadth + QQQ", "Often follows mega-cap tech, consumer demand, and broad index flows."),
+    "CRCL": ("Crypto/fintech", "Risk appetite + Liquidity", "Sensitive to risk appetite, rates, crypto sentiment, and regulation headlines."),
+    "LULU": ("Consumer discretionary", "Market breadth + Macro", "Tied to consumer spending, margins, and whether investors want cyclicals."),
+    "MKS.L": ("UK consumer", "Macro + UK rates", "Watch UK consumer data, sterling, and domestic retail sentiment."),
+    "NWG.L": ("UK bank", "Rates + Credit", "Banks care about rates, credit stress, and economic confidence."),
+    "NVTS": ("Power semiconductor", "AI stocks + Valuation risk", "High-beta chip exposure; can move hard when AI/chip risk appetite changes."),
+    "NVDA": ("AI leader", "AI stocks + Valuation risk", "Core AI bellwether; weakness here can change the whole AI tape."),
+    "ORCL": ("AI infrastructure", "AI capex + Rates", "Tied to cloud infrastructure demand and AI data-center spending."),
+    "PLTR": ("AI software", "AI stocks + Valuation risk", "High-multiple AI software; sensitive to rates and risk appetite."),
+    "STM": ("European chip", "AI chips + Macro", "Exposed to semis, autos/industrial demand, Europe macro, and dollar/euro moves."),
+    "TSLA": ("EV / autonomy", "QQQ + Risk appetite", "High-beta growth stock; reacts to rates, China, margins, and autonomy headlines."),
+    "UBER": ("Consumer platform", "Market breadth + Consumer", "Tied to consumer activity, margins, and broad growth-stock sentiment."),
+}
+
 GLOSSARY = {
     "Money Environment": "This is not cash sitting on the sidelines. It asks whether funding conditions are friendly for AI and growth stocks today.",
     "VIX level": "VIX is the market's fear gauge. Higher VIX usually means investors expect bigger daily moves.",
@@ -67,6 +85,7 @@ GLOSSARY = {
     "return_20d": "The percentage move over roughly the last 20 trading days, about one trading month.",
     "5-day return": "How much something moved over roughly one trading week.",
     "20-day return": "How much something moved over roughly one trading month.",
+    "volume_ratio_20d": "Today's trading volume divided by the last 20 trading days' average volume. Above 1 means activity is heavier than usual.",
     "above_50d": "Whether price is above its 50-day average. Above is usually healthier; below means momentum is weaker.",
     "above 50-day": "Price is above its average price from the last 50 trading days.",
     "HYG above 50-day": "HYG tracks high-yield bonds. If it is below its 50-day average, investors may be less comfortable taking risk.",
@@ -203,6 +222,8 @@ def _field_tip(field: str) -> str:
         return _tip("level", "level")
     if field == "distance_from_200d":
         return _tip("distance from 200-day", "distance from 200-day")
+    if field == "volume_ratio_20d":
+        return _tip("volume vs 20-day", "volume_ratio_20d")
     return escape(field)
 
 
@@ -602,6 +623,125 @@ def _event_risk_panel(record: dict, previous: dict | None) -> str:
       <div class="event-grid">{''.join(cards)}</div>
     </section>
     """
+
+
+def _portfolio_status(row: dict) -> str:
+    return_20d = row.get("return_20d")
+    above_50d = row.get("above_50d")
+    if isinstance(return_20d, (int, float)) and return_20d >= 8 and above_50d:
+        return "status-good"
+    if isinstance(return_20d, (int, float)) and return_20d <= -8:
+        return "status-danger"
+    if above_50d is False:
+        return "status-watch"
+    return "status-neutral"
+
+
+def _portfolio_status_label(status: str) -> str:
+    if status == "status-good":
+        return "Leadership"
+    if status == "status-watch":
+        return "Watch trend"
+    if status == "status-danger":
+        return "Pressure"
+    return "Mixed"
+
+
+def _portfolio_headline(asset_symbol: str, asset_name: str, record: dict) -> str:
+    symbol_root = asset_symbol.replace(".L", "").upper()
+    name_tokens = [token.lower() for token in asset_name.replace("&", " ").replace("-", " ").split() if len(token) >= 4]
+
+    def matches(title: str) -> bool:
+        title_lower = title.lower()
+        return symbol_root in title.upper() or any(token in title_lower for token in name_tokens)
+
+    symbol_headlines = record.get("news", {}).get("portfolio_symbols", {}).get(asset_symbol, [])
+    for headline in symbol_headlines:
+        title = headline.get("title") or ""
+        if matches(title):
+            return title
+
+    headlines = record.get("news", {}).get("groups", {}).get("portfolio", [])
+    for headline in headlines:
+        title = headline.get("title") or ""
+        if matches(title):
+            return title
+    return "No major matched headline in today's public RSS feed."
+
+
+def _portfolio_watchlist_panel(record: dict, previous: dict | None) -> str:
+    indicators = record.get("indicators", {})
+    previous_indicators = (previous or {}).get("indicators", {})
+    qqq_20d = indicators.get("QQQ", {}).get("return_20d")
+    rows = []
+    leaders = []
+    laggards = []
+    for asset in PORTFOLIO_ASSETS:
+        row = indicators.get(asset.symbol, {})
+        previous_row = previous_indicators.get(asset.symbol, {})
+        return_20d = row.get("return_20d")
+        relative_qqq = None if return_20d is None or qqq_20d is None else round(return_20d - qqq_20d, 2)
+        status = _portfolio_status(row)
+        if isinstance(return_20d, (int, float)):
+            if return_20d > 0:
+                leaders.append((return_20d, asset.symbol))
+            else:
+                laggards.append((return_20d, asset.symbol))
+        theme, dashboard_link, why = PORTFOLIO_CONTEXT.get(asset.symbol, ("Watchlist", "Market health", "Watch price, volume, and related dashboard risk signals."))
+        volume_ratio = row.get("volume_ratio_20d")
+        volume_label = "n/a" if volume_ratio is None else f"{round(volume_ratio, 2)}x"
+        rows.append(
+            f"""
+            <tr>
+              <td>
+                <strong>{escape(asset.symbol)}</strong><br>
+                <small>{escape(asset.name)}</small>
+              </td>
+              <td>
+                <span class="pill {escape(status)}">{escape(_portfolio_status_label(status))}</span><br>
+                <small>{escape(theme)}</small>
+              </td>
+              <td>{_fmt(row.get("return_5d"), "%")}<br><small>{_change_badge(row.get("return_5d"), previous_row.get("return_5d"), "%")}</small></td>
+              <td>
+                <div class="portfolio-bar {escape(status)}"><span style="width:{_portfolio_bar_width(return_20d)}%"></span></div>
+                <strong>{_fmt(return_20d, "%")}</strong>
+                <small>vs QQQ {_fmt(relative_qqq, "%")}</small>
+              </td>
+              <td>{escape(volume_label)}<br><small>{_field_tip("volume_ratio_20d")}</small></td>
+              <td><strong>{escape(dashboard_link)}</strong><br><small>{escape(why)}</small></td>
+              <td><small>{escape(_portfolio_headline(asset.symbol, asset.name, record))}</small></td>
+            </tr>
+            """
+        )
+    leaders = sorted(leaders, reverse=True)[:3]
+    laggards = sorted(laggards)[:3]
+    leader_text = ", ".join(f"{symbol} {_fmt(value, '%')}" for value, symbol in leaders) or "n/a"
+    laggard_text = ", ".join(f"{symbol} {_fmt(value, '%')}" for value, symbol in laggards) or "n/a"
+    return f"""
+    <section class="panel portfolio-panel">
+      <div class="portfolio-head">
+        <div>
+          <div class="eyebrow">PORTFOLIO WATCHLIST</div>
+          <h2>Holdings Trend Map</h2>
+          <p>Quickly shows which names are leading, which are lagging, and which dashboard risks explain the move.</p>
+        </div>
+        <div class="portfolio-summary">
+          <div><span>20D leaders</span><strong>{escape(leader_text)}</strong></div>
+          <div><span>20D laggards</span><strong>{escape(laggard_text)}</strong></div>
+        </div>
+      </div>
+      <table class="portfolio-table">
+        <thead><tr><th>Name</th><th>Read</th><th>5D</th><th>20D trend</th><th>Volume</th><th>Dashboard link</th><th>Recent headline / what to verify</th></tr></thead>
+        <tbody>{''.join(rows)}</tbody>
+      </table>
+    </section>
+    """
+
+
+def _portfolio_bar_width(value: float | int | None) -> int:
+    if value is None:
+        return 50
+    return max(4, min(100, int(round(50 + float(value) * 2))))
 
 
 def _watchlist_panel(record: dict, previous: dict | None) -> str:
@@ -1073,6 +1213,21 @@ def generate_dashboard(record: dict, history: dict) -> None:
     .event-top strong {{ font-size: 15px; }}
     .event-value {{ font-size: 30px; line-height: 1; font-weight: 850; margin: 10px 0 4px; }}
     .event-tile p {{ margin: 8px 0 0; color: #344054; font-size: 13px; }}
+    .portfolio-panel {{ margin-top: 16px; overflow-x: auto; }}
+    .portfolio-head {{ display: grid; grid-template-columns: 1fr minmax(260px, .55fr); gap: 16px; align-items: start; margin-bottom: 12px; }}
+    .portfolio-head h2 {{ margin: 4px 0 8px; }}
+    .portfolio-head p {{ margin: 0; color: #344054; }}
+    .portfolio-summary {{ display: grid; gap: 8px; }}
+    .portfolio-summary div {{ border: 1px solid #e5eaf2; border-radius: 8px; padding: 10px; background: #f8fafc; }}
+    .portfolio-summary span {{ display: block; color: var(--muted); font-size: 12px; font-weight: 800; text-transform: uppercase; }}
+    .portfolio-summary strong {{ display: block; margin-top: 4px; font-size: 14px; }}
+    .portfolio-table {{ min-width: 1080px; }}
+    .portfolio-table td strong {{ display: inline; font-size: 14px; margin: 0; }}
+    .portfolio-bar {{ position: relative; height: 10px; min-width: 120px; background: #e5e8ef; border-radius: 999px; overflow: hidden; margin-bottom: 5px; }}
+    .portfolio-bar span {{ display: block; height: 100%; background: var(--blue); }}
+    .portfolio-bar.status-good span {{ background: var(--green); }}
+    .portfolio-bar.status-watch span {{ background: var(--amber); }}
+    .portfolio-bar.status-danger span {{ background: var(--red); }}
     .threshold-row {{ border-top: 1px solid #edf0f5; padding: 10px 0; display: grid; grid-template-columns: 58px 1fr; gap: 8px; }}
     .threshold-row:first-child {{ border-top: 0; }}
     .threshold-row span {{ color: var(--muted); font-size: 12px; }}
@@ -1146,6 +1301,7 @@ def generate_dashboard(record: dict, history: dict) -> None:
     </section>
 
     {_event_risk_panel(record, previous)}
+    {_portfolio_watchlist_panel(record, previous)}
 
     <h2>Charts</h2>
     <section class="hero">
