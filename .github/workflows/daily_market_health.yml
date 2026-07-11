@@ -2,7 +2,10 @@ name: Daily Market Health
 
 on:
   schedule:
-    - cron: "0 7 * * 1-5"
+    # Main run after the regular US market close.
+    - cron: "30 22 * * 1-5"
+    # Morning retry/catch-up for late data, holidays, or transient Yahoo/GitHub issues.
+    - cron: "0 8 * * 2-6"
   workflow_dispatch:
 
 permissions:

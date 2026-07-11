@@ -874,6 +874,67 @@ def _accuracy_panel(history: dict) -> str:
     """
 
 
+def _return_validation_panel(history: dict) -> str:
+    validation = history.get("return_validation", {})
+    total = validation.get("total_return_evaluated") or 0
+    if total < 5:
+        return f"""
+    <section class="panel">
+      <div class="eyebrow">SCORE VS ACTUAL MARKET MOVE</div>
+      <p><strong>Only {total} validated return records so far.</strong></p>
+      <p>
+        This section will become useful after more daily records accumulate. It will answer:
+        did higher scores actually lead to better next-session SPY/QQQ/NVDA/SOXX returns?
+      </p>
+    </section>
+    """
+
+    metric_rows = [
+        ("SPY", validation.get("score_to_sp500_correlation")),
+        ("QQQ", validation.get("score_to_nasdaq_correlation")),
+        ("NVDA", validation.get("score_to_nvda_correlation")),
+        ("SOXX", validation.get("score_to_soxx_correlation")),
+    ]
+    metrics = "\n".join(
+        f"""
+        <div>
+          <div class="label">Score vs {escape(label)}</div>
+          <strong>{_fmt(value)}</strong>
+        </div>
+        """
+        for label, value in metric_rows
+    )
+    bucket_rows = []
+    for row in validation.get("bucket_performance", []):
+        bucket_rows.append(
+            f"""
+            <tr>
+              <td><strong>{escape(str(row.get("bucket")))}</strong></td>
+              <td>{_fmt(row.get("count"))}</td>
+              <td>{_fmt(row.get("avg_sp500_return"), "%")}</td>
+              <td>{_fmt(row.get("avg_nasdaq_return"), "%")}</td>
+              <td>{_fmt(row.get("avg_nvda_return"), "%")}</td>
+              <td>{_fmt(row.get("avg_soxx_return"), "%")}</td>
+              <td>{_fmt(row.get("positive_sp500_rate"), "%")}</td>
+            </tr>
+            """
+        )
+    return f"""
+    <section class="panel">
+      <div class="eyebrow">SCORE VS ACTUAL MARKET MOVE</div>
+      <p>
+        This checks the exact question: does a 68 score historically lead to stronger next-session returns than a 64?
+        Positive correlation means higher scores have lined up with better returns.
+      </p>
+      <div class="metric-row">{metrics}</div>
+      <table>
+        <thead><tr><th>Score bucket</th><th>Days</th><th>Avg SPY</th><th>Avg QQQ</th><th>Avg NVDA</th><th>Avg SOXX</th><th>SPY positive</th></tr></thead>
+        <tbody>{''.join(bucket_rows)}</tbody>
+      </table>
+    </section>
+    """
+
+
 def generate_dashboard(record: dict, history: dict) -> None:
     DASHBOARD_DIR.mkdir(parents=True, exist_ok=True)
     previous = _previous_record(record)
@@ -1109,6 +1170,7 @@ def generate_dashboard(record: dict, history: dict) -> None:
 
     <h2>Prediction Accuracy</h2>
     {_accuracy_panel(history)}
+    {_return_validation_panel(history)}
 
     <h2>Recent Score History</h2>
     <pre>{escape(points or "No history yet.")}</pre>

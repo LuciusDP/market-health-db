@@ -12,6 +12,7 @@ from datetime import datetime
 class PricePoint:
     date: str
     close: float
+    volume: int | None = None
 
 
 def fetch_daily_prices(symbol: str, range_: str = "1y") -> list[PricePoint]:
@@ -28,13 +29,15 @@ def fetch_daily_prices(symbol: str, range_: str = "1y") -> list[PricePoint]:
     timestamps = result.get("timestamp") or []
     quote = result["indicators"]["quote"][0]
     closes = quote.get("close") or []
+    volumes = quote.get("volume") or []
 
     points: list[PricePoint] = []
-    for timestamp, close in zip(timestamps, closes):
+    for index, (timestamp, close) in enumerate(zip(timestamps, closes)):
         if close is None:
             continue
+        volume = volumes[index] if index < len(volumes) else None
         day = datetime.fromtimestamp(timestamp).date().isoformat()
-        points.append(PricePoint(date=day, close=round(float(close), 6)))
+        points.append(PricePoint(date=day, close=round(float(close), 6), volume=None if volume is None else int(volume)))
     return points
 
 

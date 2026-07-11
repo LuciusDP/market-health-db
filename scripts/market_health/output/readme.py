@@ -24,6 +24,7 @@ Automated market health intelligence database for AI-heavy equity investing.
 - Score history: `data/history/score_history.json`
 - Regime history: `data/history/regime_history.json`
 - Prediction accuracy: `data/history/prediction_accuracy.json`
+- Score-vs-return validation: `data/history/return_validation.json`
 - Dashboard: `dashboard/index.html`
 
 ## Automation

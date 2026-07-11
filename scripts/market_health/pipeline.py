@@ -13,13 +13,19 @@ from scripts.market_health.scoring.engine import calculate_scores
 from scripts.market_health.utils import today_iso, write_json
 
 
+def _record_date(today: str | None, indicators: dict) -> str:
+    if today:
+        return today
+    return indicators.get("SPY", {}).get("date") or today_iso()
+
+
 def run(today: str | None = None) -> dict:
-    target_date = today or today_iso()
     market_data = collect_market_data()
     news = collect_headlines()
     indicators = build_indicators(market_data)
+    target_date = _record_date(today, indicators)
     scores = calculate_scores(indicators)
-    backfill_previous_record(target_date, indicators)
+    backfill_previous_record(target_date, indicators, market_data)
 
     record = build_daily_record(target_date, indicators, scores, market_data.get("errors", {}), news)
     output_path = DAILY_DIR / f"{target_date}.json"
