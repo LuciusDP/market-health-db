@@ -1,24 +1,14 @@
 {
   "backtest": {
-    "actual_nasdaq_return": -1.1171226305325521,
-    "actual_nvda_return": -0.919715963779355,
-    "actual_soxx_return": -4.395541041933493,
-    "actual_sp500_return": 0.10160123643447871,
-    "actual_vix_return": -0.6417165432237248,
-    "direction_correct": true,
-    "evaluated_on": "2026-07-24",
-    "evaluation_notes": [
-      "Prediction is evaluated against next-session SPY return and stored as a continuous score-vs-return record.",
-      "Neutral is correct when SPY is roughly flat; Cautious is correct when downside is contained."
-    ],
-    "expected_sp500_return": 0.22,
-    "filled_next_day": true,
-    "prediction_correct": true,
-    "score_at_prediction": 55.4,
-    "score_bucket": "45-59",
-    "sp500_return_error": -0.1184
+    "actual_nasdaq_return": null,
+    "actual_nvda_return": null,
+    "actual_soxx_return": null,
+    "actual_sp500_return": null,
+    "actual_vix_return": null,
+    "filled_next_day": false,
+    "prediction_correct": null
   },
-  "confidence": 74.32,
+  "confidence": 74.31,
   "date": "2026-07-23",
   "indicators": {
     "AAPL": {
@@ -245,9 +235,9 @@
       "return_63d": -7.889979061577989,
       "sma_200": 80.0498,
       "sma_50": 88.57360014,
-      "volume": 48567,
-      "volume_ratio_20d": 1.0329294514735627,
-      "volume_sma_20": 47018.7
+      "volume": 29916,
+      "volume_ratio_20d": 0.6491321145289853,
+      "volume_sma_20": 46086.15
     },
     "CL=F": {
       "above_200d": true,
@@ -264,9 +254,9 @@
       "return_63d": -6.823161331730033,
       "sma_200": 75.24199995000001,
       "sma_50": 84.39880002,
-      "volume": 401934,
-      "volume_ratio_20d": 1.533357723574134,
-      "volume_sma_20": 262126.7
+      "volume": 336373,
+      "volume_ratio_20d": 1.299496829517944,
+      "volume_sma_20": 258848.65
     },
     "CRCL": {
       "above_200d": false,
@@ -347,21 +337,21 @@
     "GC=F": {
       "above_200d": false,
       "above_50d": false,
-      "close": 4067.600098,
+      "close": 4070.800049,
       "date": "2026-07-24",
-      "distance_from_200d": -9.1703610215644,
-      "distance_from_50d": -4.400543357608022,
+      "distance_from_200d": -9.099230780171897,
+      "distance_from_50d": -4.3267750367404485,
       "group": "safe_haven",
       "name": "Gold Futures",
-      "return_1d": 0.5189541711912549,
-      "return_20d": 0.9204837613199235,
-      "return_5d": 1.3681597844443338,
-      "return_63d": -13.54912726024644,
-      "sma_200": 4478.27399046,
-      "sma_50": 4254.83600102,
-      "volume": 59,
-      "volume_ratio_20d": 0.1186048849130566,
-      "volume_sma_20": 497.45
+      "return_1d": 0.5980316911463612,
+      "return_20d": 0.9998771616424706,
+      "return_5d": 1.4479053681928367,
+      "return_63d": -13.481116996206355,
+      "sma_200": 4478.289990215,
+      "sma_50": 4254.90000004,
+      "volume": 112402,
+      "volume_ratio_20d": 18.382559774964836,
+      "volume_sma_20": 6114.6
     },
     "GFS": {
       "above_200d": true,
@@ -803,21 +793,21 @@
     "SI=F": {
       "above_200d": false,
       "above_50d": false,
-      "close": 58.655998,
+      "close": 58.905998,
       "date": "2026-07-24",
-      "distance_from_200d": -15.779700681944853,
-      "distance_from_50d": -11.842870790791826,
+      "distance_from_200d": -15.422260078899175,
+      "distance_from_50d": -11.47378540833197,
       "group": "safe_haven",
       "name": "Silver Futures",
-      "return_1d": 1.4844769715214978,
-      "return_20d": 0.5278638513745104,
-      "return_5d": 4.671829996496291,
-      "return_63d": -22.273900339171824,
-      "sma_200": 69.64591491,
-      "sma_50": 66.53573968,
-      "volume": 28,
-      "volume_ratio_20d": 0.014756647078974413,
-      "volume_sma_20": 1897.45
+      "return_1d": 1.9170178898923806,
+      "return_20d": 0.9563275519298031,
+      "return_5d": 5.117955855596401,
+      "return_63d": -21.942620920565613,
+      "sma_200": 69.64716491,
+      "sma_50": 66.54073968,
+      "volume": 26053,
+      "volume_ratio_20d": 8.144871353987558,
+      "volume_sma_20": 3198.7
     },
     "SMCI": {
       "above_200d": false,
@@ -1267,7 +1257,7 @@
       "unavailable_symbols": []
     }
   },
-  "market_health_score": 55.4,
+  "market_health_score": 55.39,
   "metadata": {
     "data_source": "Yahoo Finance chart endpoint",
     "engine_version": "1.0",
@@ -1275,123 +1265,123 @@
       "market_data": {},
       "news": {}
     },
-    "generated_at": "2026-07-25T15:58:44+00:00"
+    "generated_at": "2026-07-26T08:11:54+00:00"
   },
   "news": {
     "errors": {},
     "groups": {
       "ai": [
         {
-          "link": "https://247wallst.com/investing/2026/07/25/billionaire-investor-seth-klarmans-top-5-stocks-would-he-buy-more-today/?.tsrc=rss",
-          "published": "Sat, 25 Jul 2026 15:30:51 +0000",
+          "link": "https://www.fool.com/investing/2026/07/26/which-is-the-better-value-stock-right-now-microsof/?.tsrc=rss",
+          "published": "Sun, 26 Jul 2026 07:35:00 +0000",
           "source": "Yahoo Finance",
-          "title": "Billionaire Investor Seth Klarman\u2019s Top 5 Stocks: Would He Buy More Today?"
+          "title": "Which Is the Better Value Stock Right Now: Microsoft or Nvidia?"
         },
         {
-          "link": "https://247wallst.com/investing/2026/07/25/prediction-is-salesforce-a-millionaire-maker-stock/?.tsrc=rss",
-          "published": "Sat, 25 Jul 2026 15:30:18 +0000",
+          "link": "https://www.fool.com/investing/2026/07/26/3-top-dividend-stocks-yielding-43-or-more-to-buy-r/?.tsrc=rss",
+          "published": "Sun, 26 Jul 2026 07:25:00 +0000",
           "source": "Yahoo Finance",
-          "title": "Prediction: Is Salesforce a Millionaire-Maker Stock?"
+          "title": "3 Top Dividend Stocks Yielding 4.3% or More to Buy Right Now for Passive Income"
         },
         {
-          "link": "https://247wallst.com/investing/2026/07/25/3-reasons-seagate-technology-could-be-worth-a-closer-look-ahead-of-july-28-earnings/?.tsrc=rss",
-          "published": "Sat, 25 Jul 2026 15:20:28 +0000",
+          "link": "https://www.fool.com/investing/2026/07/26/prediction-palantir-stock-will-drop-to-this-price/?.tsrc=rss",
+          "published": "Sun, 26 Jul 2026 07:12:00 +0000",
           "source": "Yahoo Finance",
-          "title": "3 Reasons Seagate Technology Could Be Worth a Closer Look Ahead of July 28 Earnings"
+          "title": "Prediction: Palantir Stock Will Drop to This Price After Aug. 3"
         },
         {
-          "link": "https://www.fool.com/investing/2026/07/25/i-want-exposure-to-the-ai-boom-without-buying-nvid/?.tsrc=rss",
-          "published": "Sat, 25 Jul 2026 15:20:00 +0000",
+          "link": "https://www.fool.com/investing/2026/07/26/63-billion-reasons-this-top-automaker-is-changing/?.tsrc=rss",
+          "published": "Sun, 26 Jul 2026 07:04:00 +0000",
           "source": "Yahoo Finance",
-          "title": "I Want Exposure to the AI Boom Without Buying Nvidia. Here's Why Bloom Energy Is My Pick."
+          "title": "6.3 Billion Reasons This Top Automaker Is Changing the Game"
         },
         {
-          "link": "https://www.fool.com/investing/2026/07/25/13-below-its-ipo-price-is-spacex-stock-a-buy/?.tsrc=rss",
-          "published": "Sat, 25 Jul 2026 15:05:00 +0000",
+          "link": "https://www.fool.com/investing/2026/07/26/should-you-buy-amazon-stock-before-july-30/?.tsrc=rss",
+          "published": "Sun, 26 Jul 2026 06:20:00 +0000",
           "source": "Yahoo Finance",
-          "title": "13% Below Its IPO Price, Is SpaceX Stock a Buy?"
+          "title": "Should You Buy Amazon Stock Before July 30?"
         },
         {
-          "link": "https://www.fool.com/investing/2026/07/25/thinking-about-buying-canopy-growth-you-may-want/?.tsrc=rss",
-          "published": "Sat, 25 Jul 2026 14:50:00 +0000",
+          "link": "https://www.fool.com/investing/2026/07/26/prediction-micron-stock-will-return-to-all-time-hi/?.tsrc=rss",
+          "published": "Sun, 26 Jul 2026 05:35:00 +0000",
           "source": "Yahoo Finance",
-          "title": "Thinking About Buying Canopy Growth? You May Want to Wait for This 1 Thing to Happen First."
+          "title": "Prediction: Micron Stock Will Return to All-Time Highs Soon"
         }
       ],
       "energy": [
         {
-          "link": "https://investorshub.advfn.com/market-news/article/32638/oil-price-rally-masks-a-much-bigger-warning-from-the-strait-of-hormuz?.tsrc=rss",
-          "published": "Sat, 25 Jul 2026 11:00:00 +0000",
+          "link": "https://beincrypto.com/top-five-trump-news-this-week/?.tsrc=rss",
+          "published": "Sat, 25 Jul 2026 20:55:37 +0000",
           "source": "Yahoo Finance",
-          "title": "Oil Price Rally Masks a Much Bigger Warning From the Strait of Hormuz"
+          "title": "Top 5 Trump News That Moved Markets This Week"
         },
         {
-          "link": "https://finance.yahoo.com/energy/article/why-arent-oil-prices-higher-staggering-drop-in-energy-demand-leaves-strategists-puzzled-100000046.html?.tsrc=rss",
-          "published": "Sat, 25 Jul 2026 10:00:00 +0000",
+          "link": "https://finance.yahoo.com/economy/policy/articles/bofa-warns-oil-volatility-could-191823723.html?.tsrc=rss",
+          "published": "Sat, 25 Jul 2026 19:18:23 +0000",
           "source": "Yahoo Finance",
-          "title": "Why aren't oil prices higher? Staggering drop in energy demand leaves strategists puzzled."
+          "title": "BofA warns oil volatility could force c. banks to abandon look-through\u2019 policy"
         },
         {
-          "link": "https://finance.yahoo.com/energy/articles/kuwait-signs-16-billion-oil-071157032.html?.tsrc=rss",
-          "published": "Sat, 25 Jul 2026 07:11:57 +0000",
+          "link": "https://beincrypto.com/kpler-hormuz-reopening-timeline-oil/?.tsrc=rss",
+          "published": "Sat, 25 Jul 2026 18:06:36 +0000",
           "source": "Yahoo Finance",
-          "title": "Kuwait signs $16 billion oil pipeline deal with Blackstone, KKR and Brookfield"
+          "title": "When Will the Strait of Hormuz Open for Good? Analyst Gives Timeline"
         },
         {
-          "link": "https://finance.yahoo.com/energy/articles/trump-no-remaining-levers-pull-070900812.html?.tsrc=rss",
-          "published": "Sat, 25 Jul 2026 07:09:00 +0000",
+          "link": "https://www.fool.com/coverage/etfs/2026/07/25/for-energy-investors-is-a-traditional-energy-etf-a-better-bet-than-clean-energy/?.tsrc=rss",
+          "published": "Sat, 25 Jul 2026 16:50:01 +0000",
           "source": "Yahoo Finance",
-          "title": "Trump has no remaining levers to pull as oil hovers near the $100 \u2018psychological\u2019 threshold"
+          "title": "For Energy Investors, Is a Traditional Energy ETF a Better Bet Than Clean Energy?"
         },
         {
-          "link": "https://finance.yahoo.com/energy/articles/kuwait-oil-company-signs-us-053900701.html?.tsrc=rss",
-          "published": "Sat, 25 Jul 2026 05:39:00 +0000",
+          "link": "https://www.fool.com/coverage/etfs/2026/07/25/is-an-oil-and-gas-etf-or-a-solar-stock-fund-the-better-buy-in-2026/?.tsrc=rss",
+          "published": "Sat, 25 Jul 2026 16:23:09 +0000",
           "source": "Yahoo Finance",
-          "title": "Kuwait Oil Company Signs US$ 16.0 Billion Infrastructure Partnership Involving Its Crude Oil Pipeline Network With a Consortium Comprising Blackstone, Brookfield and KKR"
+          "title": "Is an Oil & Gas ETF or a Solar Stock Fund  the Better Buy in 2026?"
         },
         {
-          "link": "https://www.thestreet.com/investing/goldman-sachs-doubles-down-oil-price-forecast-2026?.tsrc=rss",
-          "published": "Sat, 25 Jul 2026 02:03:00 +0000",
+          "link": "https://finance.yahoo.com/markets/crypto/articles/bitcoin-price-prediction-second-bullish-161753934.html?.tsrc=rss",
+          "published": "Sat, 25 Jul 2026 16:17:53 +0000",
           "source": "Yahoo Finance",
-          "title": "Goldman Sachs doubles down on oil price forecast for 2026"
+          "title": "Bitcoin Price Prediction: Second Bullish Pattern Emerges as BTC Eyes $60K"
         }
       ],
       "geopolitical": [
         {
-          "link": "https://www.proactiveinvestors.com/companies/news/1096029/silver-range-eyes-deeper-gold-potential-at-east-goldfield-icymi-1096029.html?.tsrc=rss",
-          "published": "Sat, 25 Jul 2026 15:06:00 +0000",
+          "link": "https://finance.yahoo.com/energy/articles/china-oil-appetite-enough-support-060234332.html?.tsrc=rss",
+          "published": "Sun, 26 Jul 2026 06:02:34 +0000",
           "source": "Yahoo Finance",
-          "title": "Silver Range eyes deeper gold potential at East Goldfield - ICYMI"
+          "title": "Will China\u2019s oil appetite be enough to support prices?"
         },
         {
-          "link": "https://247wallst.com/investing/2026/07/25/data-centers-not-iran-are-fueling-the-u-s-s-coming-energy-crisis/?.tsrc=rss",
-          "published": "Sat, 25 Jul 2026 13:44:21 +0000",
+          "link": "https://finance.yahoo.com/markets/stocks/articles/newmont-nem-could-34-undervalued-041816479.html?.tsrc=rss",
+          "published": "Sun, 26 Jul 2026 04:18:16 +0000",
           "source": "Yahoo Finance",
-          "title": "Data Centers \u2014 Not Iran \u2014 Are Fueling the U.S.\u2019s Coming Energy Crisis"
+          "title": "Newmont (NEM) Could Be 34% Undervalued After Strong Q2 Results"
         },
         {
-          "link": "https://finance.yahoo.com/markets/stocks/articles/ufc-star-sean-stricklands-brutally-123000893.html?.tsrc=rss",
-          "published": "Sat, 25 Jul 2026 12:30:00 +0000",
+          "link": "https://finance.yahoo.com/energy/articles/saudi-oil-exports-increasingly-depend-031856319.html?.tsrc=rss",
+          "published": "Sun, 26 Jul 2026 03:18:56 +0000",
           "source": "Yahoo Finance",
-          "title": "UFC star Sean Strickland's brutally blunt money advice hits 5.2M views \u2014 and it's just 2 simple steps"
+          "title": "Saudi oil exports increasingly depend on Suez as Red Sea risks mount"
+        },
+        {
+          "link": "https://www.fool.com/investing/2026/07/25/what-big-bank-earnings-just-revealed-about-the-hea/?.tsrc=rss",
+          "published": "Sun, 26 Jul 2026 02:35:00 +0000",
+          "source": "Yahoo Finance",
+          "title": "What Big Bank Earnings Just Revealed About the Health of the U.S. Consumer"
+        },
+        {
+          "link": "https://www.fool.com/investing/2026/07/25/every-time-president-trump-talks-about-iran-oil-pr/?.tsrc=rss",
+          "published": "Sun, 26 Jul 2026 00:35:00 +0000",
+          "source": "Yahoo Finance",
+          "title": "Every Time President Trump Talks About Iran, Oil Prices Move. Here's the Pattern Investors Should Watch."
         },
         {
           "link": "https://finance.yahoo.com/m/56d0a8cb-a014-3c28-a929-8720c9c346e7/dow-jones-futures%3A-market.html?.tsrc=rss",
-          "published": "Sat, 25 Jul 2026 12:24:40 +0000",
+          "published": "Sat, 25 Jul 2026 22:02:53 +0000",
           "source": "Yahoo Finance",
           "title": "Dow Jones Futures: Market Triggers Sell Signal; Apple Earnings, Iran News, Fed Meeting In Focus"
-        },
-        {
-          "link": "https://www.euronews.com/2026/07/23/gulf-oil-producers-race-to-build-alternative-routes-to-the-strait-of-hormuz?.tsrc=rss",
-          "published": "Sat, 25 Jul 2026 11:46:06 +0000",
-          "source": "Yahoo Finance",
-          "title": "Gulf oil producers race to build alternatives to the Strait of Hormuz as oil hits $100"
-        },
-        {
-          "link": "https://www.fool.com/investing/2026/07/25/prediction-kevin-warsh-and-the-federal-open-market/?.tsrc=rss",
-          "published": "Sat, 25 Jul 2026 11:25:00 +0000",
-          "source": "Yahoo Finance",
-          "title": "Prediction: Kevin Warsh and the Federal Open Market Committee (FOMC) Will Not Raise Interest Rates in 2026"
         }
       ],
       "macro": [
@@ -1434,6 +1424,18 @@
       ],
       "market": [
         {
+          "link": "https://www.fool.com/investing/2026/07/26/president-trumps-strait-of-hormuz-blockade-pushed/?.tsrc=rss",
+          "published": "Sun, 26 Jul 2026 04:50:00 +0000",
+          "source": "Yahoo Finance",
+          "title": "President Trump's Strait of Hormuz Blockade Pushed the S&P 500 Down 0.79%"
+        },
+        {
+          "link": "https://247wallst.com/investing/2026/07/25/after-comparing-every-covered-call-nasdaq-100-etf-these-3-pay-up-to-14-percent-without-capping-your-ai-upside/?.tsrc=rss",
+          "published": "Sat, 25 Jul 2026 19:34:14 +0000",
+          "source": "Yahoo Finance",
+          "title": "After Comparing Every Covered Call Nasdaq-100 ETF These 3 Pay Up to 14 Percent Without Capping Your AI Upside"
+        },
+        {
           "link": "https://stocktwits.com/news-articles/markets/equity/s-and-p-500-dow-nasdaq-end-second-week-lower-over-elevated-oil-prices-chipmaker-rout/cZZp9fpR7zL?.tsrc=rss",
           "published": "Fri, 24 Jul 2026 22:54:48 +0000",
           "source": "Yahoo Finance",
@@ -1456,34 +1458,22 @@
           "published": "Fri, 24 Jul 2026 21:19:36 +0000",
           "source": "Yahoo Finance",
           "title": "What Are You Really Paying For Inside IJH?"
-        },
-        {
-          "link": "https://247wallst.com/investing/2026/07/24/how-qqa-delivers-10-yields-from-tech-stocks-that-pay-almost-nothing/?.tsrc=rss",
-          "published": "Fri, 24 Jul 2026 19:32:29 +0000",
-          "source": "Yahoo Finance",
-          "title": "How QQA Delivers 10% Yields From Tech Stocks That Pay Almost Nothing"
-        },
-        {
-          "link": "https://www.fool.com/investing/2026/07/24/qqq-vs-vgt-where-should-you-invest-1000-right-now/?.tsrc=rss",
-          "published": "Fri, 24 Jul 2026 18:53:00 +0000",
-          "source": "Yahoo Finance",
-          "title": "QQQ vs. VGT: Where Should You Invest $1,000 Right Now?"
         }
       ]
     },
     "portfolio_symbols": {
       "AAPL": [
         {
-          "link": "https://beincrypto.com/gen-z-crypto-nvidia-first-trade/?.tsrc=rss",
-          "published": "Sat, 25 Jul 2026 13:19:09 +0000",
+          "link": "https://www.thestreet.com/investing/stocks/morgan-stanley-microsoft-stock-forecast-ahead-of-earnings?.tsrc=rss",
+          "published": "Sun, 26 Jul 2026 05:17:00 +0000",
           "source": "Yahoo Finance",
-          "title": "Binance Data Shows How Crypto is Using AI Stocks to Attract Gen Z Investors"
+          "title": "Morgan Stanley resets Microsoft stock forecast ahead of earnings"
         },
         {
-          "link": "https://www.fool.com/investing/2026/07/25/alphabet-vs-apple-which-warren-buffett-favorite-is/?.tsrc=rss",
-          "published": "Sat, 25 Jul 2026 12:54:00 +0000",
+          "link": "https://finance.yahoo.com/m/56d0a8cb-a014-3c28-a929-8720c9c346e7/dow-jones-futures%3A-market.html?.tsrc=rss",
+          "published": "Sat, 25 Jul 2026 22:02:53 +0000",
           "source": "Yahoo Finance",
-          "title": "Alphabet vs. Apple: Which Warren Buffett Favorite Is the Better Buy Right Now?"
+          "title": "Dow Jones Futures: Market Triggers Sell Signal; Apple Earnings, Iran News, Fed Meeting In Focus"
         }
       ],
       "AEM": [
@@ -1530,30 +1520,30 @@
       ],
       "AMD": [
         {
-          "link": "https://finance.yahoo.com/technology/ai/articles/eric-trump-backed-startup-just-143015023.html?.tsrc=rss",
-          "published": "Sat, 25 Jul 2026 14:30:15 +0000",
+          "link": "https://finance.yahoo.com/technology/ai/articles/supermicro-smci-launches-h15-servers-001639306.html?.tsrc=rss",
+          "published": "Sun, 26 Jul 2026 00:16:39 +0000",
           "source": "Yahoo Finance",
-          "title": "This Eric Trump-Backed Startup Just Got AMD's Chips for Its Humanoid Robots\u2014 Now It's Building Military Versions Too, Reviving Conflict-Of-Interest Fears"
+          "title": "Supermicro (SMCI) Launches H15 Servers With 72 GPU AI Training Platform"
         },
         {
-          "link": "https://finance.yahoo.com/markets/stocks/articles/riot-platforms-riot-too-pricey-011108545.html?.tsrc=rss",
-          "published": "Sat, 25 Jul 2026 01:11:08 +0000",
+          "link": "https://www.fool.com/investing/2026/07/25/nvidia-vs-amd-vs-intel-which-one-actually-won-the/?.tsrc=rss",
+          "published": "Sat, 25 Jul 2026 23:20:00 +0000",
           "source": "Yahoo Finance",
-          "title": "Is Riot Platforms (RIOT) Too Pricey For Its AI Data Center Push?"
+          "title": "Nvidia vs. AMD vs. Intel: Which One Actually Won the AI Chip Race in the First Half of 2026?"
         }
       ],
       "BABA": [
+        {
+          "link": "https://finance.yahoo.com/m/6c77722e-5317-37be-96bb-4cb1baa29c5e/china%E2%80%99s-online-sales-used-to.html?.tsrc=rss",
+          "published": "Sun, 26 Jul 2026 06:00:00 +0000",
+          "source": "Yahoo Finance",
+          "title": "China\u2019s Online Sales Used to Be a Big Deal. Alibaba and Others Try to Lure Shoppers Back."
+        },
         {
           "link": "https://finance.yahoo.com/markets/stocks/articles/babas-international-commerce-narrows-losses-144200501.html?.tsrc=rss",
           "published": "Fri, 24 Jul 2026 14:42:00 +0000",
           "source": "Yahoo Finance",
           "title": "BABA's International Commerce Narrows Losses: Can It Sustain Momentum?"
-        },
-        {
-          "link": "https://www.fool.com/investing/2026/07/24/david-tepper-has-5-of-his-portfolio-in-this-little/?.tsrc=rss",
-          "published": "Fri, 24 Jul 2026 06:25:00 +0000",
-          "source": "Yahoo Finance",
-          "title": "David Tepper Has 5% of His Portfolio in This Little-Known Energy Stock. Here's Why."
         }
       ],
       "BARC.L": [
@@ -1572,16 +1562,16 @@
       ],
       "BP.L": [
         {
+          "link": "https://www.telegraph.co.uk/business/2026/07/25/ousted-bp-chairman-was-preparing-move/?.tsrc=rss",
+          "published": "Sat, 25 Jul 2026 17:00:00 +0000",
+          "source": "Yahoo Finance",
+          "title": "Ousted BP chairman was preparing move against directors"
+        },
+        {
           "link": "https://finance.yahoo.com/energy/articles/sector-energy-stocks-mixed-afternoon-195951492.html?.tsrc=rss",
           "published": "Fri, 24 Jul 2026 19:59:51 +0000",
           "source": "Yahoo Finance",
           "title": "Sector Update: Energy Stocks Mixed Late Afternoon"
-        },
-        {
-          "link": "https://finance.yahoo.com/energy/articles/sector-energy-stocks-mixed-friday-173747758.html?.tsrc=rss",
-          "published": "Fri, 24 Jul 2026 17:37:47 +0000",
-          "source": "Yahoo Finance",
-          "title": "Sector Update: Energy Stocks Mixed Friday Afternoon"
         }
       ],
       "CRCL": [
@@ -1712,16 +1702,16 @@
       ],
       "NVDA": [
         {
-          "link": "https://247wallst.com/investing/2026/07/25/billionaire-investor-seth-klarmans-top-5-stocks-would-he-buy-more-today/?.tsrc=rss",
-          "published": "Sat, 25 Jul 2026 15:30:51 +0000",
+          "link": "https://www.fool.com/investing/2026/07/26/which-is-the-better-value-stock-right-now-microsof/?.tsrc=rss",
+          "published": "Sun, 26 Jul 2026 07:35:00 +0000",
           "source": "Yahoo Finance",
-          "title": "Billionaire Investor Seth Klarman\u2019s Top 5 Stocks: Would He Buy More Today?"
+          "title": "Which Is the Better Value Stock Right Now: Microsoft or Nvidia?"
         },
         {
-          "link": "https://247wallst.com/investing/2026/07/25/prediction-is-salesforce-a-millionaire-maker-stock/?.tsrc=rss",
-          "published": "Sat, 25 Jul 2026 15:30:18 +0000",
+          "link": "https://www.fool.com/investing/2026/07/26/3-top-dividend-stocks-yielding-43-or-more-to-buy-r/?.tsrc=rss",
+          "published": "Sun, 26 Jul 2026 07:25:00 +0000",
           "source": "Yahoo Finance",
-          "title": "Prediction: Is Salesforce a Millionaire-Maker Stock?"
+          "title": "3 Top Dividend Stocks Yielding 4.3% or More to Buy Right Now for Passive Income"
         }
       ],
       "NVTS": [
@@ -1754,30 +1744,30 @@
       ],
       "ORCL": [
         {
-          "link": "https://247wallst.com/investing/2026/07/25/data-centers-not-iran-are-fueling-the-u-s-s-coming-energy-crisis/?.tsrc=rss",
-          "published": "Sat, 25 Jul 2026 13:44:21 +0000",
+          "link": "https://www.fool.com/investing/2026/07/25/oracle-won-a-7-billion-pentagon-contract-on-thursd/?.tsrc=rss",
+          "published": "Sun, 26 Jul 2026 01:12:00 +0000",
           "source": "Yahoo Finance",
-          "title": "Data Centers \u2014 Not Iran \u2014 Are Fueling the U.S.\u2019s Coming Energy Crisis"
+          "title": "Oracle Won a $7 Billion Pentagon Contract on Thursday. Yet Shares Have Been Slammed."
         },
         {
-          "link": "https://finance.yahoo.com/markets/stocks/articles/oracle-corporation-nyse-orcl-stock-080707294.html?.tsrc=rss",
-          "published": "Sat, 25 Jul 2026 08:07:07 +0000",
+          "link": "https://www.fool.com/investing/2026/07/25/larry-ellison-personally-guaranteed-404-billion-of/?.tsrc=rss",
+          "published": "Sat, 25 Jul 2026 17:10:00 +0000",
           "source": "Yahoo Finance",
-          "title": "Oracle Corporation (NYSE:ORCL)\u2019s Stock Is The One To Watch, Says Jim Cramer"
+          "title": "Larry Ellison Personally Guaranteed $40.4 Billion of His Son's Warner Bros. Discovery Deal. Now 12 States Have Sued to Block It, and Oracle Stock Has Fallen 34% This Month."
         }
       ],
       "PLTR": [
         {
-          "link": "https://finance.yahoo.com/m/ae22dc7a-e688-3361-91b9-acdbe80645c5/why-nvidia-ceo-jensen-huang.html?.tsrc=rss",
-          "published": "Sat, 25 Jul 2026 13:42:00 +0000",
+          "link": "https://www.fool.com/investing/2026/07/26/prediction-palantir-stock-will-drop-to-this-price/?.tsrc=rss",
+          "published": "Sun, 26 Jul 2026 07:12:00 +0000",
           "source": "Yahoo Finance",
-          "title": "Why Nvidia CEO Jensen Huang Is Defending Chinese AI Models"
+          "title": "Prediction: Palantir Stock Will Drop to This Price After Aug. 3"
         },
         {
-          "link": "https://www.fool.com/investing/2026/07/25/2-millionaire-maker-ai-stocks-to-hold-for-the-next/?.tsrc=rss",
-          "published": "Sat, 25 Jul 2026 09:25:00 +0000",
+          "link": "https://finance.yahoo.com/m/ae22dc7a-e688-3361-91b9-acdbe80645c5/why-nvidia-ceo-jensen-huang.html?.tsrc=rss",
+          "published": "Sat, 25 Jul 2026 22:07:00 +0000",
           "source": "Yahoo Finance",
-          "title": "2 Millionaire-Maker AI Stocks to Hold for the Next Decade"
+          "title": "Why Nvidia CEO Jensen Huang Is Defending Chinese AI Models"
         }
       ],
       "RYA.IR": [
@@ -1824,16 +1814,16 @@
       ],
       "SMCI": [
         {
+          "link": "https://finance.yahoo.com/technology/ai/articles/supermicro-smci-launches-h15-servers-001639306.html?.tsrc=rss",
+          "published": "Sun, 26 Jul 2026 00:16:39 +0000",
+          "source": "Yahoo Finance",
+          "title": "Supermicro (SMCI) Launches H15 Servers With 72 GPU AI Training Platform"
+        },
+        {
           "link": "https://finance.yahoo.com/m/7465e975-fd92-3a64-b728-660a9842207c/eli-lilly%2C-dell-among-stocks.html?.tsrc=rss",
           "published": "Sat, 25 Jul 2026 12:00:28 +0000",
           "source": "Yahoo Finance",
           "title": "Eli Lilly, Dell Among Stocks To Watch As Market Leadership Shifts"
-        },
-        {
-          "link": "https://www.fool.com/investing/2026/07/25/supermicro-stock-just-jumped-20-why-im-passing-and/?.tsrc=rss",
-          "published": "Sat, 25 Jul 2026 11:35:00 +0000",
-          "source": "Yahoo Finance",
-          "title": "Supermicro Stock Just Jumped 20%. Why I'm Passing and Buying This AI Leader Instead."
         }
       ],
       "STM": [
@@ -1880,16 +1870,16 @@
       ],
       "TSLA": [
         {
-          "link": "https://www.trefis.com/articles/608801/teslas-revenue-beat-hid-the-number-that-actually-sank-the-stock/2026-07-25?.tsrc=rss",
-          "published": "Sat, 25 Jul 2026 14:43:56 +0000",
+          "link": "https://www.thestreet.com/investing/stocks/morgan-stanley-microsoft-stock-forecast-ahead-of-earnings?.tsrc=rss",
+          "published": "Sun, 26 Jul 2026 05:17:00 +0000",
           "source": "Yahoo Finance",
-          "title": "Tesla's Revenue Beat Hid The Number That Actually Sank The Stock"
+          "title": "Morgan Stanley resets Microsoft stock forecast ahead of earnings"
         },
         {
-          "link": "https://finance.yahoo.com/small-business/articles/free-batteries-help-nyc-small-140020258.html?.tsrc=rss",
-          "published": "Sat, 25 Jul 2026 14:00:20 +0000",
+          "link": "https://www.thestreet.com/investing/stocks/cathie-wood-buys-50-1-million-of-tumbling-megacap-stock-tesla-tsla?.tsrc=rss",
+          "published": "Sun, 26 Jul 2026 02:47:00 +0000",
           "source": "Yahoo Finance",
-          "title": "How Free Batteries Help NYC Small Businesses Save on Electric Bills"
+          "title": "Cathie Wood buys $50.1 million of tumbling megacap stock"
         }
       ],
       "TTE.PA": [
@@ -1936,23 +1926,23 @@
       ],
       "UNH": [
         {
+          "link": "https://finance.yahoo.com/markets/stocks/articles/where-does-unitedhealth-group-unh-001634409.html?.tsrc=rss",
+          "published": "Sun, 26 Jul 2026 00:16:34 +0000",
+          "source": "Yahoo Finance",
+          "title": "Where Does UnitedHealth Group (UNH) Valuation Sit After Its Second Quarter 2026 Results?"
+        },
+        {
           "link": "https://www.fool.com/investing/2026/07/24/this-industrial-stock-is-up-533-in-2-years-i-pred/?.tsrc=rss",
           "published": "Sat, 25 Jul 2026 00:35:00 +0000",
           "source": "Yahoo Finance",
           "title": "This Industrial Stock Is Up 533% in 2 Years. I Predict It Will Join the Dow if Caterpillar Issues a Stock Split."
-        },
-        {
-          "link": "https://www.trefis.com/articles/608764/the-real-price-of-unitedhealth-stock-is-two-years-away/2026-07-24?.tsrc=rss",
-          "published": "Fri, 24 Jul 2026 20:56:24 +0000",
-          "source": "Yahoo Finance",
-          "title": "The Real Price of UnitedHealth Stock Is Two Years Away"
         }
       ]
     },
     "source": "Yahoo Finance RSS"
   },
   "prediction": {
-    "confidence": 74.32,
+    "confidence": 74.31,
     "expected_market": "Late Cycle",
     "next_day_bias": "Neutral",
     "stance": "Neutral"
@@ -2057,7 +2047,7 @@
         {
           "label": "Gold bid",
           "points": -4,
-          "value": 1.37,
+          "value": 1.45,
           "why": "Gold rising quickly can mean investors are paying for safety."
         },
         {
@@ -2116,11 +2106,11 @@
           "value": 8.267669008793032
         },
         {
-          "display": "1.37%",
+          "display": "1.45%",
           "field": "return_5d",
           "label": "Gold 5-day return",
           "symbol": "GC=F",
-          "value": 1.3681597844443338
+          "value": 1.4479053681928367
         },
         {
           "display": "0.69%",
@@ -2148,7 +2138,7 @@
         "This checks whether a shock is moving from headlines into oil, safe havens, volatility, and AI stocks.",
         "If oil, gold, dollar, and VIX rise together while QQQ/SMH weaken, reduce risk before the story gets priced in."
       ],
-      "score": 69.78
+      "score": 69.63
     },
     "liquidity": {
       "contributions": [
