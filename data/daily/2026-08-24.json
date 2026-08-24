@@ -1,0 +1,2367 @@
+{
+  "backtest": {
+    "actual_nasdaq_return": null,
+    "actual_nvda_return": null,
+    "actual_soxx_return": null,
+    "actual_sp500_return": null,
+    "actual_vix_return": null,
+    "filled_next_day": false,
+    "prediction_correct": null
+  },
+  "confidence": 79.0,
+  "date": "2026-08-24",
+  "indicators": {
+    "AAPL": {
+      "above_200d": true,
+      "above_50d": true,
+      "close": 312.230011,
+      "date": "2026-08-24",
+      "distance_from_200d": 10.832856718151639,
+      "distance_from_50d": 0.5442168221693189,
+      "group": "portfolio_mega_cap",
+      "name": "Apple",
+      "return_1d": 0.9309859202006887,
+      "return_20d": -7.325396309692255,
+      "return_5d": 2.1728509070696234,
+      "return_63d": 1.104204365878414,
+      "sma_200": 281.712499565,
+      "sma_50": 310.54000008,
+      "volume": 11027829,
+      "volume_ratio_20d": 0.2158709226665281,
+      "volume_sma_20": 51085291.45
+    },
+    "AEM": {
+      "above_200d": true,
+      "above_50d": true,
+      "close": 216.330002,
+      "date": "2026-08-24",
+      "distance_from_200d": 17.15189886012014,
+      "distance_from_50d": 33.389650694498684,
+      "group": "portfolio_safe_haven",
+      "name": "Agnico Eagle Mines",
+      "return_1d": 0.12496713991454467,
+      "return_20d": 48.211833122205874,
+      "return_5d": 14.593708626939872,
+      "return_63d": 22.977657370754212,
+      "sma_200": 184.65770005,
+      "sma_50": 162.1790003,
+      "volume": 1469525,
+      "volume_ratio_20d": 0.4360406138439427,
+      "volume_sma_20": 3370156.25
+    },
+    "AENA.MC": {
+      "above_200d": true,
+      "above_50d": true,
+      "close": 27.219999,
+      "date": "2026-08-24",
+      "distance_from_200d": 7.307511511692644,
+      "distance_from_50d": 1.86210414674699,
+      "group": "portfolio_travel",
+      "name": "Aena",
+      "return_1d": 1.1144093610698347,
+      "return_20d": 0.07352205612052298,
+      "return_5d": 4.451266479327187,
+      "return_63d": 10.920936800287828,
+      "sma_200": 25.36635005,
+      "sma_50": 26.72240008,
+      "volume": 212523,
+      "volume_ratio_20d": 0.19264756951762374,
+      "volume_sma_20": 1103169.9
+    },
+    "AIR.PA": {
+      "above_200d": true,
+      "above_50d": true,
+      "close": 202.600006,
+      "date": "2026-08-24",
+      "distance_from_200d": 6.508844860871754,
+      "distance_from_50d": 0.18207145497981525,
+      "group": "portfolio_travel_industrial",
+      "name": "Airbus",
+      "return_1d": -0.5400054080511252,
+      "return_20d": -3.0157913743166453,
+      "return_5d": -5.437570128354718,
+      "return_63d": 16.63788687342349,
+      "sma_200": 190.21894967,
+      "sma_50": 202.23179962,
+      "volume": 200815,
+      "volume_ratio_20d": 0.24353224902877849,
+      "volume_sma_20": 824593.05
+    },
+    "AMD": {
+      "above_200d": true,
+      "above_50d": false,
+      "close": 459.350006,
+      "date": "2026-08-24",
+      "distance_from_200d": 38.814285573185316,
+      "distance_from_50d": -9.86990634931486,
+      "group": "ai_stock",
+      "name": "AMD",
+      "return_1d": -2.9371355520338094,
+      "return_20d": -7.192646759648936,
+      "return_5d": -9.219366403162056,
+      "return_63d": -1.745418028589385,
+      "sma_200": 330.909750465,
+      "sma_50": 509.65220094,
+      "volume": 5990325,
+      "volume_ratio_20d": 0.2371896687330052,
+      "volume_sma_20": 25255421.25
+    },
+    "AMZN": {
+      "above_200d": true,
+      "above_50d": true,
+      "close": 262.819885,
+      "date": "2026-08-24",
+      "distance_from_200d": 10.246246527946678,
+      "distance_from_50d": 5.06281622224074,
+      "group": "hyperscaler",
+      "name": "Amazon",
+      "return_1d": 1.6200285809838677,
+      "return_20d": 13.583078843437836,
+      "return_5d": 0.57781447765346,
+      "return_63d": -1.3142542460206408,
+      "sma_200": 238.39349935,
+      "sma_50": 250.15499721999998,
+      "volume": 11438101,
+      "volume_ratio_20d": 0.24443207096071762,
+      "volume_sma_20": 46794600.05
+    },
+    "ASML": {
+      "above_200d": true,
+      "above_50d": false,
+      "close": 1738.439941,
+      "date": "2026-08-24",
+      "distance_from_200d": 19.886419819101242,
+      "distance_from_50d": -2.2423821118274456,
+      "group": "ai_stock",
+      "name": "ASML",
+      "return_1d": -1.4355733691909678,
+      "return_20d": 5.025188218012966,
+      "return_5d": -7.682997067852804,
+      "return_63d": 6.463342240724956,
+      "sma_200": 1450.07244659,
+      "sma_50": 1778.3165942,
+      "volume": 452814,
+      "volume_ratio_20d": 0.320070809235991,
+      "volume_sma_20": 1414730.7
+    },
+    "AVGO": {
+      "above_200d": false,
+      "above_50d": false,
+      "close": 362.195099,
+      "date": "2026-08-24",
+      "distance_from_200d": -1.910397208744552,
+      "distance_from_50d": -6.659240270190869,
+      "group": "ai_stock",
+      "name": "Broadcom",
+      "return_1d": -1.6976286595968393,
+      "return_20d": -5.486379089070558,
+      "return_5d": -7.704531901056811,
+      "return_63d": -12.542839165155284,
+      "sma_200": 369.249225905,
+      "sma_50": 388.0353021,
+      "volume": 4867774,
+      "volume_ratio_20d": 0.2528718534674432,
+      "volume_sma_20": 19249963.7
+    },
+    "BABA": {
+      "above_200d": false,
+      "above_50d": true,
+      "close": 119.150002,
+      "date": "2026-08-24",
+      "distance_from_200d": -13.37156758467467,
+      "distance_from_50d": 4.0773167139583455,
+      "group": "portfolio_global_consumer",
+      "name": "Alibaba",
+      "return_1d": -0.15920396042244933,
+      "return_20d": 3.6086973913043385,
+      "return_5d": -4.458340986755993,
+      "return_63d": -8.34615230769231,
+      "sma_200": 137.541449935,
+      "sma_50": 114.48220012,
+      "volume": 14074430,
+      "volume_ratio_20d": 1.1752238746024168,
+      "volume_sma_20": 11975956.5
+    },
+    "BARC.L": {
+      "above_200d": true,
+      "above_50d": false,
+      "close": 493.600006,
+      "date": "2026-08-24",
+      "distance_from_200d": 7.210627035970085,
+      "distance_from_50d": -3.734011900032619,
+      "group": "portfolio_uk_financial",
+      "name": "Barclays",
+      "return_1d": 0.2030044636256001,
+      "return_20d": -6.938162959057492,
+      "return_5d": -4.229727781308757,
+      "return_63d": 8.186302684931501,
+      "sma_200": 460.40212584,
+      "sma_50": 512.74600276,
+      "volume": 17306249,
+      "volume_ratio_20d": 0.44972168154379855,
+      "volume_sma_20": 38482131.75
+    },
+    "BP.L": {
+      "above_200d": true,
+      "above_50d": true,
+      "close": 534.299988,
+      "date": "2026-08-24",
+      "distance_from_200d": 6.417566630583882,
+      "distance_from_50d": 4.3136999342520355,
+      "group": "portfolio_energy",
+      "name": "BP",
+      "return_1d": -2.7661532302092784,
+      "return_20d": 0.0,
+      "return_5d": 2.8291017473026203,
+      "return_63d": 3.8282186006164842,
+      "sma_200": 502.0787497,
+      "sma_50": 512.2050012,
+      "volume": 19089585,
+      "volume_ratio_20d": 0.3818136290839728,
+      "volume_sma_20": 49997128.3
+    },
+    "BZ=F": {
+      "above_200d": true,
+      "above_50d": true,
+      "close": 92.730003,
+      "date": "2026-08-24",
+      "distance_from_200d": 12.293019007812367,
+      "distance_from_50d": 10.540247210503374,
+      "group": "event_risk",
+      "name": "Brent Crude Oil Futures",
+      "return_1d": -1.7586566559874672,
+      "return_20d": 4.945678984317792,
+      "return_5d": 2.046880090892045,
+      "return_63d": -10.440407471118341,
+      "sma_200": 82.578600005,
+      "sma_50": 83.88800038,
+      "volume": 10572,
+      "volume_ratio_20d": 0.3298925321716989,
+      "volume_sma_20": 32046.8
+    },
+    "CL=F": {
+      "above_200d": true,
+      "above_50d": true,
+      "close": 85.07,
+      "date": "2026-08-24",
+      "distance_from_200d": 9.634129958376892,
+      "distance_from_50d": 7.629865829203886,
+      "group": "event_risk",
+      "name": "WTI Crude Oil Futures",
+      "return_1d": -2.285777677137091,
+      "return_20d": 2.977846471639678,
+      "return_5d": 0.6745562130177518,
+      "return_63d": -11.935815982108,
+      "sma_200": 77.59444986,
+      "sma_50": 79.03939984,
+      "volume": 124330,
+      "volume_ratio_20d": 0.5121406329198133,
+      "volume_sma_20": 242765.35
+    },
+    "CRCL": {
+      "above_200d": true,
+      "above_50d": true,
+      "close": 91.860001,
+      "date": "2026-08-24",
+      "distance_from_200d": 7.889652334129527,
+      "distance_from_50d": 31.86642950167544,
+      "group": "portfolio_fintech",
+      "name": "Circle Internet Group",
+      "return_1d": 4.410090779378573,
+      "return_20d": 39.88123008622597,
+      "return_5d": 23.153245644362276,
+      "return_63d": -18.79420211825843,
+      "sma_200": 85.14254983000001,
+      "sma_50": 69.66140006,
+      "volume": 10875217,
+      "volume_ratio_20d": 0.8297419607018626,
+      "volume_sma_20": 13106745.85
+    },
+    "DBK.DE": {
+      "above_200d": true,
+      "above_50d": true,
+      "close": 33.025002,
+      "date": "2026-08-24",
+      "distance_from_200d": 9.895601515900276,
+      "distance_from_50d": 4.607487356173756,
+      "group": "portfolio_eu_financial",
+      "name": "Deutsche Bank",
+      "return_1d": 2.0077281853281947,
+      "return_20d": 6.6010393802453216,
+      "return_5d": -0.12096477002766504,
+      "return_63d": 15.613515994625748,
+      "sma_200": 30.051250045,
+      "sma_50": 31.57039982,
+      "volume": 1623556,
+      "volume_ratio_20d": 0.40208296806690935,
+      "volume_sma_20": 4037863.15
+    },
+    "DX-Y.NYB": {
+      "above_200d": false,
+      "above_50d": false,
+      "close": 98.969002,
+      "date": "2026-08-24",
+      "distance_from_200d": -0.2103228956100267,
+      "distance_from_50d": -1.4894467280507584,
+      "group": "liquidity",
+      "name": "US Dollar Index",
+      "return_1d": 0.1710516142393148,
+      "return_20d": -2.503201605690042,
+      "return_5d": -0.6734213234988129,
+      "return_63d": -0.35340112766812926,
+      "sma_200": 99.17759519,
+      "sma_50": 100.46538032,
+      "volume": 0,
+      "volume_ratio_20d": null,
+      "volume_sma_20": 0
+    },
+    "EZJ.L": {
+      "above_200d": true,
+      "above_50d": true,
+      "close": 673.400024,
+      "date": "2026-08-24",
+      "distance_from_200d": 39.21075792702964,
+      "distance_from_50d": 8.911535500566071,
+      "group": "portfolio_travel",
+      "name": "easyJet",
+      "return_1d": 0.3576786885245875,
+      "return_20d": 8.612907096774203,
+      "return_5d": 0.2083369047619188,
+      "return_63d": 71.78572040816327,
+      "sma_200": 483.72700072,
+      "sma_50": 618.3,
+      "volume": 3088943,
+      "volume_ratio_20d": 0.43614030899706213,
+      "volume_sma_20": 7082452.45
+    },
+    "GC=F": {
+      "above_200d": true,
+      "above_50d": true,
+      "close": 4729.600098,
+      "date": "2026-08-24",
+      "distance_from_200d": 5.0420122521672495,
+      "distance_from_50d": 12.91250816989793,
+      "group": "safe_haven",
+      "name": "Gold Futures",
+      "return_1d": 2.281525005170848,
+      "return_20d": 16.078048791262734,
+      "return_5d": 7.057818524214454,
+      "return_63d": 4.614025613802264,
+      "sma_200": 4502.579488525,
+      "sma_50": 4188.72999516,
+      "volume": 144571,
+      "volume_ratio_20d": 10.819077125709068,
+      "volume_sma_20": 13362.6
+    },
+    "GFS": {
+      "above_200d": false,
+      "above_50d": false,
+      "close": 45.990002,
+      "date": "2026-08-24",
+      "distance_from_200d": -12.891701785529852,
+      "distance_from_50d": -26.66054001272471,
+      "group": "portfolio_chip",
+      "name": "GlobalFoundries",
+      "return_1d": -4.2871946781934405,
+      "return_20d": -13.520116585182407,
+      "return_5d": -13.94086291057005,
+      "return_63d": -46.29845570175684,
+      "sma_200": 52.796349995,
+      "sma_50": 62.7084001,
+      "volume": 798802,
+      "volume_ratio_20d": 0.1828047650226614,
+      "volume_sma_20": 4369700.1
+    },
+    "GOOGL": {
+      "above_200d": true,
+      "above_50d": false,
+      "close": 351.340698,
+      "date": "2026-08-24",
+      "distance_from_200d": 5.382933914521382,
+      "distance_from_50d": -0.08529031874338067,
+      "group": "hyperscaler",
+      "name": "Alphabet",
+      "return_1d": 1.8910419545348445,
+      "return_20d": 7.588406464897135,
+      "return_5d": 2.133923837209295,
+      "return_63d": -8.258950548975253,
+      "sma_200": 333.394302995,
+      "sma_50": 351.6406134,
+      "volume": 9640035,
+      "volume_ratio_20d": 0.37427949396392546,
+      "volume_sma_20": 25756246.75
+    },
+    "HYG": {
+      "above_200d": false,
+      "above_50d": false,
+      "close": 79.639999,
+      "date": "2026-08-24",
+      "distance_from_200d": -0.6390976845710328,
+      "distance_from_50d": -0.025359413996839386,
+      "group": "credit",
+      "name": "High Yield Corporate Bond ETF",
+      "return_1d": 0.03768119535636494,
+      "return_20d": 0.466761718181985,
+      "return_5d": 0.03768119535636494,
+      "return_63d": -0.3378863552553457,
+      "sma_200": 80.152250175,
+      "sma_50": 79.66020036,
+      "volume": 6477210,
+      "volume_ratio_20d": 0.21421186652602628,
+      "volume_sma_20": 30237400.5
+    },
+    "IAG.L": {
+      "above_200d": true,
+      "above_50d": false,
+      "close": 431.5,
+      "date": "2026-08-24",
+      "distance_from_200d": 4.638431263241971,
+      "distance_from_50d": -4.3037794507788885,
+      "group": "portfolio_travel",
+      "name": "International Consolidated Airlines",
+      "return_1d": 2.033579125565077,
+      "return_20d": -2.0875905943928186,
+      "return_5d": -1.145475372279492,
+      "return_63d": 1.5294117647058902,
+      "sma_200": 412.372390135,
+      "sma_50": 450.90599976,
+      "volume": 3865832,
+      "volume_ratio_20d": 0.3821397553527098,
+      "volume_sma_20": 10116278
+    },
+    "ISP.MI": {
+      "above_200d": true,
+      "above_50d": true,
+      "close": 6.812,
+      "date": "2026-08-24",
+      "distance_from_200d": 16.066286594446133,
+      "distance_from_50d": 5.9999190840312355,
+      "group": "portfolio_eu_financial",
+      "name": "Intesa Sanpaolo",
+      "return_1d": 0.635248928940757,
+      "return_20d": 4.735547355473568,
+      "return_5d": -1.0602759622367341,
+      "return_63d": 17.651122625215887,
+      "sma_200": 5.86906,
+      "sma_50": 6.42642,
+      "volume": 13974288,
+      "volume_ratio_20d": 0.31703205345683677,
+      "volume_sma_20": 44078470.45
+    },
+    "IWM": {
+      "above_200d": true,
+      "above_50d": true,
+      "close": 298.625,
+      "date": "2026-08-24",
+      "distance_from_200d": 10.52212231236389,
+      "distance_from_50d": 0.6002154185586805,
+      "group": "breadth",
+      "name": "Russell 2000 ETF",
+      "return_1d": -0.4450563541989139,
+      "return_20d": 1.9511098705935481,
+      "return_5d": -1.7874755100143136,
+      "return_63d": 4.736603969146391,
+      "sma_200": 270.194775265,
+      "sma_50": 296.84330074,
+      "volume": 4345872,
+      "volume_ratio_20d": 0.23359567448480556,
+      "volume_sma_20": 18604248.6
+    },
+    "JNK": {
+      "above_200d": false,
+      "above_50d": false,
+      "close": 95.889999,
+      "date": "2026-08-24",
+      "distance_from_200d": -0.6702621202152592,
+      "distance_from_50d": -0.03315331855093806,
+      "group": "credit",
+      "name": "High Yield Bond ETF",
+      "return_1d": 0.02085741042483491,
+      "return_20d": 0.45045045516918236,
+      "return_5d": 0.04173291688540637,
+      "return_63d": -0.37402701298701047,
+      "sma_200": 96.53705028,
+      "sma_50": 95.92180026,
+      "volume": 758519,
+      "volume_ratio_20d": 0.2717765152240571,
+      "volume_sma_20": 2790965.95
+    },
+    "LULU": {
+      "above_200d": false,
+      "above_50d": true,
+      "close": 121.669998,
+      "date": "2026-08-24",
+      "distance_from_200d": -21.54005243008602,
+      "distance_from_50d": 3.438189404980574,
+      "group": "portfolio_consumer",
+      "name": "Lululemon",
+      "return_1d": 0.4955794168662875,
+      "return_20d": 3.258928910142944,
+      "return_5d": 5.123552879273419,
+      "return_63d": -4.3324437804686315,
+      "sma_200": 155.07274956,
+      "sma_50": 117.6258002,
+      "volume": 749592,
+      "volume_ratio_20d": 0.29889711529305707,
+      "volume_sma_20": 2507859.6
+    },
+    "META": {
+      "above_200d": false,
+      "above_50d": false,
+      "close": 556.13501,
+      "date": "2026-08-24",
+      "distance_from_200d": -10.843262222366779,
+      "distance_from_50d": -6.176393897929877,
+      "group": "hyperscaler",
+      "name": "Meta",
+      "return_1d": 1.1338399214181338,
+      "return_20d": -6.354081754879715,
+      "return_5d": -2.2558239721231277,
+      "return_63d": -8.869170372150059,
+      "sma_200": 623.77227326,
+      "sma_50": 592.74529418,
+      "volume": 4101834,
+      "volume_ratio_20d": 0.24133898498917258,
+      "volume_sma_20": 16996151.7
+    },
+    "MKS.L": {
+      "above_200d": true,
+      "above_50d": false,
+      "close": 383.5,
+      "date": "2026-08-24",
+      "distance_from_200d": 6.365090716958122,
+      "distance_from_50d": -0.1838858627722484,
+      "group": "portfolio_uk_consumer",
+      "name": "Marks and Spencer",
+      "return_1d": 0.1567004464356314,
+      "return_20d": -2.168367346938771,
+      "return_5d": 0.4979019837856091,
+      "return_63d": 5.473045564251167,
+      "sma_200": 360.5506256,
+      "sma_50": 384.20650144,
+      "volume": 1600263,
+      "volume_ratio_20d": 0.1894017612439435,
+      "volume_sma_20": 8449039.7
+    },
+    "MSFT": {
+      "above_200d": true,
+      "above_50d": true,
+      "close": 489.130005,
+      "date": "2026-08-24",
+      "distance_from_200d": 13.438075056275878,
+      "distance_from_50d": 15.956935081544854,
+      "group": "hyperscaler",
+      "name": "Microsoft",
+      "return_1d": 1.2188591842326568,
+      "return_20d": 25.70804355114813,
+      "return_5d": 1.8278336401228223,
+      "return_63d": 16.85739465799805,
+      "sma_200": 431.18679928,
+      "sma_50": 421.82039794,
+      "volume": 4980384,
+      "volume_ratio_20d": 0.14025949983342229,
+      "volume_sma_20": 35508354.2
+    },
+    "MU": {
+      "above_200d": true,
+      "above_50d": false,
+      "close": 901.275024,
+      "date": "2026-08-24",
+      "distance_from_200d": 56.87590593228891,
+      "distance_from_50d": -6.380422202015779,
+      "group": "ai_stock",
+      "name": "Micron",
+      "return_1d": -6.775585245358851,
+      "return_20d": 0.11941923857694547,
+      "return_5d": -10.919197034840622,
+      "return_63d": 20.009989880159786,
+      "sma_200": 574.51462584,
+      "sma_50": 962.69930414,
+      "volume": 13660637,
+      "volume_ratio_20d": 0.3640127128469579,
+      "volume_sma_20": 37527911.85
+    },
+    "NDA-FI.HE": {
+      "above_200d": true,
+      "above_50d": true,
+      "close": 17.275,
+      "date": "2026-08-24",
+      "distance_from_200d": 7.061072543235114,
+      "distance_from_50d": 1.4392323953589026,
+      "group": "portfolio_eu_financial",
+      "name": "Nordea Bank",
+      "return_1d": -0.08676112858525542,
+      "return_20d": -1.2292738707833095,
+      "return_5d": -0.5182839044054144,
+      "return_63d": 4.53857791225416,
+      "sma_200": 16.135650045,
+      "sma_50": 17.02990016,
+      "volume": 2375419,
+      "volume_ratio_20d": 0.7170714281229337,
+      "volume_sma_20": 3312667.2
+    },
+    "NVDA": {
+      "above_200d": true,
+      "above_50d": true,
+      "close": 209.865005,
+      "date": "2026-08-24",
+      "distance_from_200d": 7.4338992881869626,
+      "distance_from_50d": 1.0536104815272784,
+      "group": "ai_stock",
+      "name": "NVIDIA",
+      "return_1d": -2.261082329260977,
+      "return_20d": 6.796097063663353,
+      "return_5d": -6.730807669232652,
+      "return_63d": -2.5379635671948786,
+      "sma_200": 195.34337522,
+      "sma_50": 207.67689942,
+      "volume": 49674053,
+      "volume_ratio_20d": 0.44618302842408536,
+      "volume_sma_20": 111331112.65
+    },
+    "NVTS": {
+      "above_200d": false,
+      "above_50d": false,
+      "close": 12.35,
+      "date": "2026-08-24",
+      "distance_from_200d": -3.286307806679789,
+      "distance_from_50d": -16.19789522199362,
+      "group": "portfolio_ai_chip",
+      "name": "Navitas Semiconductor",
+      "return_1d": -4.780262143407876,
+      "return_20d": 8.238387379491673,
+      "return_5d": -15.294924554183819,
+      "return_63d": -57.77777777777777,
+      "sma_200": 12.769650005,
+      "sma_50": 14.73710002,
+      "volume": 3578361,
+      "volume_ratio_20d": 0.25138961560943357,
+      "volume_sma_20": 14234323.05
+    },
+    "NWG.L": {
+      "above_200d": true,
+      "above_50d": true,
+      "close": 688.599976,
+      "date": "2026-08-24",
+      "distance_from_200d": 10.278817586046586,
+      "distance_from_50d": 1.6485756396920959,
+      "group": "portfolio_financial",
+      "name": "NatWest Group",
+      "return_1d": 0.7019578947404126,
+      "return_20d": 1.14570918588206,
+      "return_5d": -2.8772953455571293,
+      "return_63d": 14.843229413338065,
+      "sma_200": 624.417264415,
+      "sma_50": 677.43199712,
+      "volume": 7138858,
+      "volume_ratio_20d": 0.34657596212874225,
+      "volume_sma_20": 20598249.1
+    },
+    "ORCL": {
+      "above_200d": false,
+      "above_50d": false,
+      "close": 143.5,
+      "date": "2026-08-24",
+      "distance_from_200d": -16.83627812843004,
+      "distance_from_50d": -0.7701896060107183,
+      "group": "hyperscaler",
+      "name": "Oracle",
+      "return_1d": -2.0277196557129784,
+      "return_20d": 19.683067227972195,
+      "return_5d": -2.1479673568892133,
+      "return_63d": -25.291545967393315,
+      "sma_200": 172.551199935,
+      "sma_50": 144.61380046,
+      "volume": 6392540,
+      "volume_ratio_20d": 0.23196434524395512,
+      "volume_sma_20": 27558287
+    },
+    "PLTR": {
+      "above_200d": true,
+      "above_50d": true,
+      "close": 177.615005,
+      "date": "2026-08-24",
+      "distance_from_200d": 17.283863345989015,
+      "distance_from_50d": 26.992585992789998,
+      "group": "portfolio_ai_software",
+      "name": "Palantir",
+      "return_1d": -1.292095684204786,
+      "return_20d": 35.03763882793003,
+      "return_5d": 2.9353821570202943,
+      "return_63d": 29.759642396272557,
+      "sma_200": 151.440274845,
+      "sma_50": 139.86249954,
+      "volume": 12147676,
+      "volume_ratio_20d": 0.2617533028780371,
+      "volume_sma_20": 46408873.8
+    },
+    "QQQ": {
+      "above_200d": true,
+      "above_50d": false,
+      "close": 707.049988,
+      "date": "2026-08-24",
+      "distance_from_200d": 8.240895744195441,
+      "distance_from_50d": -0.8679002288948579,
+      "group": "major_etf",
+      "name": "Invesco QQQ ETF",
+      "return_1d": -0.8956624217995701,
+      "return_20d": 3.6547811503458316,
+      "return_5d": -3.1265851667186317,
+      "return_63d": -1.461938055247991,
+      "sma_200": 653.21889951,
+      "sma_50": 713.24020134,
+      "volume": 14152580,
+      "volume_ratio_20d": 0.37224036062700044,
+      "volume_sma_20": 38020004
+    },
+    "RSP": {
+      "above_200d": true,
+      "above_50d": true,
+      "close": 221.559998,
+      "date": "2026-08-24",
+      "distance_from_200d": 9.592509242807967,
+      "distance_from_50d": 2.847476212872335,
+      "group": "breadth",
+      "name": "S&P 500 Equal Weight ETF",
+      "return_1d": -0.04962331438284062,
+      "return_20d": 2.964961988822079,
+      "return_5d": 0.34874995444200696,
+      "return_63d": 7.25142601170079,
+      "sma_200": 202.167100225,
+      "sma_50": 215.4257996,
+      "volume": 1934156,
+      "volume_ratio_20d": 0.264815107559522,
+      "volume_sma_20": 7303797.8
+    },
+    "RYA.IR": {
+      "above_200d": false,
+      "above_50d": false,
+      "close": 23.469999,
+      "date": "2026-08-24",
+      "distance_from_200d": -10.376407870438465,
+      "distance_from_50d": -7.912396524682908,
+      "group": "portfolio_travel",
+      "name": "Ryanair",
+      "return_1d": 1.8221258925000372,
+      "return_20d": -4.477008547008543,
+      "return_5d": -2.411642511918599,
+      "return_63d": -8.248635652853775,
+      "sma_200": 26.187300065,
+      "sma_50": 25.48659984,
+      "volume": 375494,
+      "volume_ratio_20d": 0.21035048479979188,
+      "volume_sma_20": 1785087.4
+    },
+    "SGLN.L": {
+      "above_200d": true,
+      "above_50d": true,
+      "close": 6643.262207,
+      "date": "2026-08-24",
+      "distance_from_200d": 1.953834365664986,
+      "distance_from_50d": 9.706883602854832,
+      "group": "portfolio_safe_haven",
+      "name": "iShares Physical Gold ETC",
+      "return_1d": 1.3928908272283325,
+      "return_20d": 11.839431094276097,
+      "return_5d": 4.982019706068264,
+      "return_63d": 3.6228701762595517,
+      "sma_200": 6515.951311035,
+      "sma_50": 6055.46524414,
+      "volume": 910655,
+      "volume_ratio_20d": 2.473263493524914,
+      "volume_sma_20": 368199.75
+    },
+    "SHEL.L": {
+      "above_200d": true,
+      "above_50d": true,
+      "close": 3407.0,
+      "date": "2026-08-24",
+      "distance_from_200d": 11.220924681039634,
+      "distance_from_50d": 7.3179029067496515,
+      "group": "portfolio_energy",
+      "name": "Shell",
+      "return_1d": -0.0733245343892075,
+      "return_20d": 3.9670430271589785,
+      "return_5d": 2.3276768283525984,
+      "return_63d": 9.198717948717938,
+      "sma_200": 3063.2725,
+      "sma_50": 3174.68,
+      "volume": 5304460,
+      "volume_ratio_20d": 0.6053072535173015,
+      "volume_sma_20": 8763252
+    },
+    "SI=F": {
+      "above_200d": false,
+      "above_50d": true,
+      "close": 69.105003,
+      "date": "2026-08-24",
+      "distance_from_200d": -2.88603220744601,
+      "distance_from_50d": 11.91466968700774,
+      "group": "safe_haven",
+      "name": "Silver Futures",
+      "return_1d": -0.519678669290935,
+      "return_20d": 18.18477732932,
+      "return_5d": 4.512939776683944,
+      "return_63d": -8.944165046688513,
+      "sma_200": 71.15866499,
+      "sma_50": 61.74793992,
+      "volume": 41747,
+      "volume_ratio_20d": 19.30631026429579,
+      "volume_sma_20": 2162.35
+    },
+    "SMCI": {
+      "above_200d": true,
+      "above_50d": true,
+      "close": 35.189999,
+      "date": "2026-08-24",
+      "distance_from_200d": 12.097014111648384,
+      "distance_from_50d": 15.196508649126628,
+      "group": "portfolio_ai_infra",
+      "name": "Super Micro Computer",
+      "return_1d": -5.504841272564908,
+      "return_20d": 18.047635627226953,
+      "return_5d": -8.072100524349535,
+      "return_63d": -1.096129786614397,
+      "sma_200": 31.392449905,
+      "sma_50": 30.54779994,
+      "volume": 19795357,
+      "volume_ratio_20d": 0.36693020081071537,
+      "volume_sma_20": 53948562.85
+    },
+    "SMH": {
+      "above_200d": true,
+      "above_50d": false,
+      "close": 544.47998,
+      "date": "2026-08-24",
+      "distance_from_200d": 16.315307348239894,
+      "distance_from_50d": -7.401395369261188,
+      "group": "ai_etf",
+      "name": "VanEck Semiconductor ETF",
+      "return_1d": -2.8442959715089366,
+      "return_20d": -0.7419575406134249,
+      "return_5d": -8.347505582789017,
+      "return_63d": -5.524713113074364,
+      "sma_200": 468.10690047,
+      "sma_50": 588.00019954,
+      "volume": 3392994,
+      "volume_ratio_20d": 0.37544001830530593,
+      "volume_sma_20": 9037379.7
+    },
+    "SOXX": {
+      "above_200d": true,
+      "above_50d": false,
+      "close": 503.01001,
+      "date": "2026-08-24",
+      "distance_from_200d": 19.252085823674282,
+      "distance_from_50d": -9.70826704325054,
+      "group": "ai_etf",
+      "name": "iShares Semiconductor ETF",
+      "return_1d": -3.276603863703953,
+      "return_20d": -2.560868316869147,
+      "return_5d": -10.035410198485206,
+      "return_63d": -6.387137497289674,
+      "sma_200": 421.80395129,
+      "sma_50": 557.0942029,
+      "volume": 4500666,
+      "volume_ratio_20d": 0.49151651721260553,
+      "volume_sma_20": 9156693.3
+    },
+    "SPY": {
+      "above_200d": true,
+      "above_50d": true,
+      "close": 763.934998,
+      "date": "2026-08-24",
+      "distance_from_200d": 7.902271242241832,
+      "distance_from_50d": 1.5502207447867677,
+      "group": "major_etf",
+      "name": "SPDR S&P 500 ETF",
+      "return_1d": -0.23311041472104943,
+      "return_20d": 3.3615622038423165,
+      "return_5d": -1.1304936379287422,
+      "return_63d": 2.4535945807575787,
+      "sma_200": 707.9878757,
+      "sma_50": 752.27310428,
+      "volume": 13497303,
+      "volume_ratio_20d": 0.3013280832564132,
+      "volume_sma_20": 44792715.15
+    },
+    "STM": {
+      "above_200d": true,
+      "above_50d": false,
+      "close": 49.299999,
+      "date": "2026-08-24",
+      "distance_from_200d": 11.799873673873208,
+      "distance_from_50d": -21.171460567839716,
+      "group": "portfolio_chip",
+      "name": "STMicroelectronics",
+      "return_1d": -2.4920925140013317,
+      "return_20d": -7.764269265401891,
+      "return_5d": -11.632912499858172,
+      "return_63d": -26.2638374773581,
+      "sma_200": 44.096650005,
+      "sma_50": 62.54079976,
+      "volume": 2449943,
+      "volume_ratio_20d": 0.2769360437442075,
+      "volume_sma_20": 8846602.15
+    },
+    "STMPA.PA": {
+      "above_200d": true,
+      "above_50d": false,
+      "close": 42.064999,
+      "date": "2026-08-24",
+      "distance_from_200d": 9.497275819383667,
+      "distance_from_50d": -22.938400266435398,
+      "group": "portfolio_chip",
+      "name": "STMicroelectronics Paris",
+      "return_1d": -2.356088562855685,
+      "return_20d": -8.325158911415887,
+      "return_5d": -14.258055151690685,
+      "return_63d": -27.411564669343147,
+      "sma_200": 38.41647994,
+      "sma_50": 54.58620006,
+      "volume": 1449432,
+      "volume_ratio_20d": 0.5046867209109926,
+      "volume_sma_20": 2871944
+    },
+    "SWKS": {
+      "above_200d": true,
+      "above_50d": true,
+      "close": 65.849998,
+      "date": "2026-08-24",
+      "distance_from_200d": 3.065107970581149,
+      "distance_from_50d": 0.37558560627484194,
+      "group": "portfolio_chip",
+      "name": "Skyworks Solutions",
+      "return_1d": -1.9213598737170101,
+      "return_20d": 3.7988635529455195,
+      "return_5d": -2.7757344112327886,
+      "return_63d": -20.10434409377201,
+      "sma_200": 63.891649945,
+      "sma_50": 65.60360032,
+      "volume": 766115,
+      "volume_ratio_20d": 0.1370463074090987,
+      "volume_sma_20": 5590190.75
+    },
+    "TLT": {
+      "above_200d": false,
+      "above_50d": false,
+      "close": 82.724998,
+      "date": "2026-08-24",
+      "distance_from_200d": -4.427336051963227,
+      "distance_from_50d": -1.6374164103835076,
+      "group": "safe_haven",
+      "name": "20+ Year Treasury Bond ETF",
+      "return_1d": 0.8226629802804419,
+      "return_20d": -1.2238829850746313,
+      "return_5d": 1.6902274539699391,
+      "return_63d": -2.3086939064714262,
+      "sma_200": 86.557175015,
+      "sma_50": 84.10209958,
+      "volume": 11559621,
+      "volume_ratio_20d": 0.32830066327669877,
+      "volume_sma_20": 35210471.05
+    },
+    "TSLA": {
+      "above_200d": false,
+      "above_50d": false,
+      "close": 357.350006,
+      "date": "2026-08-24",
+      "distance_from_200d": -11.302418230999312,
+      "distance_from_50d": -2.101681477683892,
+      "group": "portfolio_consumer_ai",
+      "name": "Tesla",
+      "return_1d": -1.5184862557936718,
+      "return_20d": 15.56497149096121,
+      "return_5d": 5.319781502615317,
+      "return_63d": -16.116993119480927,
+      "sma_200": 402.88584973,
+      "sma_50": 365.0215973,
+      "volume": 15281556,
+      "volume_ratio_20d": 0.4549090416254403,
+      "volume_sma_20": 33592552.8
+    },
+    "TSM": {
+      "above_200d": true,
+      "above_50d": false,
+      "close": 408.140015,
+      "date": "2026-08-24",
+      "distance_from_200d": 11.226315390744524,
+      "distance_from_50d": -3.799689384486782,
+      "group": "ai_stock",
+      "name": "Taiwan Semiconductor",
+      "return_1d": -2.580259384262773,
+      "return_20d": 2.267663707611467,
+      "return_5d": -5.297349223153935,
+      "return_63d": 0.8948942199244359,
+      "sma_200": 366.94555022,
+      "sma_50": 424.26059998,
+      "volume": 5123316,
+      "volume_ratio_20d": 0.4444111043426618,
+      "volume_sma_20": 11528325.8
+    },
+    "TTE.PA": {
+      "above_200d": true,
+      "above_50d": true,
+      "close": 76.040001,
+      "date": "2026-08-24",
+      "distance_from_200d": 11.093499546648712,
+      "distance_from_50d": 4.834175216041303,
+      "group": "portfolio_energy",
+      "name": "TotalEnergies",
+      "return_1d": -1.807852484301331,
+      "return_20d": 2.231788205100349,
+      "return_5d": 0.14487159225602397,
+      "return_63d": 0.8220671127570078,
+      "sma_200": 68.446850005,
+      "sma_50": 72.5335997,
+      "volume": 1431210,
+      "volume_ratio_20d": 0.4932738911198895,
+      "volume_sma_20": 2901450.95
+    },
+    "UBER": {
+      "above_200d": true,
+      "above_50d": true,
+      "close": 79.18,
+      "date": "2026-08-24",
+      "distance_from_200d": 2.802997919239081,
+      "distance_from_50d": 8.305520362629505,
+      "group": "portfolio_consumer_platform",
+      "name": "Uber",
+      "return_1d": 0.48222967707247655,
+      "return_20d": 16.133763567028446,
+      "return_5d": 5.587414470927188,
+      "return_63d": 10.247841826789216,
+      "sma_200": 77.02110016500001,
+      "sma_50": 73.10800016,
+      "volume": 3697354,
+      "volume_ratio_20d": 0.19330803427704546,
+      "volume_sma_20": 19126747.7
+    },
+    "UCG.MI": {
+      "above_200d": true,
+      "above_50d": true,
+      "close": 84.080002,
+      "date": "2026-08-24",
+      "distance_from_200d": 16.57975687709765,
+      "distance_from_50d": 2.89294867377774,
+      "group": "portfolio_eu_financial",
+      "name": "UniCredit",
+      "return_1d": 1.2646067838685493,
+      "return_20d": 2.8627404664237854,
+      "return_5d": -0.6850956444556799,
+      "return_63d": 15.036265701806851,
+      "sma_200": 72.122300005,
+      "sma_50": 81.71600006,
+      "volume": 1427272,
+      "volume_ratio_20d": 0.4094092249254878,
+      "volume_sma_20": 3486174.5
+    },
+    "UNH": {
+      "above_200d": true,
+      "above_50d": false,
+      "close": 396.26001,
+      "date": "2026-08-24",
+      "distance_from_200d": 13.764744592631818,
+      "distance_from_50d": -4.193982394882867,
+      "group": "portfolio_defensive",
+      "name": "UnitedHealth Group",
+      "return_1d": 1.5764848982268598,
+      "return_20d": -5.119242465308305,
+      "return_5d": 0.1617751903566056,
+      "return_63d": 2.0053051664084665,
+      "sma_200": 348.31529875,
+      "sma_50": 413.6065979,
+      "volume": 1220418,
+      "volume_ratio_20d": 0.291486199189473,
+      "volume_sma_20": 4186880.9
+    },
+    "USO": {
+      "above_200d": true,
+      "above_50d": true,
+      "close": 131.389999,
+      "date": "2026-08-24",
+      "distance_from_200d": 25.586700399295424,
+      "distance_from_50d": 9.295843912614178,
+      "group": "energy",
+      "name": "United States Oil Fund",
+      "return_1d": -2.4138443435371637,
+      "return_20d": 5.31420078047129,
+      "return_5d": 0.8442751240304247,
+      "return_63d": -6.7627016287638675,
+      "sma_200": 104.620949975,
+      "sma_50": 120.21500022,
+      "volume": 1763492,
+      "volume_ratio_20d": 0.33769497688746497,
+      "volume_sma_20": 5222144.6
+    },
+    "XLE": {
+      "above_200d": true,
+      "above_50d": true,
+      "close": 62.59,
+      "date": "2026-08-24",
+      "distance_from_200d": 15.920502409895665,
+      "distance_from_50d": 8.635280797646416,
+      "group": "energy",
+      "name": "Energy Select Sector SPDR Fund",
+      "return_1d": -1.649904174259964,
+      "return_20d": 7.248113309662219,
+      "return_5d": 0.015976349761070985,
+      "return_63d": 5.210956288083501,
+      "sma_200": 53.99389987,
+      "sma_50": 57.61480022,
+      "volume": 8253234,
+      "volume_ratio_20d": 0.32332521747235354,
+      "volume_sma_20": 25526106.7
+    },
+    "^GSPC": {
+      "above_200d": true,
+      "above_50d": true,
+      "close": 7657.180176,
+      "date": "2026-08-24",
+      "distance_from_200d": 7.845296945887648,
+      "distance_from_50d": 1.469264178331131,
+      "group": "major_index",
+      "name": "S&P 500",
+      "return_1d": -0.2239915555013683,
+      "return_20d": 3.291434906572821,
+      "return_5d": -1.1346572180274017,
+      "return_63d": 2.458161412502524,
+      "sma_200": 7100.15215577,
+      "sma_50": 7546.30501956,
+      "volume": 775044978,
+      "volume_ratio_20d": 0.15989336209786542,
+      "volume_sma_20": 4847261748.9
+    },
+    "^IXIC": {
+      "above_200d": true,
+      "above_50d": true,
+      "close": 26060.884766,
+      "date": "2026-08-24",
+      "distance_from_200d": 7.44362163376957,
+      "distance_from_50d": 0.4058630347530512,
+      "group": "major_index",
+      "name": "Nasdaq Composite",
+      "return_1d": -0.4567382227653627,
+      "return_20d": 4.527519101769828,
+      "return_5d": -2.1918835026301986,
+      "return_63d": -1.0745758116401327,
+      "sma_200": 24255.404248035,
+      "sma_50": 25955.54082034,
+      "volume": 2706084000,
+      "volume_ratio_20d": 0.32743315727954664,
+      "volume_sma_20": 8264538700
+    },
+    "^TNX": {
+      "above_200d": true,
+      "above_50d": true,
+      "close": 4.698,
+      "date": "2026-08-24",
+      "distance_from_200d": 8.45551315525206,
+      "distance_from_50d": 2.500774537568362,
+      "group": "rates",
+      "name": "US 10Y Treasury Yield",
+      "return_1d": -0.8442380751371936,
+      "return_20d": 1.2281835811247754,
+      "return_5d": -0.550381033022862,
+      "return_63d": 3.0715225976305494,
+      "sma_200": 4.33173,
+      "sma_50": 4.58338,
+      "volume": 0,
+      "volume_ratio_20d": null,
+      "volume_sma_20": 0
+    },
+    "^VIX": {
+      "above_200d": false,
+      "above_50d": false,
+      "close": 15.9,
+      "date": "2026-08-24",
+      "distance_from_200d": -13.902569487817452,
+      "distance_from_50d": -4.740222278494322,
+      "group": "volatility",
+      "name": "CBOE Volatility Index",
+      "return_1d": 5.089226701916716,
+      "return_20d": -14.836636314943764,
+      "return_5d": 4.674127715602383,
+      "return_63d": -4.159132007233268,
+      "sma_200": 18.46745008,
+      "sma_50": 16.69119998,
+      "volume": 0,
+      "volume_ratio_20d": null,
+      "volume_sma_20": 0
+    },
+    "derived": {
+      "available_symbols": [
+        "AAPL",
+        "AEM",
+        "AENA.MC",
+        "AIR.PA",
+        "AMD",
+        "AMZN",
+        "ASML",
+        "AVGO",
+        "BABA",
+        "BARC.L",
+        "BP.L",
+        "BZ=F",
+        "CL=F",
+        "CRCL",
+        "DBK.DE",
+        "DX-Y.NYB",
+        "EZJ.L",
+        "GC=F",
+        "GFS",
+        "GOOGL",
+        "HYG",
+        "IAG.L",
+        "ISP.MI",
+        "IWM",
+        "JNK",
+        "LULU",
+        "META",
+        "MKS.L",
+        "MSFT",
+        "MU",
+        "NDA-FI.HE",
+        "NVDA",
+        "NVTS",
+        "NWG.L",
+        "ORCL",
+        "PLTR",
+        "QQQ",
+        "RSP",
+        "RYA.IR",
+        "SGLN.L",
+        "SHEL.L",
+        "SI=F",
+        "SMCI",
+        "SMH",
+        "SOXX",
+        "SPY",
+        "STM",
+        "STMPA.PA",
+        "SWKS",
+        "TLT",
+        "TSLA",
+        "TSM",
+        "TTE.PA",
+        "UBER",
+        "UCG.MI",
+        "UNH",
+        "USO",
+        "XLE",
+        "^GSPC",
+        "^IXIC",
+        "^TNX",
+        "^VIX"
+      ],
+      "unavailable_symbols": []
+    }
+  },
+  "market_health_score": 61.25,
+  "metadata": {
+    "data_source": "Yahoo Finance chart endpoint",
+    "engine_version": "1.0",
+    "fetch_errors": {
+      "market_data": {},
+      "news": {}
+    },
+    "generated_at": "2026-08-24T15:31:17+00:00"
+  },
+  "news": {
+    "errors": {},
+    "groups": {
+      "ai": [
+        {
+          "link": "https://finance.yahoo.com/video/investors-approach-nvidia-earnings-145600454.html?.tsrc=rss",
+          "published": "Mon, 24 Aug 2026 14:56:00 +0000",
+          "source": "Yahoo Finance",
+          "title": "How investors should approach Nvidia\u2019s earnings"
+        },
+        {
+          "link": "https://www.fool.com/investing/2026/08/24/1-new-way-to-invest-in-cryptocurrency-that-could-h/?.tsrc=rss",
+          "published": "Mon, 24 Aug 2026 15:25:00 +0000",
+          "source": "Yahoo Finance",
+          "title": "1 New Way to Invest in Cryptocurrency That Could Turn Your Crypto Portfolio Around in 2026"
+        },
+        {
+          "link": "https://www.fool.com/investing/2026/08/24/inflation-is-rising-again-history-says-these-2-sto/?.tsrc=rss",
+          "published": "Mon, 24 Aug 2026 15:20:00 +0000",
+          "source": "Yahoo Finance",
+          "title": "Inflation Is Rising Again. History Says These 2 Stocks Are Among the Smartest Places to Hide"
+        },
+        {
+          "link": "https://finance.yahoo.com/technology/ai/articles/nvidia-stock-falls-ai-server-151312949.html?.tsrc=rss",
+          "published": "Mon, 24 Aug 2026 15:13:12 +0000",
+          "source": "Yahoo Finance",
+          "title": "Nvidia Stock Falls -- AI Server Prices Could Jump More Than 15% Next Year"
+        },
+        {
+          "link": "https://finance.yahoo.com/markets/stocks/articles/nvidia-rises-earnings-could-reset-150838218.html?.tsrc=rss",
+          "published": "Mon, 24 Aug 2026 15:08:38 +0000",
+          "source": "Yahoo Finance",
+          "title": "Nvidia Rises Before Earnings That Could Reset the AI Trade"
+        },
+        {
+          "link": "https://www.thestreet.com/economy/bofa-finds-ai-is-creating-a-credit-divide-that-could-reach-consumers?.tsrc=rss",
+          "published": "Mon, 24 Aug 2026 15:07:00 +0000",
+          "source": "Yahoo Finance",
+          "title": "BofA finds AI is creating a credit divide that could reach consumers"
+        }
+      ],
+      "energy": [
+        {
+          "link": "https://finance.yahoo.com/energy/articles/sector-energy-stocks-decline-premarket-132541623.html?.tsrc=rss",
+          "published": "Mon, 24 Aug 2026 13:25:41 +0000",
+          "source": "Yahoo Finance",
+          "title": "Sector Update: Energy Stocks Decline Premarket Monday"
+        },
+        {
+          "link": "https://finance.yahoo.com/energy/articles/three-orlen-deal-enhances-eqnrs-132300682.html?.tsrc=rss",
+          "published": "Mon, 24 Aug 2026 13:23:00 +0000",
+          "source": "Yahoo Finance",
+          "title": "Three-Year ORLEN Deal Enhances EQNR's Crude Sales & European Reach"
+        },
+        {
+          "link": "https://www.fool.com/coverage/etfs/2026/08/23/which-energy-etf-is-a-better-buy-broad-vanguard-fund-or-concentrated-xle/?.tsrc=rss",
+          "published": "Sun, 23 Aug 2026 05:24:01 +0000",
+          "source": "Yahoo Finance",
+          "title": "Which Energy ETF Is a Better Buy: Broad Vanguard Fund or Concentrated XLE?"
+        },
+        {
+          "link": "https://finance.yahoo.com/energy/articles/sector-energy-stocks-mixed-afternoon-195700798.html?.tsrc=rss",
+          "published": "Fri, 21 Aug 2026 19:57:00 +0000",
+          "source": "Yahoo Finance",
+          "title": "Sector Update: Energy Stocks Mixed Late Afternoon"
+        },
+        {
+          "link": "https://finance.yahoo.com/energy/articles/sector-energy-stocks-mixed-friday-173644811.html?.tsrc=rss",
+          "published": "Fri, 21 Aug 2026 17:36:44 +0000",
+          "source": "Yahoo Finance",
+          "title": "Sector Update: Energy Stocks Mixed Friday Afternoon"
+        },
+        {
+          "link": "https://finance.yahoo.com/markets/stocks/articles/2-reasons-dht-1-stay-150536041.html?.tsrc=rss",
+          "published": "Mon, 24 Aug 2026 15:05:36 +0000",
+          "source": "Yahoo Finance",
+          "title": "2 Reasons to Like DHT and 1 to Stay Skeptical"
+        }
+      ],
+      "geopolitical": [
+        {
+          "link": "https://finance.yahoo.com/video/oil-prices-drop-white-house-150545813.html?.tsrc=rss",
+          "published": "Mon, 24 Aug 2026 15:05:45 +0000",
+          "source": "Yahoo Finance",
+          "title": "Oil prices drop as White House opts for sanctions over strikes on Iran"
+        },
+        {
+          "link": "https://finance.yahoo.com/video/bitcoin-gold-deciding-summers-top-143055553.html?.tsrc=rss",
+          "published": "Mon, 24 Aug 2026 14:30:55 +0000",
+          "source": "Yahoo Finance",
+          "title": "Bitcoin or gold? Deciding on the summer's top safe-haven."
+        },
+        {
+          "link": "https://finance.yahoo.com/markets/articles/pre-markets-red-start-fresh-145800679.html?.tsrc=rss",
+          "published": "Mon, 24 Aug 2026 14:58:00 +0000",
+          "source": "Yahoo Finance",
+          "title": "Pre-Markets in the Red to Start a Fresh Week"
+        },
+        {
+          "link": "https://finance.yahoo.com/markets/stocks/articles/focus-mid-week-nvidia-earnings-142900061.html?.tsrc=rss",
+          "published": "Mon, 24 Aug 2026 14:29:00 +0000",
+          "source": "Yahoo Finance",
+          "title": "Focus on Mid-Week: NVIDIA Earnings, PCE Report"
+        },
+        {
+          "link": "https://finance.yahoo.com/m/2924db1b-14e4-3adf-855b-9fcfa56643f2/treasury-yields-fall%2C-gold.html?.tsrc=rss",
+          "published": "Mon, 24 Aug 2026 14:07:50 +0000",
+          "source": "Yahoo Finance",
+          "title": "Treasury Yields Fall, Gold Rises On Bessent's $1 Trillion Warning"
+        },
+        {
+          "link": "https://www.wsj.com/finance/investing/nasdaq-futures-tech-stocks-slide-as-u-s-canada-trade-war-in-focus-22023ea9?.tsrc=rss",
+          "published": "Mon, 24 Aug 2026 14:00:00 +0000",
+          "source": "Yahoo Finance",
+          "title": "U.S. Stocks Mixed With Nasdaq Slipping on Weakness in Tech Sector"
+        }
+      ],
+      "macro": [
+        {
+          "link": "https://finance.yahoo.com/markets/currencies/articles/dollar-3-month-lows-treasury-130000835.html?.tsrc=rss",
+          "published": "Mon, 24 Aug 2026 13:00:00 +0000",
+          "source": "Yahoo Finance",
+          "title": "Dollar at 3-Month Lows on Treasury Buyback Plans: ETF Strategies to Play"
+        },
+        {
+          "link": "https://qz.com/trump-crypto-clarity-act-bessent-treasury-stablecoins-082426?.tsrc=rss",
+          "published": "Mon, 24 Aug 2026 12:59:49 +0000",
+          "source": "Yahoo Finance",
+          "title": "How Trump's crypto push connects to Bessent's Treasury strategy"
+        },
+        {
+          "link": "https://finance.yahoo.com/markets/stocks/articles/best-performing-leveraged-etf-areas-120000930.html?.tsrc=rss",
+          "published": "Mon, 24 Aug 2026 12:00:00 +0000",
+          "source": "Yahoo Finance",
+          "title": "Best-Performing Leveraged ETF Areas of Last Week"
+        },
+        {
+          "link": "https://finance.yahoo.com/markets/currencies/articles/us-dollar-rises-early-monday-113141516.html?.tsrc=rss",
+          "published": "Mon, 24 Aug 2026 11:31:41 +0000",
+          "source": "Yahoo Finance",
+          "title": "US Dollar Rises Early Monday, Focus on GDP, Personal Income, Warsh Speech"
+        },
+        {
+          "link": "https://investorshub.advfn.com/market-news/article/34866/gold-climbs-above-4650-as-u-s-fiscal-risks-boost-demand-for-bullion?.tsrc=rss",
+          "published": "Mon, 24 Aug 2026 09:41:10 +0000",
+          "source": "Yahoo Finance",
+          "title": "Gold Climbs Above $4,650 as U.S. Fiscal Risks Boost Demand for Bullion"
+        },
+        {
+          "link": "https://finance.yahoo.com/markets/stocks/articles/us-stock-market-today-p-080848022.html?.tsrc=rss",
+          "published": "Mon, 24 Aug 2026 08:08:48 +0000",
+          "source": "Yahoo Finance",
+          "title": "US Stock Market Today S&P 500 Futures Rise As Higher Yields Test Growth"
+        }
+      ],
+      "market": [
+        {
+          "link": "https://finance.yahoo.com/m/fdb8ea42-b401-3e7a-a999-98fee9af790f/market-fear-index-jumps.html?.tsrc=rss",
+          "published": "Mon, 24 Aug 2026 10:51:01 +0000",
+          "source": "Yahoo Finance",
+          "title": "Market Fear Index Jumps"
+        },
+        {
+          "link": "https://247wallst.com/investing/2026/08/22/this-fund-pays-400-of-the-sps-dividend-and-still-beat-half-of-wall-street-this-year/?.tsrc=rss",
+          "published": "Sat, 22 Aug 2026 18:48:16 +0000",
+          "source": "Yahoo Finance",
+          "title": "This Fund Pays 400% of the S&P\u2019s Dividend and Still Beat Half of Wall Street This Year"
+        },
+        {
+          "link": "https://www.fool.com/investing/2026/08/22/the-smartest-etf-to-buy-with-750-right-now/?.tsrc=rss",
+          "published": "Sat, 22 Aug 2026 17:55:00 +0000",
+          "source": "Yahoo Finance",
+          "title": "The Smartest ETF to Buy With $750 Right Now"
+        },
+        {
+          "link": "https://247wallst.com/investing/etf/2026/08/21/divo-holders-gave-up-79300-on-a-500000-position-over-five-years-for-downside-comfort/?.tsrc=rss",
+          "published": "Fri, 21 Aug 2026 22:05:31 +0000",
+          "source": "Yahoo Finance",
+          "title": "DIVO Holders Gave Up $79,300 on a $500,000 Position Over Five Years for Downside Comfort"
+        },
+        {
+          "link": "https://finance.yahoo.com/markets/stocks/articles/exchange-traded-funds-equity-futures-131908789.html?.tsrc=rss",
+          "published": "Mon, 24 Aug 2026 13:19:08 +0000",
+          "source": "Yahoo Finance",
+          "title": "Exchange-Traded Funds, Equity Futures Fall Pre-Bell Monday as Investors Await Details on US Sanctions Against Iran"
+        },
+        {
+          "link": "https://247wallst.com/investing/2026/08/24/marvell-could-give-investors-a-reason-to-celebrate-on-august-27th/?.tsrc=rss",
+          "published": "Mon, 24 Aug 2026 13:05:56 +0000",
+          "source": "Yahoo Finance",
+          "title": "Marvell Could Give Investors A Reason To Celebrate On August 27th"
+        }
+      ]
+    },
+    "portfolio_symbols": {
+      "AAPL": [
+        {
+          "link": "https://finance.yahoo.com/m/74c4fa99-ef9c-3a69-aaea-6c394f975642/nvidia-sinks%3A-earnings.html?.tsrc=rss",
+          "published": "Mon, 24 Aug 2026 14:30:41 +0000",
+          "source": "Yahoo Finance",
+          "title": "Nvidia Sinks: Earnings Apprehension Or AI Trade Unwind? Is Nvidia A Buy Now?"
+        },
+        {
+          "link": "https://www.fool.com/investing/2026/08/24/why-micron-stock-dropped-this-morning/?.tsrc=rss",
+          "published": "Mon, 24 Aug 2026 14:16:07 +0000",
+          "source": "Yahoo Finance",
+          "title": "Why Micron Stock Dropped This Morning"
+        }
+      ],
+      "AEM": [
+        {
+          "link": "https://finance.yahoo.com/markets/stocks/articles/agnico-eagle-mines-radisson-mining-132621742.html?.tsrc=rss",
+          "published": "Mon, 24 Aug 2026 13:26:21 +0000",
+          "source": "Yahoo Finance",
+          "title": "Agnico Eagle Mines and Radisson Mining Resources Enters into Subscription Agreement"
+        },
+        {
+          "link": "https://finance.yahoo.com/markets/stocks/articles/agnico-eagle-announces-investment-radisson-110000221.html?.tsrc=rss",
+          "published": "Mon, 24 Aug 2026 11:00:00 +0000",
+          "source": "Yahoo Finance",
+          "title": "AGNICO EAGLE ANNOUNCES INVESTMENT IN RADISSON MINING RESOURCES INC."
+        }
+      ],
+      "AENA.MC": [
+        {
+          "link": "https://finance.yahoo.com/news/aena-sme-sa-annsf-full-190111247.html?.tsrc=rss",
+          "published": "Wed, 25 Feb 2026 19:01:11 +0000",
+          "source": "Yahoo Finance",
+          "title": "Aena SME SA (ANNSF) Full Year 2025 Earnings Call Highlights: Record Revenue and Passenger ..."
+        },
+        {
+          "link": "https://finance.yahoo.com/news/top-european-dividend-stocks-consider-103149272.html?.tsrc=rss",
+          "published": "Thu, 05 Feb 2026 10:31:49 +0000",
+          "source": "Yahoo Finance",
+          "title": "Top European Dividend Stocks To Consider In February 2026"
+        }
+      ],
+      "AIR.PA": [
+        {
+          "link": "https://qz.com/airbus-return-to-office-union-strikes-082126?.tsrc=rss",
+          "published": "Fri, 21 Aug 2026 13:11:13 +0000",
+          "source": "Yahoo Finance",
+          "title": "Airbus backs down on return-to-office mandate after union strikes"
+        },
+        {
+          "link": "https://finance.yahoo.com/markets/stocks/articles/airbus-enxtpa-air-facing-rare-081217928.html?.tsrc=rss",
+          "published": "Sat, 15 Aug 2026 08:12:17 +0000",
+          "source": "Yahoo Finance",
+          "title": "What Is Airbus (ENXTPA:AIR) Facing After A Rare A320 Triple Hydraulic Failure?"
+        }
+      ],
+      "AMD": [
+        {
+          "link": "https://247wallst.com/investing/2026/08/24/semiconductor-stocks-slide-ahead-of-nvidia-earnings-intel-falls-5-amd-slides-4-taiwan-semiconductor-slips-3/?.tsrc=rss",
+          "published": "Mon, 24 Aug 2026 14:43:50 +0000",
+          "source": "Yahoo Finance",
+          "title": "Semiconductor Stocks Slide Ahead of NVIDIA Earnings: Intel Falls 5%, AMD Slides 4%, Taiwan Semiconductor Slips 3%"
+        },
+        {
+          "link": "https://finance.yahoo.com/technology/articles/amd-amd-win-shift-toward-131307134.html?.tsrc=rss",
+          "published": "Mon, 24 Aug 2026 13:13:07 +0000",
+          "source": "Yahoo Finance",
+          "title": "Can AMD (AMD) Win\u00a0From\u00a0the Shift Toward More CPU-Heavy AI Data\u00a0Centers?"
+        }
+      ],
+      "BABA": [
+        {
+          "link": "https://finance.yahoo.com/video/alibabas-shares-us-canada-trade-151711706.html?.tsrc=rss",
+          "published": "Mon, 24 Aug 2026 15:17:11 +0000",
+          "source": "Yahoo Finance",
+          "title": "Alibaba's new shares, US-Canada trade war weighs on steel: AlphaSpace"
+        },
+        {
+          "link": "https://finance.yahoo.com/markets/stocks/articles/amazon-vs-alibaba-ai-e-151900585.html?.tsrc=rss",
+          "published": "Mon, 24 Aug 2026 15:19:00 +0000",
+          "source": "Yahoo Finance",
+          "title": "Amazon vs. Alibaba: Which AI and E-Commerce Stock Is the Better Buy?"
+        }
+      ],
+      "BARC.L": [
+        {
+          "link": "https://finance.yahoo.com/video/humanoids-market-worth-200bn-2035-102622700.html?.tsrc=rss",
+          "published": "Fri, 14 Aug 2026 10:26:22 +0000",
+          "source": "Yahoo Finance",
+          "title": "Humanoids Market Worth $200BN By 2035: Barclays' Todorova"
+        },
+        {
+          "link": "https://finance.yahoo.com/markets/options/articles/barclays-broadly-syndicated-loans-live-123000325.html?.tsrc=rss",
+          "published": "Tue, 21 Jul 2026 12:30:00 +0000",
+          "source": "Yahoo Finance",
+          "title": "Barclays' Broadly Syndicated Loans Go Live on Versana"
+        }
+      ],
+      "BP.L": [
+        {
+          "link": "https://finance.yahoo.com/video/week-numbers-bps-huge-profit-104138978.html?.tsrc=rss",
+          "published": "Fri, 07 Aug 2026 10:41:38 +0000",
+          "source": "Yahoo Finance",
+          "title": "The Week in Numbers: BP's huge profit, Toyota moves fast"
+        },
+        {
+          "link": "https://www.euronews.com/2026/08/04/bp-profit-more-than-doubles-as-middle-east-conflict-boosts-oil-prices?.tsrc=rss",
+          "published": "Tue, 04 Aug 2026 16:58:37 +0000",
+          "source": "Yahoo Finance",
+          "title": "BP profit more than doubles as Middle East conflict boosts oil prices"
+        }
+      ],
+      "CRCL": [
+        {
+          "link": "https://finance.yahoo.com/markets/stocks/article/why-this-analyst-predicts-circle-stock-could-surge-75-123017242.html?.tsrc=rss",
+          "published": "Mon, 24 Aug 2026 12:30:17 +0000",
+          "source": "Yahoo Finance",
+          "title": "Why this analyst predicts Circle stock could surge 75%"
+        },
+        {
+          "link": "https://247wallst.com/investing/2026/08/24/coinbase-has-been-choppy-all-year-one-analyst-expects-nearly-80-gains-ahead-anyway/?.tsrc=rss",
+          "published": "Mon, 24 Aug 2026 13:31:17 +0000",
+          "source": "Yahoo Finance",
+          "title": "Coinbase Has Been Choppy All Year: One Analyst Expects Nearly 80% Gains Ahead Anyway"
+        }
+      ],
+      "DBK.DE": [
+        {
+          "link": "https://finance.yahoo.com/video/deutsche-bank-cfo-sees-trading-052542817.html?.tsrc=rss",
+          "published": "Wed, 29 Jul 2026 05:25:42 +0000",
+          "source": "Yahoo Finance",
+          "title": "Deutsche Bank CFO Sees Trading Momentum Continue in July"
+        },
+        {
+          "link": "https://finance.yahoo.com/video/investigators-search-deutsche-banks-headquarters-141812273.html?.tsrc=rss",
+          "published": "Wed, 22 Jul 2026 14:18:12 +0000",
+          "source": "Yahoo Finance",
+          "title": "Investigators search Deutsche Bank's headquarters over legacy tax trades"
+        }
+      ],
+      "EZJ.L": [
+        {
+          "link": "https://finance.yahoo.com/markets/options/articles/davidson-kempner-capital-management-lp-142000671.html?.tsrc=rss",
+          "published": "Mon, 17 Aug 2026 14:20:00 +0000",
+          "source": "Yahoo Finance",
+          "title": "Davidson Kempner Capital Management LP : Form 8.3 - easyJet plc"
+        },
+        {
+          "link": "https://finance.yahoo.com/markets/options/articles/davidson-kempner-capital-management-lp-142000044.html?.tsrc=rss",
+          "published": "Wed, 12 Aug 2026 14:20:00 +0000",
+          "source": "Yahoo Finance",
+          "title": "Davidson Kempner Capital Management LP : Form 8.3 - easyJet PLC"
+        }
+      ],
+      "GFS": [
+        {
+          "link": "https://247wallst.com/investing/2026/08/18/united-microelectronics-falls-7-tower-semiconductor-sinks-10-globalfoundries-drops-7-as-ai-spending-fears-hit-foundries/?.tsrc=rss",
+          "published": "Tue, 18 Aug 2026 18:39:58 +0000",
+          "source": "Yahoo Finance",
+          "title": "United Microelectronics Falls 7%, Tower Semiconductor Sinks 10%, GlobalFoundries Drops 7% as AI Spending Fears Hit Foundries"
+        },
+        {
+          "link": "https://www.fool.com/earnings/call-transcripts/2026/08/12/globalfoundries-gfs-q2-2026-earnings-call-transcript/?.tsrc=rss",
+          "published": "Wed, 12 Aug 2026 14:32:39 +0000",
+          "source": "Yahoo Finance",
+          "title": "GlobalFoundries (GFS) Q2 2026 Earnings Call Transcript"
+        }
+      ],
+      "IAG.L": [
+        {
+          "link": "https://finance.yahoo.com/markets/stocks/articles/international-consolidated-airlines-group-lse-021329028.html?.tsrc=rss",
+          "published": "Thu, 20 Aug 2026 02:13:29 +0000",
+          "source": "Yahoo Finance",
+          "title": "International Consolidated Airlines Group (LSE:IAG) Stock Sees Fair Value Lift As Analysts Refine Targets"
+        },
+        {
+          "link": "https://www.proactiveinvestors.com/companies/news/1096999/airline-investors-turn-less-bearish-as-middle-east-capacity-keeps-shrinking-1096999.html?.tsrc=rss",
+          "published": "Thu, 13 Aug 2026 13:02:00 +0000",
+          "source": "Yahoo Finance",
+          "title": "Airline investors turn less bearish as Middle East capacity keeps shrinking"
+        }
+      ],
+      "ISP.MI": [
+        {
+          "link": "https://finance.yahoo.com/markets/stocks/articles/intesa-sanpaolo-bit-isp-still-001636081.html?.tsrc=rss",
+          "published": "Sat, 22 Aug 2026 00:16:36 +0000",
+          "source": "Yahoo Finance",
+          "title": "Is Intesa Sanpaolo (BIT:ISP) Still Undervalued Or Is Its Strong Run Already Priced In?"
+        },
+        {
+          "link": "https://finance.yahoo.com/markets/stocks/articles/mps-prepares-twin-bids-banco-181654749.html?.tsrc=rss",
+          "published": "Thu, 20 Aug 2026 18:16:54 +0000",
+          "source": "Yahoo Finance",
+          "title": "MPS prepares twin bids for Banco BPM and Banca Generali in Intesa defense - FT"
+        }
+      ],
+      "LULU": [
+        {
+          "link": "https://247wallst.com/investing/2026/08/24/michael-burry-is-shorting-nvidia-heading-into-earnings-heres-what-hes-buying-instead/?.tsrc=rss",
+          "published": "Mon, 24 Aug 2026 12:36:45 +0000",
+          "source": "Yahoo Finance",
+          "title": "Michael Burry Is Shorting Nvidia Heading Into Earnings, Here\u2019s What He\u2019s Buying Instead"
+        },
+        {
+          "link": "https://stocktwits.com/news-articles/markets/equity/michael-burry-says-lulu-stock-is-screaming-cheap-while-apple-shares-are-permacostly-like-costco/cZYKXPVRJn8?.tsrc=rss",
+          "published": "Mon, 24 Aug 2026 10:32:26 +0000",
+          "source": "Yahoo Finance",
+          "title": "Michael Burry Says LULU Stock Is \u2018Screaming Cheap\u2019 While Apple Shares Are \u2018Permacostly\u2019 Like Costco"
+        }
+      ],
+      "MKS.L": [
+        {
+          "link": "https://www.telegraph.co.uk/business/2026/08/18/asda-suffers-eight-months-of-falling-sales/?.tsrc=rss",
+          "published": "Tue, 18 Aug 2026 07:02:47 +0000",
+          "source": "Yahoo Finance",
+          "title": "M&S named fastest-growing grocer in Britain"
+        },
+        {
+          "link": "https://wwd.com/sourcing-journal/industry-news/ms-rolls-out-electric-trucks-1239085533/?.tsrc=rss",
+          "published": "Tue, 28 Jul 2026 17:45:12 +0000",
+          "source": "Yahoo Finance",
+          "title": "As Part of Net Zero Initiative, M&S Rolls Out Electric Trucks"
+        }
+      ],
+      "NDA-FI.HE": [
+        {
+          "link": "https://finance.yahoo.com/markets/stocks/articles/changes-nordeas-group-leadership-team-062200889.html?.tsrc=rss",
+          "published": "Wed, 19 Aug 2026 06:22:00 +0000",
+          "source": "Yahoo Finance",
+          "title": "Changes in Nordea's Group Leadership Team"
+        },
+        {
+          "link": "https://finance.yahoo.com/markets/stocks/articles/nordea-bank-abp-hlse-nda-060803087.html?.tsrc=rss",
+          "published": "Sun, 19 Jul 2026 06:08:03 +0000",
+          "source": "Yahoo Finance",
+          "title": "Can Nordea Bank Abp (HLSE:NDA FI) Still Be Undervalued?"
+        }
+      ],
+      "NVDA": [
+        {
+          "link": "https://finance.yahoo.com/video/investors-approach-nvidia-earnings-145600454.html?.tsrc=rss",
+          "published": "Mon, 24 Aug 2026 14:56:00 +0000",
+          "source": "Yahoo Finance",
+          "title": "How investors should approach Nvidia\u2019s earnings"
+        },
+        {
+          "link": "https://www.fool.com/investing/2026/08/24/1-new-way-to-invest-in-cryptocurrency-that-could-h/?.tsrc=rss",
+          "published": "Mon, 24 Aug 2026 15:25:00 +0000",
+          "source": "Yahoo Finance",
+          "title": "1 New Way to Invest in Cryptocurrency That Could Turn Your Crypto Portfolio Around in 2026"
+        }
+      ],
+      "NVTS": [
+        {
+          "link": "https://www.fool.com/investing/2026/08/22/why-navitas-semiconductor-stock-sank-this-week/?.tsrc=rss",
+          "published": "Sat, 22 Aug 2026 11:50:00 +0000",
+          "source": "Yahoo Finance",
+          "title": "Why Navitas Semiconductor Stock Sank This Week"
+        },
+        {
+          "link": "https://www.fool.com/coverage/better-buy/2026/08/19/navitas-semiconductor-vs-rezolve-ai-which-technology-stock-is-a-better-buy-in-2026/?.tsrc=rss",
+          "published": "Wed, 19 Aug 2026 19:28:20 +0000",
+          "source": "Yahoo Finance",
+          "title": "Navitas Semiconductor vs. Rezolve AI: Which Technology Stock Is a Better Buy in 2026?"
+        }
+      ],
+      "NWG.L": [
+        {
+          "link": "https://finance.yahoo.com/markets/stocks/articles/natwest-group-plc-nwg-high-132534916.html?.tsrc=rss",
+          "published": "Wed, 24 Jun 2026 13:25:34 +0000",
+          "source": "Yahoo Finance",
+          "title": "NatWest Group plc (NWG): A High Dividend Stock Partnering Cleareye.ai to Modernize Financial Services"
+        },
+        {
+          "link": "https://finance.yahoo.com/markets/stocks/articles/natwest-group-nwg-upgraded-outperform-082604275.html?.tsrc=rss",
+          "published": "Thu, 21 May 2026 08:26:04 +0000",
+          "source": "Yahoo Finance",
+          "title": "NatWest Group (NWG) Upgraded To Outperform at BNP Paribas"
+        }
+      ],
+      "ORCL": [
+        {
+          "link": "https://www.fool.com/investing/2026/08/23/oracle-vs-amazon-which-is-the-better-ai-cloud-stoc/?.tsrc=rss",
+          "published": "Sun, 23 Aug 2026 20:13:00 +0000",
+          "source": "Yahoo Finance",
+          "title": "Oracle vs. Amazon: Which Is the Better AI Cloud Stock to Own for the Next 5 Years?"
+        },
+        {
+          "link": "https://www.fool.com/investing/2026/08/23/should-buy-oracle-stock-september-answer-surprise/?.tsrc=rss",
+          "published": "Sun, 23 Aug 2026 17:10:00 +0000",
+          "source": "Yahoo Finance",
+          "title": "Should You Buy Oracle Stock Before September? The Answer Might Surprise You."
+        }
+      ],
+      "PLTR": [
+        {
+          "link": "https://finance.yahoo.com/markets/stocks/articles/cathie-wood-dumps-27-2-121440407.html?.tsrc=rss",
+          "published": "Mon, 24 Aug 2026 12:14:40 +0000",
+          "source": "Yahoo Finance",
+          "title": "Cathie Wood Dumps $27.2 Million of Palantir Stock After 43% Rally"
+        },
+        {
+          "link": "https://www.fool.com/investing/2026/08/22/palantir-keeps-55-cents-of-every-revenue-dollar-as-profit/?.tsrc=rss",
+          "published": "Sun, 23 Aug 2026 01:58:01 +0000",
+          "source": "Yahoo Finance",
+          "title": "Palantir Keeps 55 Cents of Every Revenue Dollar as Profit"
+        }
+      ],
+      "RYA.IR": [
+        {
+          "link": "https://finance.yahoo.com/video/ryanair-quarterly-profit-slumps-third-095517103.html?.tsrc=rss",
+          "published": "Mon, 20 Jul 2026 09:55:17 +0000",
+          "source": "Yahoo Finance",
+          "title": "Ryanair quarterly profit slumps by a third on lower fares, higher fuel"
+        },
+        {
+          "link": "https://finance.yahoo.com/markets/stocks/articles/ryanair-ise-rya-why-capital-130943758.html?.tsrc=rss",
+          "published": "Sat, 11 Jul 2026 13:09:43 +0000",
+          "source": "Yahoo Finance",
+          "title": "Ryanair (ISE:RYA) Why Capital Group Took Voting Rights Above 16%"
+        }
+      ],
+      "SGLN.L": [],
+      "SHEL.L": [
+        {
+          "link": "https://finance.yahoo.com/video/why-shell-bp-moving-away-121857802.html?.tsrc=rss",
+          "published": "Mon, 03 Aug 2026 12:18:57 +0000",
+          "source": "Yahoo Finance",
+          "title": "Why are Shell and BP moving away from renewables?"
+        },
+        {
+          "link": "https://finance.yahoo.com/markets/stocks/articles/investors-reacting-c3-ai-ai-081553667.html?.tsrc=rss",
+          "published": "Sat, 11 Jul 2026 08:15:53 +0000",
+          "source": "Yahoo Finance",
+          "title": "How Investors Are Reacting To C3.ai (AI) CEO Shuffle, Revenue Drop And Shell Partnership Extension"
+        }
+      ],
+      "SMCI": [
+        {
+          "link": "https://247wallst.com/investing/2026/08/24/super-micro-sinks-7-as-taiwan-indicts-employees-over-illegal-ai-server-exports-to-china-dell-slips/?.tsrc=rss",
+          "published": "Mon, 24 Aug 2026 14:41:06 +0000",
+          "source": "Yahoo Finance",
+          "title": "Super Micro Sinks 7% as Taiwan Indicts Employees Over Illegal AI Server Exports to China, Dell Slips"
+        },
+        {
+          "link": "https://finance.yahoo.com/technology/ai/articles/buy-3-pure-play-server-140000913.html?.tsrc=rss",
+          "published": "Mon, 24 Aug 2026 14:00:00 +0000",
+          "source": "Yahoo Finance",
+          "title": "Buy These 3 Pure-Play Server Stocks to Benefit From AI Data Center Boom"
+        }
+      ],
+      "STM": [
+        {
+          "link": "https://finance.yahoo.com/markets/stocks/articles/stmicroelectronics-announces-status-common-share-120000124.html?.tsrc=rss",
+          "published": "Mon, 24 Aug 2026 12:00:00 +0000",
+          "source": "Yahoo Finance",
+          "title": "STMicroelectronics announces status of common share repurchase program"
+        },
+        {
+          "link": "https://finance.yahoo.com/technology/ai/articles/stmicroelectronics-nus-launch-corporate-lab-060000604.html?.tsrc=rss",
+          "published": "Mon, 24 Aug 2026 06:00:00 +0000",
+          "source": "Yahoo Finance",
+          "title": "STMicroelectronics and NUS launch Corporate Lab to power the future of Edge AI in Singapore"
+        }
+      ],
+      "STMPA.PA": [
+        {
+          "link": "https://finance.yahoo.com/markets/world-indices/articles/european-equities-traded-us-american-151058291.html?.tsrc=rss",
+          "published": "Thu, 09 Jul 2026 15:10:58 +0000",
+          "source": "Yahoo Finance",
+          "title": "European Equities Traded in the US as American Depositary Receipts Rise Thursday"
+        },
+        {
+          "link": "https://finance.yahoo.com/markets/stocks/articles/stm-stock-trades-lofty-valuations-143800051.html?.tsrc=rss",
+          "published": "Mon, 06 Jul 2026 14:38:00 +0000",
+          "source": "Yahoo Finance",
+          "title": "STM Stock Trades at Lofty Valuations: Is It Still Attractive?"
+        }
+      ],
+      "SWKS": [
+        {
+          "link": "https://finance.yahoo.com/markets/stocks/articles/skyworks-solutions-swks-rebounds-broad-011622273.html?.tsrc=rss",
+          "published": "Wed, 19 Aug 2026 01:16:22 +0000",
+          "source": "Yahoo Finance",
+          "title": "Skyworks Solutions (SWKS) Rebounds On Broad Markets Hope, Is The Stock Fully Valued?"
+        },
+        {
+          "link": "https://finance.yahoo.com/markets/stocks/articles/skyworks-solutions-swks-stock-looks-171437724.html?.tsrc=rss",
+          "published": "Tue, 18 Aug 2026 17:14:37 +0000",
+          "source": "Yahoo Finance",
+          "title": "Skyworks Solutions (SWKS) Stock Looks Stretched Following Its 57% Five Year Slump"
+        }
+      ],
+      "TSLA": [
+        {
+          "link": "https://finance.yahoo.com/markets/stocks/article/tesla-cybercab-to-launch-sept-3-as-robotaxi-bet-ramps-up-135557945.html?.tsrc=rss",
+          "published": "Mon, 24 Aug 2026 13:55:57 +0000",
+          "source": "Yahoo Finance",
+          "title": "Tesla Cybercab to launch Sept. 3 as robotaxi bet ramps up"
+        },
+        {
+          "link": "https://247wallst.com/investing/2026/08/24/xpeng-sinks-7-as-q2-miss-overshadows-6-3b-robotics-valuation-nio-drops-4-tesla-slips/?.tsrc=rss",
+          "published": "Mon, 24 Aug 2026 14:36:04 +0000",
+          "source": "Yahoo Finance",
+          "title": "XPeng Sinks 7% as Q2 Miss Overshadows $6.3B Robotics Valuation, NIO Drops 4%, Tesla Slips"
+        }
+      ],
+      "TTE.PA": [
+        {
+          "link": "https://www.offshore-technology.com/news/totalenergies-exports-first-cargo-eca-lng/?.tsrc=rss",
+          "published": "Fri, 10 Jul 2026 10:31:30 +0000",
+          "source": "Yahoo Finance",
+          "title": "TotalEnergies exports first cargo from ECA LNG plant to Asia"
+        },
+        {
+          "link": "https://finance.yahoo.com/m/8bb65fd9-c6d1-37f2-9636-54793c9c33f0/first-u.s.-lng-ships-to-asia.html?.tsrc=rss",
+          "published": "Thu, 09 Jul 2026 20:24:52 +0000",
+          "source": "Yahoo Finance",
+          "title": "First U.S. LNG Ships To Asia From Mexico, Avoiding Hormuz Tensions"
+        }
+      ],
+      "UBER": [
+        {
+          "link": "https://finance.yahoo.com/small-business/articles/zoomcar-uber-partner-travelers-more-123000828.html?.tsrc=rss",
+          "published": "Mon, 24 Aug 2026 12:30:00 +0000",
+          "source": "Yahoo Finance",
+          "title": "Zoomcar and Uber partner to give travelers more ways to plan road trips"
+        },
+        {
+          "link": "https://finance.yahoo.com/technology/articles/uber-faces-fine-nearly-1b-193000400.html?.tsrc=rss",
+          "published": "Sun, 23 Aug 2026 19:30:00 +0000",
+          "source": "Yahoo Finance",
+          "title": "Uber faces fine of nearly $1B over automated driver suspensions"
+        }
+      ],
+      "UCG.MI": [
+        {
+          "link": "https://www.euronews.com/2026/08/18/commerzbank-german-resistance-wanes-unicredit-nears-deal-what-could-change?.tsrc=rss",
+          "published": "Tue, 18 Aug 2026 17:23:59 +0000",
+          "source": "Yahoo Finance",
+          "title": "Commerzbank, German resistance wanes: UniCredit nears deal, what could change"
+        },
+        {
+          "link": "https://finance.yahoo.com/technology/ai/articles/unicredit-accenture-ibm-collaborate-build-142100584.html?.tsrc=rss",
+          "published": "Fri, 31 Jul 2026 14:21:00 +0000",
+          "source": "Yahoo Finance",
+          "title": "UniCredit, Accenture and IBM Collaborate to Build Europe\u2019s Next-Generation Banking Platform"
+        }
+      ],
+      "UNH": [
+        {
+          "link": "https://finance.yahoo.com/markets/stocks/articles/does-unitedhealth-group-unh-irs-220902043.html?.tsrc=rss",
+          "published": "Sat, 22 Aug 2026 22:09:02 +0000",
+          "source": "Yahoo Finance",
+          "title": "What Does UnitedHealth Group (UNH) IRS Tax Scrutiny Mean For Investors?"
+        },
+        {
+          "link": "https://www.trefis.com/articles/612361/is-the-pullback-in-unh-stock-a-glitch-or-a-warning/2026-08-21?.tsrc=rss",
+          "published": "Fri, 21 Aug 2026 20:58:06 +0000",
+          "source": "Yahoo Finance",
+          "title": "Is The Pullback In UNH Stock A Glitch Or A Warning?"
+        }
+      ]
+    },
+    "source": "Yahoo Finance RSS"
+  },
+  "prediction": {
+    "confidence": 79.0,
+    "expected_market": "Late Cycle",
+    "next_day_bias": "Neutral",
+    "stance": "Neutral"
+  },
+  "reasoning": [
+    "Score is a weighted blend of liquidity, credit, AI fundamentals, breadth, valuation, macro, and geopolitical proxies.",
+    "Each subscore uses stable, explainable market-derived indicators so records remain comparable over time."
+  ],
+  "risk_regime": "Late Cycle",
+  "stance": "Neutral",
+  "sub_scores": {
+    "ai_fundamentals": {
+      "contributions": [],
+      "evidence": [
+        {
+          "display": "6.8%",
+          "field": "return_20d",
+          "label": "NVDA 20-day return",
+          "symbol": "NVDA",
+          "value": 6.796097063663353
+        },
+        {
+          "display": "-0.74%",
+          "field": "return_20d",
+          "label": "SMH 20-day return",
+          "symbol": "SMH",
+          "value": -0.7419575406134249
+        },
+        {
+          "display": "-2.56%",
+          "field": "return_20d",
+          "label": "SOXX 20-day return",
+          "symbol": "SOXX",
+          "value": -2.560868316869147
+        },
+        {
+          "display": "False",
+          "field": "above_50d",
+          "label": "AVGO above 50-day",
+          "symbol": "AVGO",
+          "value": false
+        }
+      ],
+      "reasoning": [
+        "This checks whether the actual AI stock group is acting healthy.",
+        "If NVDA, SMH, and SOXX are weak, the AI story may still be good but the trade is not confirming it."
+      ],
+      "score": 44.95
+    },
+    "credit": {
+      "contributions": [],
+      "evidence": [
+        {
+          "display": "0.47%",
+          "field": "return_20d",
+          "label": "HYG 20-day return",
+          "symbol": "HYG",
+          "value": 0.466761718181985
+        },
+        {
+          "display": "0.45%",
+          "field": "return_20d",
+          "label": "JNK 20-day return",
+          "symbol": "JNK",
+          "value": 0.45045045516918236
+        },
+        {
+          "display": "False",
+          "field": "above_50d",
+          "label": "HYG above 50-day",
+          "symbol": "HYG",
+          "value": false
+        },
+        {
+          "display": "False",
+          "field": "above_50d",
+          "label": "JNK above 50-day",
+          "symbol": "JNK",
+          "value": false
+        }
+      ],
+      "reasoning": [
+        "This asks: are investors still comfortable taking risk?",
+        "If bond-market risk appetite is weak, be careful adding to volatile AI names."
+      ],
+      "score": 49.4
+    },
+    "geopolitical_risk": {
+      "contributions": [
+        {
+          "label": "VIX fear",
+          "points": 8,
+          "value": 15.9,
+          "why": "VIX shows whether fear is spreading into broad market pricing."
+        },
+        {
+          "label": "Oil shock",
+          "points": 6,
+          "value": 1.36,
+          "why": "A fast oil move can lift inflation fear and hurt growth-stock multiples."
+        },
+        {
+          "label": "Gold bid",
+          "points": -14,
+          "value": 7.06,
+          "why": "Gold rising quickly can mean investors are paying for safety."
+        },
+        {
+          "label": "Dollar bid",
+          "points": 6,
+          "value": -0.67,
+          "why": "A stronger dollar often tightens global financial conditions."
+        },
+        {
+          "label": "QQQ shock",
+          "points": -8,
+          "value": -3.13,
+          "why": "QQQ weakness shows the risk is hitting growth and mega-cap tech."
+        },
+        {
+          "label": "Energy over AI",
+          "points": -14,
+          "value": 8.36,
+          "why": "Energy outperforming chips can signal rotation away from AI toward oil shock beneficiaries."
+        }
+      ],
+      "evidence": [
+        {
+          "display": "15.9",
+          "field": "close",
+          "label": "VIX level",
+          "symbol": "^VIX",
+          "value": 15.9
+        },
+        {
+          "display": "-1.13%",
+          "field": "return_5d",
+          "label": "SPY 5-day return",
+          "symbol": "SPY",
+          "value": -1.1304936379287422
+        },
+        {
+          "display": "-3.13%",
+          "field": "return_5d",
+          "label": "QQQ 5-day return",
+          "symbol": "QQQ",
+          "value": -3.1265851667186317
+        },
+        {
+          "display": "2.05%",
+          "field": "return_5d",
+          "label": "Brent oil 5-day return",
+          "symbol": "BZ=F",
+          "value": 2.046880090892045
+        },
+        {
+          "display": "0.67%",
+          "field": "return_5d",
+          "label": "WTI oil 5-day return",
+          "symbol": "CL=F",
+          "value": 0.6745562130177518
+        },
+        {
+          "display": "7.06%",
+          "field": "return_5d",
+          "label": "Gold 5-day return",
+          "symbol": "GC=F",
+          "value": 7.057818524214454
+        },
+        {
+          "display": "-0.67%",
+          "field": "return_5d",
+          "label": "Dollar 5-day return",
+          "symbol": "DX-Y.NYB",
+          "value": -0.6734213234988129
+        },
+        {
+          "display": "1.69%",
+          "field": "return_5d",
+          "label": "Long bond 5-day return",
+          "symbol": "TLT",
+          "value": 1.6902274539699391
+        },
+        {
+          "display": "0.02%",
+          "field": "return_5d",
+          "label": "Energy stocks 5-day return",
+          "symbol": "XLE",
+          "value": 0.015976349761070985
+        }
+      ],
+      "reasoning": [
+        "This checks whether a shock is moving from headlines into oil, safe havens, volatility, and AI stocks.",
+        "If oil, gold, dollar, and VIX rise together while QQQ/SMH weaken, reduce risk before the story gets priced in."
+      ],
+      "score": 60.11
+    },
+    "liquidity": {
+      "contributions": [
+        {
+          "label": "VIX calm",
+          "points": 8,
+          "value": 15.9,
+          "why": "Lower fear makes it easier for money to stay in AI and growth stocks."
+        },
+        {
+          "label": "Dollar move",
+          "points": 8,
+          "value": -2.5,
+          "why": "A stronger dollar can pull money away from risk assets."
+        },
+        {
+          "label": "10Y yield level",
+          "points": 2,
+          "value": 4.7,
+          "why": "Lower or stable yields are friendlier to growth stocks."
+        },
+        {
+          "label": "10Y 20-day move",
+          "points": 2,
+          "value": 1.23,
+          "why": "Falling yields usually give AI stocks more breathing room."
+        },
+        {
+          "label": "SPY trend",
+          "points": 8,
+          "value": true,
+          "why": "S&P 500 above its 50-day average means the broad market is still holding up."
+        },
+        {
+          "label": "QQQ trend",
+          "points": -12,
+          "value": false,
+          "why": "QQQ below its 50-day average warns that tech/growth may be losing support."
+        },
+        {
+          "label": "HYG trend",
+          "points": -8,
+          "value": false,
+          "why": "High-yield bonds below trend suggest investors are less comfortable taking risk."
+        },
+        {
+          "label": "SMH trend",
+          "points": -8,
+          "value": false,
+          "why": "Chip-stock trend matters because AI leadership depends heavily on semiconductors."
+        }
+      ],
+      "evidence": [
+        {
+          "display": "15.9",
+          "field": "close",
+          "label": "VIX level",
+          "symbol": "^VIX",
+          "value": 15.9
+        },
+        {
+          "display": "-2.5%",
+          "field": "return_20d",
+          "label": "Dollar 20-day return",
+          "symbol": "DX-Y.NYB",
+          "value": -2.503201605690042
+        },
+        {
+          "display": "4.7",
+          "field": "close",
+          "label": "10Y Treasury yield proxy",
+          "symbol": "^TNX",
+          "value": 4.698
+        },
+        {
+          "display": "1.23%",
+          "field": "return_20d",
+          "label": "10Y yield 20-day change",
+          "symbol": "^TNX",
+          "value": 1.2281835811247754
+        },
+        {
+          "display": "True",
+          "field": "above_50d",
+          "label": "SPY above 50-day",
+          "symbol": "SPY",
+          "value": true
+        },
+        {
+          "display": "False",
+          "field": "above_50d",
+          "label": "QQQ above 50-day",
+          "symbol": "QQQ",
+          "value": false
+        },
+        {
+          "display": "True",
+          "field": "above_50d",
+          "label": "Equal-weight S&P above 50-day",
+          "symbol": "RSP",
+          "value": true
+        },
+        {
+          "display": "False",
+          "field": "above_50d",
+          "label": "HYG above 50-day",
+          "symbol": "HYG",
+          "value": false
+        },
+        {
+          "display": "False",
+          "field": "above_50d",
+          "label": "SMH above 50-day",
+          "symbol": "SMH",
+          "value": false
+        },
+        {
+          "display": "False",
+          "field": "above_50d",
+          "label": "SOXX above 50-day",
+          "symbol": "SOXX",
+          "value": false
+        }
+      ],
+      "reasoning": [
+        "This asks whether today's funding environment is friendly to AI and growth stocks.",
+        "It combines fear, the dollar, rates, credit, broad-market trend, and chip-stock trend."
+      ],
+      "score": 52.33
+    },
+    "macro_risk": {
+      "contributions": [],
+      "evidence": [
+        {
+          "display": "4.7",
+          "field": "close",
+          "label": "10Y Treasury yield proxy",
+          "symbol": "^TNX",
+          "value": 4.698
+        },
+        {
+          "display": "1.23%",
+          "field": "return_20d",
+          "label": "10Y yield 20-day change",
+          "symbol": "^TNX",
+          "value": 1.2281835811247754
+        },
+        {
+          "display": "-2.5%",
+          "field": "return_20d",
+          "label": "Dollar 20-day return",
+          "symbol": "DX-Y.NYB",
+          "value": -2.503201605690042
+        }
+      ],
+      "reasoning": [
+        "Rates and the dollar can push growth stocks around.",
+        "If rates rise fast, AI stocks can fall even when company news is still good."
+      ],
+      "score": 68.15
+    },
+    "market_breadth": {
+      "contributions": [],
+      "evidence": [
+        {
+          "display": "True",
+          "field": "above_200d",
+          "label": "SPY above 200-day",
+          "symbol": "SPY",
+          "value": true
+        },
+        {
+          "display": "True",
+          "field": "above_200d",
+          "label": "QQQ above 200-day",
+          "symbol": "QQQ",
+          "value": true
+        },
+        {
+          "display": "2.96%",
+          "field": "return_20d",
+          "label": "Equal-weight S&P 20-day return",
+          "symbol": "RSP",
+          "value": 2.964961988822079
+        },
+        {
+          "display": "1.95%",
+          "field": "return_20d",
+          "label": "Small-cap 20-day return",
+          "symbol": "IWM",
+          "value": 1.9511098705935481
+        }
+      ],
+      "reasoning": [
+        "This asks whether the rally is broad or just a few big names.",
+        "A broad rally is safer. A narrow rally means AI leaders can get crowded fast."
+      ],
+      "score": 76.38
+    },
+    "valuation_risk": {
+      "contributions": [],
+      "evidence": [
+        {
+          "display": "7.9%",
+          "field": "distance_from_200d",
+          "label": "SPY distance from 200-day",
+          "symbol": "SPY",
+          "value": 7.902271242241832
+        },
+        {
+          "display": "8.24%",
+          "field": "distance_from_200d",
+          "label": "QQQ distance from 200-day",
+          "symbol": "QQQ",
+          "value": 8.240895744195441
+        },
+        {
+          "display": "16.32%",
+          "field": "distance_from_200d",
+          "label": "SMH distance from 200-day",
+          "symbol": "SMH",
+          "value": 16.315307348239894
+        },
+        {
+          "display": "7.43%",
+          "field": "distance_from_200d",
+          "label": "NVDA distance from 200-day",
+          "symbol": "NVDA",
+          "value": 7.4338992881869626
+        }
+      ],
+      "reasoning": [
+        "This checks whether prices have already run too far.",
+        "If this weakens, new buys need more patience because the easy move may already be priced in."
+      ],
+      "score": 84.52
+    }
+  }
+}
