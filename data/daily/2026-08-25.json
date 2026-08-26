@@ -1,12 +1,22 @@
 {
   "backtest": {
-    "actual_nasdaq_return": null,
-    "actual_nvda_return": null,
-    "actual_soxx_return": null,
-    "actual_sp500_return": null,
-    "actual_vix_return": null,
-    "filled_next_day": false,
-    "prediction_correct": null
+    "actual_nasdaq_return": -0.22512045042842876,
+    "actual_nvda_return": -1.3330185214782686,
+    "actual_soxx_return": -0.396836557587954,
+    "actual_sp500_return": -0.10966902503043441,
+    "actual_vix_return": 0.6472491909385258,
+    "direction_correct": false,
+    "evaluated_on": "2026-08-26",
+    "evaluation_notes": [
+      "Prediction is evaluated against next-session SPY return and stored as a continuous score-vs-return record.",
+      "Neutral is correct when SPY is roughly flat; Cautious is correct when downside is contained."
+    ],
+    "expected_sp500_return": 0.82,
+    "filled_next_day": true,
+    "prediction_correct": false,
+    "score_at_prediction": 70.42,
+    "score_bucket": "60-74",
+    "sp500_return_error": -0.9297
   },
   "confidence": 86.34,
   "date": "2026-08-25",
