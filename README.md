@@ -5,10 +5,10 @@ Automated market health intelligence database for AI-heavy equity investing.
 ## Latest Snapshot
 
 - Date: 2026-09-09
-- Market Health Score: 61.35
+- Market Health Score: 61.06
 - Risk Regime: Late Cycle
 - Stance: Neutral
-- Confidence: 79.08%
+- Confidence: 78.85%
 - Lifetime Accuracy: 58.54
 
 ## Outputs
