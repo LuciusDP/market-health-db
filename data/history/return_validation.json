@@ -10,13 +10,13 @@
       "positive_sp500_rate": 34.62
     },
     {
-      "avg_nasdaq_return": 0.4952,
-      "avg_nvda_return": 0.7076,
-      "avg_soxx_return": 0.933,
-      "avg_sp500_return": 0.3152,
+      "avg_nasdaq_return": 0.4459,
+      "avg_nvda_return": 0.6193,
+      "avg_soxx_return": 0.8302,
+      "avg_sp500_return": 0.2823,
       "bucket": "45-59",
-      "count": 24,
-      "positive_sp500_rate": 66.67
+      "count": 25,
+      "positive_sp500_rate": 64.0
     }
   ],
   "records": [
@@ -619,11 +619,23 @@
       "expected_sp500_return": 0.47,
       "score": 61.63,
       "sp500_return_error": -1.1902
+    },
+    {
+      "actual_nasdaq_return": -0.7352857946111291,
+      "actual_nvda_return": -1.4988204846530184,
+      "actual_soxx_return": -1.6377279351872165,
+      "actual_sp500_return": -0.5079414191217491,
+      "bucket": "45-59",
+      "date": "2026-09-23",
+      "direction_correct": false,
+      "expected_sp500_return": 0.34,
+      "score": 58.52,
+      "sp500_return_error": -0.8479
     }
   ],
-  "score_to_nasdaq_correlation": -0.2915,
-  "score_to_nvda_correlation": -0.1462,
-  "score_to_soxx_correlation": -0.301,
-  "score_to_sp500_correlation": -0.2652,
-  "total_return_evaluated": 50
+  "score_to_nasdaq_correlation": -0.2855,
+  "score_to_nvda_correlation": -0.141,
+  "score_to_soxx_correlation": -0.2966,
+  "score_to_sp500_correlation": -0.2572,
+  "total_return_evaluated": 51
 }
